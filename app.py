@@ -17,8 +17,8 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-@app.route("/display_index")
-def display_index():
+@app.route("/index")
+def index():
     films = mongo.db.films.find()
     return render_template("index.html", films=films)
 
