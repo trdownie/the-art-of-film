@@ -26,6 +26,33 @@ def index():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        # 1) check whether username exists in db
+            # a) define existing_user variable
+            # b) get the (lowercase) username from the form
+            # c) search 'users' collection to find first instance of username
+            # d) if username found, assign it to existing_user
+            # d) else existing_user undefined
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        # 2) if existing_user is Truthy (has a value), display error message & reload
+        if existing_user:
+            flash(request.form.get("username") + " already exists. Nice try, replicant.")
+            return redirect(url_for("register"))
+
+        # 3) create a dictionary containing the user's (lowercase) username and password
+        register = {
+            "username": request.form.get("username").lower(),
+            "password": generate_password_hash(request.form.get("password"))
+        }
+        # 4) insert the dictionary containing the user's details into the users collection
+        mongo.db.users.insert_one(register)
+
+        # 5) add the newly created user into the session cookie & display success message
+        session["user"] = request.form.get("username").lower()
+        flash("Registration successful " + request.form.get("username") + ". Welcome, human.")
+
     return render_template("register.html")
 
 
