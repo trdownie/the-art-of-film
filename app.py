@@ -110,8 +110,24 @@ def members(member):
     # b) since this will return doc, only return the ["username"] attribute
     member = mongo.db.users.find_one(
         {"username": session["member"]})["username"]
-    # 2) RENDER MEMBERS TEMPLATE & PASSD IT MEMBER VARIABLE
-    return render_template("members.html", member=member)
+    # 2) IF LOGGED IN, RENDER MEMBERS TEMPLATE
+    #    & PASS IT MEMBER VARIABLE
+    if session["member"]:
+        return render_template("members.html", member=member)
+
+    # 3) IF NOT LOGGED IN RETURN USER TO LOGIN PAGE
+    else:
+        return redirect(url_for("login"))
+
+
+@app.route("/logout")
+def logout():
+    # 1) REMOVE THE SESSION COOKIE
+    session.clear()
+    # 2) DISPLAY MESSAGE CONFIRMING LOG OUT
+    flash("May the force be with you.")
+    # 3) REDIRECT USER TO LOGIN PAGE
+    return redirect(url_for("login"))
 
 
 if __name__ == "__main__":
