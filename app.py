@@ -132,6 +132,11 @@ def logout():
     return redirect(url_for("index"))
 
 
+@app.route("/add_film")
+def add_film():
+    return render_template("add_film.html")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

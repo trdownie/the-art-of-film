@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="center-align">Add Film</h1>
+
+
+<div class="row">
+    <form class="col s12 m8 l6 offset-m2 offset-l3">
+        <div class="row">
+            <div class="input-field col s12 field">
+                <input id="title" type="text" class="white-text">
+                <label for="title">Title</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 field">
+                <input id="year" type="text" class="white-text">
+                <label for="year">Year</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 field">
+                <input id="director" type="text" class="white-text">
+                <label for="director">Director</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 field">
+                <textarea id="synopsis" type="text" class="materialize-textarea white-text"></textarea>
+                <label for="synopsis">Synopsis</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 field">
+                <input id="image_url" type="text" class="white-text">
+                <label for="image_url">Image URL</label>
+            </div>
+        </div>
+        <div class="chips chips-placeholder chips-autocomplete field"></div>
+        <div class="row">
+            <div class="input-field col s12 field">
+                <input disabled value="{{ member }}" id="member" type="text">
+                <label for="member" class="">member</label>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">Log In</button>
+        </div>
+    </form>
+  </div>
+        
+
+
+{% endblock %}
