@@ -122,12 +122,14 @@ def members(member):
 
 @app.route("/logout")
 def logout():
-    # 1) REMOVE THE SESSION COOKIE
+    # 1) DEFINE NEW VARIABLE MEMBER
+    member = session["member"]
+    # 2) REMOVE THE SESSION COOKIE
     session.clear()
-    # 2) DISPLAY MESSAGE CONFIRMING LOG OUT
-    flash("May the force be with you.")
-    # 3) REDIRECT USER TO LOGIN PAGE
-    return redirect(url_for("login"))
+    # 3) DISPLAY PERSONAL MESSAGE CONFIRMING LOG OUT
+    flash("May the force be with you, " + member + ".")
+    # 4) REDIRECT USER TO LOGIN PAGE
+    return redirect(url_for("index"))
 
 
 if __name__ == "__main__":
