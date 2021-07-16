@@ -22,7 +22,7 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="sass.html">Member's Area</a></li>
+                    <li><a href="{{ url_for('members', member=session['member']) }}">Member's Area</a></li>
                     <li><a href="sass.html">Add Film</a></li>
                     <li><a href="sass.html">Log Out</a></li>
                     <li><a href="{{ url_for('register') }}">Register</a></li>
