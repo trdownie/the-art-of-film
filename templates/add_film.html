@@ -7,39 +7,39 @@
     <form class="col s12 m8 l6 offset-m2 offset-l3" method="POST" action="{{ url_for('add_film') }}">
         <div class="row">
             <div class="input-field col s12 field">
-                <input id="title" name="title" type="text" class="white-text">
+                <input id="title" name="title" type="text" class="">
                 <label for="title">Title</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12 field">
-                <input id="year" name="year" type="text" class="white-text">
+                <input id="year" name="year" type="text" class="">
                 <label for="year">Year</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12 field">
-                <input id="director" name="director" type="text" class="white-text">
+                <input id="director" name="director" type="text" class="">
                 <label for="director">Director</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12 field">
-                <textarea id="synopsis" type="text" class="materialize-textarea white-text"></textarea>
+                <textarea id="synopsis" name="synopsis"class="materialize-textarea"></textarea>
                 <label for="synopsis">Synopsis</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12 field">
-                <input id="image_url" name="image_url" type="text" class="white-text">
+                <input id="image_url" name="image_url" type="text" class="">
                 <label for="image_url">Image URL</label>
             </div>
         </div>
         <div class="chips chips-placeholder chips-autocomplete field"></div>
         <div class="row">
             <div class="input-field col s12 field">
-                <input disabled value="{{ session['member'] }}" name="member" id="member" type="text">
-                <label for="member" class="">member</label>
+                <input disabled value="{{ session['member'] }}" name="member" id="member">
+                <label for="member" class=""></label>
             </div>
         </div>
         <div class="row">

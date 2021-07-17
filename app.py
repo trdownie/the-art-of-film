@@ -134,18 +134,26 @@ def logout():
 
 @app.route("/add_film", methods=["GET", "POST"])
 def add_film():
+    # 1) UPON SUBMIT (POST) ADD THE FILM & DISPLAY MESSAGE
     if request.method == "POST":
+        # a) create film dict. that contains form elments
         film = {
             "title": request.form.get("title"),
             "year": request.form.get("year"),
             "director": request.form.get("director"),
             "synopsis": request.form.get("synopsis"),
             "image_url": request.form.get("image_url"),
-            "member": request.form.get("member")
+            # i) member form field is disabled so we must set it here
+            "member": session["member"]
         }
+        # b) insert film dict. into mongodb films collection
         mongo.db.films.insert_one(film)
+        # c) display message thanking user
         flash("I have always depended on the kindness of strangers. Film added!")
+        # d) return the user to the member's area
         return redirect(url_for("members", member=session["member"]))
+    
+    # 2) DEFAULT VIEW ACTION - RENDER TEMPLATE
     return render_template("add_film.html")
 
 
