@@ -4,22 +4,22 @@
 
 
 <div class="row">
-    <form class="col s12 m8 l6 offset-m2 offset-l3">
+    <form class="col s12 m8 l6 offset-m2 offset-l3" method="POST" action="{{ url_for('add_film') }}">
         <div class="row">
             <div class="input-field col s12 field">
-                <input id="title" type="text" class="white-text">
+                <input id="title" name="title" type="text" class="white-text">
                 <label for="title">Title</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12 field">
-                <input id="year" type="text" class="white-text">
+                <input id="year" name="year" type="text" class="white-text">
                 <label for="year">Year</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12 field">
-                <input id="director" type="text" class="white-text">
+                <input id="director" name="director" type="text" class="white-text">
                 <label for="director">Director</label>
             </div>
         </div>
@@ -31,14 +31,14 @@
         </div>
         <div class="row">
             <div class="input-field col s12 field">
-                <input id="image_url" type="text" class="white-text">
+                <input id="image_url" name="image_url" type="text" class="white-text">
                 <label for="image_url">Image URL</label>
             </div>
         </div>
         <div class="chips chips-placeholder chips-autocomplete field"></div>
         <div class="row">
             <div class="input-field col s12 field">
-                <input disabled value="{{ member }}" id="member" type="text">
+                <input disabled value="{{ session['member'] }}" name="member" id="member" type="text">
                 <label for="member" class="">member</label>
             </div>
         </div>
