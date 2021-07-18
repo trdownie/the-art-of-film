@@ -157,6 +157,15 @@ def add_film():
     return render_template("add_film.html")
 
 
+@app.route("/film/<film>", methods=["GET", "POST"])
+def film(film):
+
+    film = mongo.db.films.find_one(
+        {"title": film})
+
+    return render_template("film.html", film=film)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

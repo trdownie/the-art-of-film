@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="center-align">{{ film.title }}</h1>
+
+    <h2 class="center-align">Summary</h2>
+    {{ film.synopsis }}<br><br>
+
+    <hr class="rounded">
+
+    <h2 class="center-align">Details</h2>
+    {{ film.title }}<br>
+    {{ film.year }}<br>
+    {{ film.director }}<br>
+    {{ film.image_url }}<br><br>
+    {{ film.synopsis }}<br><br>
+
+    <hr class="rounded">
+
+    <h2 class="center-align">Reviews</h2>
+
+{% endblock %}

@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="center-align">The Art of Film</h1>
+    <h1 class="center-align">The Art of Film</h1>
 
     {% for film in films %}
         {{ film.title }}<br>
         {{ film.year }}<br>
         {{ film.director }}<br>
         {{ film.image_url }}<br><br>
+        <a href="{{ url_for('film', film=film.title, film_id=film._id) }}">See more</a>
     {% endfor %}
 
 {% endblock %}
