@@ -157,11 +157,10 @@ def add_film():
     return render_template("add_film.html")
 
 
-@app.route("/film/<film>", methods=["GET", "POST"])
-def film(film):
-
+@app.route("/film/<film_id>", methods=["GET", "POST"])
+def film(film_id):
     film = mongo.db.films.find_one(
-        {"title": film})
+        {"_id": ObjectId(film_id)})
 
     return render_template("film.html", film=film)
 
