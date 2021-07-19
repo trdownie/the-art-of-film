@@ -12,3 +12,7 @@ body {
 .dark-text {
     color: #272727;
 }
+
+.btn-small {
+    margin: 5px;
+}

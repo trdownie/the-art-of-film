@@ -149,7 +149,8 @@ def add_film():
         # b) insert film dict. into mongodb films collection
         mongo.db.films.insert_one(film)
         # c) display message thanking user
-        flash("I have always depended on the kindness of strangers. Film added!")
+        flash(
+            "I have always depended on the kindness of strangers. Film added!")
         # d) return the user to the member's area
         return redirect(url_for("members", member=session["member"]))
     
@@ -191,6 +192,18 @@ def edit_film(film_id):
     film = mongo.db.films.find_one({"_id": ObjectId(film_id)})
     # b) render the page and pass the film id & film object
     return render_template("edit_film.html", film_id=film_id, film=film)
+
+
+@app.route("/delete_film/<film_id>")
+def delete_film(film_id):
+    # 1) REMOVE THE FILM FROM THE DB COLLECTION
+    mongo.db.films.remove(
+        {"_id": ObjectId(film_id)})
+    # 2) RETURN A FLASH MESSAGE
+    flash("Hasta la vista, baby.")
+    # 3) RETURN THE USER TO THE MEMBER'S AREA
+    return render_template("members.html", member=session["member"])
+
 
 
 if __name__ == "__main__":
