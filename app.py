@@ -186,8 +186,10 @@ def edit_film(film_id):
         # d) return the user back to the updated film page
         return redirect(url_for("film", film_id=film_id))
 
-    # 2) DEFAULT VIEW ACTION: DISPLAY EDIT FORM
+    # 2) DEFAULT VIEW ACTION: DISPLAY EDIT FORM TEMPLATE
+    # a) create a film object that contains the film info
     film = mongo.db.films.find_one({"_id": ObjectId(film_id)})
+    # b) render the page and pass the film id & film object
     return render_template("edit_film.html", film_id=film_id, film=film)
 
 
