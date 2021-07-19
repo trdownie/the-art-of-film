@@ -203,7 +203,36 @@ def delete_film(film_id):
     flash("Hasta la vista, baby.")
     # 3) RETURN THE USER TO THE MEMBER'S AREA
     return render_template("members.html", member=session["member"])
-    
+
+
+@app.route("/add_review/<film_id>", methods=["GET", "POST"])
+def add_review(film_id):
+    # 1) UPON SUBMIT (POST) ADD THE FILM & DISPLAY MESSAGE
+    if request.method == "POST":
+        # a) create film dict. that contains form elments
+        review = {
+            "film_id": film_id,
+            "title": request.form.get("title"),
+            "review": request.form.get("review"),
+            "metric-1": request.form.get("metric-1"),
+            "metric-2": request.form.get("metric-2"),
+            "metric-3": request.form.get("metric-3"),
+            "metric-4": request.form.get("metric-4"),
+            "metric-5": request.form.get("metric-5"),
+            # i) member form field is disabled so we must set it here
+            "member": session["member"]
+        }
+        # b) insert film dict. into mongodb films collection
+        mongo.db.reviews.insert_one(review)
+        # c) display message thanking user
+        flash(
+            "Well, nobody's perfect.")
+        # d) return the user to the member's area
+        return redirect(url_for("members", member=session["member"]))
+    film = mongo.db.films.find_one({"_id": ObjectId(film_id)})
+    # 2) DEFAULT VIEW ACTION - RENDER TEMPLATE
+    return render_template("add_review.html", film_id=film_id, film=film)
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

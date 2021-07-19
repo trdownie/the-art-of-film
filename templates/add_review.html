@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="center-align">Add Review</h1>
+
+<h2 class="center-align">{{ film.title }}</h2>
+
+
+<div class="row">
+    <form class="col s12 m8 l6 offset-m2 offset-l3" method="POST" action="{{ url_for('add_review', film_id=film_id, film=film) }}">
+        <div class="row">
+            <div class="input-field col s12 field">
+                <input id="title" name="title" type="text" class="">
+                <label for="title">Title</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 field">
+                <textarea id="review" name="review"class="materialize-textarea"></textarea>
+                <label for="review">Review</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 field">
+                <p class="range-field">
+                    <label for="metric-1">Metric 1</label>
+                    <input type="range" id="metric-1" name="metric-1" min="0" max="10" />
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 field">
+                <p class="range-field">
+                    <label for="metric-2">Metric 2</label>
+                    <input type="range" id="metric-2" name="metric-2" min="0" max="10" />
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 field">
+                <p class="range-field">
+                    <label for="metric-3">Metric 3</label>
+                    <input type="range" id="metric-3" name="metric-3" min="0" max="10" />
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 field">
+                <p class="range-field">
+                    <label for="metric-4">Metric 4</label>
+                    <input type="range" id="metric-4" name="metric-4" min="0" max="10" />
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 field">
+                <p class="range-field">
+                    <label for="metric-5">Metric 5</label>
+                    <input type="range" id="metric-5" name="metric-5" min="0" max="10" />
+                </p>
+            </div>
+        </div>
+        <div class="chips chips-placeholder-2 chips-autocomplete-2 field"></div>
+        <div class="row">
+            <div class="input-field col s12 field">
+                <input disabled value="{{ session['member'] }}" name="member" id="member">
+                <label for="member" class=""></label>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">Save</button>
+        </div>
+    </form>
+  </div>
+
+{% endblock %}

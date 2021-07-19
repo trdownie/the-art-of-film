@@ -21,5 +21,9 @@
     <hr class="rounded">
     <!---------- REVIEWS SECTION ----------->
     <h2 class="center-align">Reviews</h2>
-
+    {% if session.member %}
+        <div class="center-align">
+            <a href="{{ url_for('add_review', film_id=film._id, film=film) }}" class="waves-effect waves-light btn grey center-align"><i class="fas fa-pen left"></i>Add Review</a>
+        </div>
+    {% endif %}
 {% endblock %}
