@@ -13,9 +13,11 @@
     {{ film.year }}<br>
     {{ film.director }}<br>
     {{ film.image_url }}<br><br>
-    <div class="center-align">
-        <a href="{{ url_for('edit_film', film_id=film._id) }}" class="waves-effect waves-light btn grey center-align"><i class="fas fa-pen left"></i>Edit Film</a>
-    </div>
+    {% if session.member %}
+        <div class="center-align">
+            <a href="{{ url_for('edit_film', film_id=film._id) }}" class="waves-effect waves-light btn grey center-align"><i class="fas fa-pen left"></i>Edit Film</a>
+        </div>
+    {% endif %}
     <hr class="rounded">
     <!---------- REVIEWS SECTION ----------->
     <h2 class="center-align">Reviews</h2>

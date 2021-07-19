@@ -203,8 +203,7 @@ def delete_film(film_id):
     flash("Hasta la vista, baby.")
     # 3) RETURN THE USER TO THE MEMBER'S AREA
     return render_template("members.html", member=session["member"])
-
-
+    
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
