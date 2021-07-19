@@ -174,10 +174,10 @@ def edit_film(film_id):
         # a) create a dict. that contains the updated film details
         updated_film = {
             "title": request.form.get("title"),
-            "year": request.form.get("title"),
-            "director": request.form.get("title"),
-            "synopsis": request.form.get("title"),
-            "image_url": request.form.get("title"),
+            "year": request.form.get("year"),
+            "director": request.form.get("director"),
+            "synopsis": request.form.get("synopsis"),
+            "image_url": request.form.get("image_url"),
         }
         # b) using the film's unique id, find and update this film
         mongo.db.films.update({"_id": ObjectId(film_id)}, updated_film)
@@ -187,7 +187,8 @@ def edit_film(film_id):
         return redirect(url_for("film", film_id=film_id))
 
     # 2) DEFAULT VIEW ACTION: DISPLAY EDIT FORM
-    return render_template("edit_film.html", film_id=film_id)
+    film = mongo.db.films.find_one({"_id": ObjectId(film_id)})
+    return render_template("edit_film.html", film_id=film_id, film=film)
 
 
 if __name__ == "__main__":

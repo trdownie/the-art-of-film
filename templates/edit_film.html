@@ -7,31 +7,33 @@
     <form class="col s12 m8 l6 offset-m2 offset-l3" method="POST" action="{{ url_for('edit_film', film_id=film_id) }}">
         <div class="row">
             <div class="input-field col s12 field">
-                <input id="title" name="title" type="text" class="">
+                <input value="{{ film.title }}" id="title" name="title" type="text" class="">
                 <label for="title">Title</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12 field">
-                <input id="year" name="year" type="text" class="">
+                <input  value="{{ film.year }}" id="year" name="year" type="text" class="">
                 <label for="year">Year</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12 field">
-                <input id="director" name="director" type="text" class="">
+                <input  value="{{ film.director }}" id="director" name="director" type="text" class="">
                 <label for="director">Director</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12 field">
-                <textarea id="synopsis" name="synopsis"class="materialize-textarea"></textarea>
+                <textarea id="synopsis" name="synopsis"class="materialize-textarea">
+                    {{- film.synopsis -}}
+                </textarea>
                 <label for="synopsis">Synopsis</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12 field">
-                <input id="image_url" name="image_url" type="text" class="">
+                <input  value="{{ film.image_url }}" id="image_url" name="image_url" type="text" class="">
                 <label for="image_url">Image URL</label>
             </div>
         </div>
