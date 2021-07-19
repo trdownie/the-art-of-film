@@ -207,9 +207,9 @@ def delete_film(film_id):
 
 @app.route("/add_review/<film_id>", methods=["GET", "POST"])
 def add_review(film_id):
-    # 1) UPON SUBMIT (POST) ADD THE FILM & DISPLAY MESSAGE
+    # 1) UPON SUBMIT (POST) ADD THE REVIEW & DISPLAY MESSAGE
     if request.method == "POST":
-        # a) create film dict. that contains form elments
+        # a) create review dict. that contains form elments
         review = {
             "film_id": film_id,
             "title": request.form.get("title"),
@@ -222,15 +222,18 @@ def add_review(film_id):
             # i) member form field is disabled so we must set it here
             "member": session["member"]
         }
-        # b) insert film dict. into mongodb films collection
+        # b) insert review dict. into mongodb review collection
         mongo.db.reviews.insert_one(review)
         # c) display message thanking user
         flash(
             "Well, nobody's perfect.")
-        # d) return the user to the member's area
-        return redirect(url_for("members", member=session["member"]))
-    film = mongo.db.films.find_one({"_id": ObjectId(film_id)})
+        # d) redirect user to the film page
+        return redirect(url_for("film", film_id=film_id))
+
     # 2) DEFAULT VIEW ACTION - RENDER TEMPLATE
+    # a) define film dict. from database
+    film = mongo.db.films.find_one({"_id": ObjectId(film_id)})
+    # b) render template for add review
     return render_template("add_review.html", film_id=film_id, film=film)
 
 
