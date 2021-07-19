@@ -167,6 +167,29 @@ def film(film_id):
     return render_template("film.html", film=film)
 
 
+@app.route("/edit_film/<film_id>", methods=["GET", "POST"])
+def edit_film(film_id):
+    # 1) ON SUBMIT, UPDATE FILM DETAILS
+    if request.method == "POST":
+        # a) create a dict. that contains the updated film details
+        updated_film = {
+            "title": request.form.get("title"),
+            "year": request.form.get("title"),
+            "director": request.form.get("title"),
+            "synopsis": request.form.get("title"),
+            "image_url": request.form.get("title"),
+        }
+        # b) using the film's unique id, find and update this film
+        mongo.db.films.update({"_id": ObjectId(film_id)}, updated_film)
+        # c) display a success message (of sorts)
+        flash("It's alive! It's alive!")
+        # d) return the user back to the updated film page
+        return redirect(url_for("film", film_id=film_id))
+
+    # 2) DEFAULT VIEW ACTION: DISPLAY EDIT FORM
+    return render_template("edit_film.html", film_id=film_id)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
