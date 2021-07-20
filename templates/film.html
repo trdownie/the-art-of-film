@@ -6,7 +6,7 @@
     <!---------- SUMMARY SECTION ----------->
     <h2 class="center-align">Summary</h2>
     {{ film.synopsis }}<br><br>
-    <hr class="rounded">
+    <hr class="main-div">
     <!---------- DETAILS SECTION ----------->
     <h2 class="center-align">Details</h2>
     {{ film.title }}<br>
@@ -18,9 +18,20 @@
             <a href="{{ url_for('edit_film', film_id=film._id) }}" class="waves-effect waves-light btn grey center-align"><i class="fas fa-pen left"></i>Edit Film</a>
         </div>
     {% endif %}
-    <hr class="rounded">
+    <hr class="main-div">
     <!---------- REVIEWS SECTION ----------->
     <h2 class="center-align">Reviews</h2>
+    {% for review in reviews %}
+        <p>{{ review.title }} by {{ review.member }}</p>
+        {{ review.review }}<br>
+        {{ review.metric_1 }}<br>
+        {{ review.metric_2 }}<br>
+        {{ review.metric_3 }}<br>
+        {{ review.metric_4 }}<br>
+        {{ review.metric_5 }}<br><br>
+        <a href="{{ url_for('film', film_id=film._id) }}">See more</a>
+        <hr class="minor-div">
+    {% endfor %}
     {% if session.member %}
         <div class="center-align">
             <a href="{{ url_for('add_review', film_id=film._id, film=film) }}" class="waves-effect waves-light btn grey center-align"><i class="fas fa-pen left"></i>Add Review</a>

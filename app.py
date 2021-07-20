@@ -163,9 +163,10 @@ def film(film_id):
     # 1) LOCATE THE FILM IN THE DATABASE USING THE ID
     film = mongo.db.films.find_one(
         {"_id": ObjectId(film_id)})
+    reviews = mongo.db.reviews.find({"film_id": film_id})
     # 2) RETURN THE FILM AS AN OBJECT
     #    WHILE RENDERING THE FILM'S OWN UNIQUE PAGE
-    return render_template("film.html", film=film)
+    return render_template("film.html", film=film, reviews=reviews)
 
 
 @app.route("/edit_film/<film_id>", methods=["GET", "POST"])
@@ -214,11 +215,11 @@ def add_review(film_id):
             "film_id": film_id,
             "title": request.form.get("title"),
             "review": request.form.get("review"),
-            "metric-1": request.form.get("metric-1"),
-            "metric-2": request.form.get("metric-2"),
-            "metric-3": request.form.get("metric-3"),
-            "metric-4": request.form.get("metric-4"),
-            "metric-5": request.form.get("metric-5"),
+            "metric-1": request.form.get("metric_1"),
+            "metric-2": request.form.get("metric_2"),
+            "metric-3": request.form.get("metric_3"),
+            "metric-4": request.form.get("metric_4"),
+            "metric-5": request.form.get("metric_5"),
             # i) member form field is disabled so we must set it here
             "member": session["member"]
         }

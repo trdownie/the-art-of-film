@@ -16,3 +16,13 @@ body {
 .btn-small {
     margin: 5px;
 }
+
+.main-div {
+    border-top: 5px solid white;
+}
+
+.minor-div {
+    border-top: 5px solid white;
+    border-radius: 5px;
+    width: 25%;
+}
