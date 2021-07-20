@@ -240,11 +240,13 @@ def add_review(film_id):
 
 @app.route("/edit_review/<review_id>", methods=["GET", "POST"])
 def edit_review(review_id):
+    # 1) CREATE A REVIEW DICT. FROM THE DB USING REVIEW ID
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
     # 2) ON SUBMIT, UPDATE REVIEW DETAILS
     if request.method == "POST":
-        # a) create a dict. that contains the updated review details
+        # a) create a new dict. that contains updated review details
         updated_review = {
+            # i) film id is not a form field so we must obtain it here
             "film_id": review.film_id,
             "title": request.form.get("title"),
             "review": request.form.get("review"),
@@ -253,7 +255,7 @@ def edit_review(review_id):
             "metric_3": request.form.get("metric_3"),
             "metric_4": request.form.get("metric_4"),
             "metric_5": request.form.get("metric_5"),
-            # i) member form field is disabled so we must set it here
+            # ii) member form field is disabled so we must set it here
             "member": session["member"]
         }
         # b) using the review's unique id, find and update this review
@@ -263,9 +265,7 @@ def edit_review(review_id):
         # d) return the user back to the updated film page
         return redirect(url_for("film", film_id=review.film_id))
 
-    # 3) DEFAULT VIEW ACTION: DISPLAY PRE-POPULATED EDIT FORM TEMPLATE
-    # a) create a review object that contains the review info
-    # b) render the page and pass the film id & review object
+    # 3) DEFAULT ACTION: DISPLAY PRE-POPULATED EDIT REVIEW TEMPLATE
     return render_template("edit_review.html", review=review)
 
 
