@@ -215,11 +215,11 @@ def add_review(film_id):
             "film_id": film_id,
             "title": request.form.get("title"),
             "review": request.form.get("review"),
-            "metric-1": request.form.get("metric_1"),
-            "metric-2": request.form.get("metric_2"),
-            "metric-3": request.form.get("metric_3"),
-            "metric-4": request.form.get("metric_4"),
-            "metric-5": request.form.get("metric_5"),
+            "metric_1": request.form.get("metric_1"),
+            "metric_2": request.form.get("metric_2"),
+            "metric_3": request.form.get("metric_3"),
+            "metric_4": request.form.get("metric_4"),
+            "metric_5": request.form.get("metric_5"),
             # i) member form field is disabled so we must set it here
             "member": session["member"]
         }
@@ -236,6 +236,38 @@ def add_review(film_id):
     film = mongo.db.films.find_one({"_id": ObjectId(film_id)})
     # b) render template for add review
     return render_template("add_review.html", film_id=film_id, film=film)
+
+
+@app.route("/edit_review/<review_id>", methods=["GET", "POST"])
+def edit_review(review_id):
+    film_id = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})["film_id"]
+    # 1) ON SUBMIT, UPDATE FILM DETAILS
+    if request.method == "POST":
+        # a) create a dict. that contains the updated film details
+        updated_review = {
+            "film_id": film_id,
+            "title": request.form.get("title"),
+            "review": request.form.get("review"),
+            "metric_1": request.form.get("metric_1"),
+            "metric_2": request.form.get("metric_2"),
+            "metric_3": request.form.get("metric_3"),
+            "metric_4": request.form.get("metric_4"),
+            "metric_5": request.form.get("metric_5"),
+            # i) member form field is disabled so we must set it here
+            "member": session["member"]
+        }
+        # b) using the film's unique id, find and update this film
+        mongo.db.reviews.update({"_id": ObjectId(review_id)}, updated_review)
+        # c) display a success message (of sorts)
+        flash("My mother thanks you. My father thanks you. My sister thanks you. And I thank you.")
+        # d) return the user back to the updated film page
+        return redirect(url_for("film", film_id=film_id))
+
+    # 2) DEFAULT VIEW ACTION: DISPLAY EDIT FORM TEMPLATE
+    # a) create a film object that contains the film info
+    review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
+    # b) render the page and pass the film id & film object
+    return render_template("edit_review.html", film_id=film_id, review=review)
 
 
 if __name__ == "__main__":

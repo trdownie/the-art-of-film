@@ -29,12 +29,11 @@
         {{ review.metric_3 }}<br>
         {{ review.metric_4 }}<br>
         {{ review.metric_5 }}<br><br>
-        <a href="{{ url_for('film', film_id=film._id) }}">See more</a>
+        {% if session.member %}
+        <div class="center-align">
+            <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn grey center-align"><i class="fas fa-pen left"></i>Edit Review</a>
+        </div>
+        {% endif %}
         <hr class="minor-div">
     {% endfor %}
-    {% if session.member %}
-        <div class="center-align">
-            <a href="{{ url_for('add_review', film_id=film._id, film=film) }}" class="waves-effect waves-light btn grey center-align"><i class="fas fa-pen left"></i>Add Review</a>
-        </div>
-    {% endif %}
 {% endblock %}

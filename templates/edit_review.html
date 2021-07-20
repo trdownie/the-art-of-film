@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="center-align">Add Review</h1>
+<h1 class="center-align">Edit Review</h1>
 
-<h2 class="center-align">{{ film.title }}</h2>
+
 
 
 <div class="row">
-    <form class="col s12 m8 l6 offset-m2 offset-l3" method="POST" action="{{ url_for('add_review', film_id=film_id, film=film) }}">
+    <form class="col s12 m8 l6 offset-m2 offset-l3" method="POST" action="{{ url_for('add_review', film_id=film_id, film=film, review=review) }}">
         <div class="row">
             <div class="input-field col s12 field">
                 <input id="title" name="title" type="text" class="">
@@ -22,40 +22,40 @@
         <div class="row">
             <div class="col s12 field">
                 <p class="range-field">
-                    <label for="metric-1">Metric 1</label>
-                    <input type="range" id="metric-1" name="metric-1" min="0" max="10" />
+                    <label for="metric_1">Metric 1</label>
+                    <input type="range" id="metric_1" name="metric_1" min="0" max="10" />
                 </p>
             </div>
         </div>
         <div class="row">
             <div class="col s12 field">
                 <p class="range-field">
-                    <label for="metric-2">Metric 2</label>
-                    <input type="range" id="metric-2" name="metric-2" min="0" max="10" />
+                    <label for="metric_2">Metric 2</label>
+                    <input type="range" id="metric_2" name="metric_2" min="0" max="10" />
                 </p>
             </div>
         </div>
         <div class="row">
             <div class="col s12 field">
                 <p class="range-field">
-                    <label for="metric-3">Metric 3</label>
-                    <input type="range" id="metric-3" name="metric-3" min="0" max="10" />
+                    <label for="metric_3">Metric 3</label>
+                    <input type="range" id="metric_3" name="metric_3" min="0" max="10" />
                 </p>
             </div>
         </div>
         <div class="row">
             <div class="col s12 field">
                 <p class="range-field">
-                    <label for="metric-4">Metric 4</label>
-                    <input type="range" id="metric-4" name="metric-4" min="0" max="10" />
+                    <label for="metric_4">Metric 4</label>
+                    <input type="range" id="metric_4" name="metric_4" min="0" max="10" />
                 </p>
             </div>
         </div>
         <div class="row">
             <div class="col s12 field">
                 <p class="range-field">
-                    <label for="metric-5">Metric 5</label>
-                    <input type="range" id="metric-5" name="metric-5" min="0" max="10" />
+                    <label for="metric_5">Metric 5</label>
+                    <input type="range" id="metric_5" name="metric_5" min="0" max="10" />
                 </p>
             </div>
         </div>
