@@ -268,7 +268,7 @@ def edit_review(review_id):
     # a) create a review object that contains the review info
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
     # b) render the page and pass the film id & review object
-    return render_template("edit_review.html", film_id=film_id, review=review)
+    return render_template("edit_review.html", review=review)
 
 
 @app.route("/delete_review/<review_id>")
