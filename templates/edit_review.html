@@ -6,16 +6,18 @@
 
 
 <div class="row">
-    <form class="col s12 m8 l6 offset-m2 offset-l3" method="POST" action="{{ url_for('add_review', film_id=film_id, film=film, review=review) }}">
+    <form class="col s12 m8 l6 offset-m2 offset-l3" method="POST" action="{{ url_for('edit_review', review_id=review._id) }}">
         <div class="row">
             <div class="input-field col s12 field">
-                <input id="title" name="title" type="text" class="">
+                <input value="{{ review.title }}" id="title" name="title" type="text" class="">
                 <label for="title">Title</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12 field">
-                <textarea id="review" name="review"class="materialize-textarea"></textarea>
+                <textarea id="review" name="review"class="materialize-textarea">
+                    {{- review.review -}}
+                </textarea>
                 <label for="review">Review</label>
             </div>
         </div>
