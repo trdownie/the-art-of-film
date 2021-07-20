@@ -270,6 +270,24 @@ def edit_review(review_id):
     return render_template("edit_review.html", film_id=film_id, review=review)
 
 
+@app.route("/delete_review/<review_id>")
+def delete_review(review_id):
+    # 1) FIND THE REVIEW BEING DELETED USING THE REVIEW ID
+    review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
+    # 2) LOCATE THE CORRECT FILM USING THE FILM ID ATTACHED TO THE REVIEW
+    film = mongo.db.films.find_one(
+        {"_id": ObjectId(review["film_id"])})
+    # 3) DEFINE THE COLLECTION OF REVIEWS ATTACHED TO THE FILM
+    reviews = mongo.db.reviews.find({"film_id": review["film_id"]})
+    # 4) REMOVE THIS REVIEW FROM THE DB COLLECTION
+    mongo.db.reviews.remove(
+        {"_id": ObjectId(review_id)})
+    # 5) RETURN A FLASH MESSAGE
+    flash("I love the smell of napalm in the morning.")
+    # 6) RETURN THE USER TO THE FILM PAGE
+    return render_template("film.html", film=film, reviews=reviews)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
