@@ -15,12 +15,18 @@
     {{ film.image_url }}<br><br>
     {% if session.member %}
         <div class="center-align">
-            <a href="{{ url_for('edit_film', film_id=film._id) }}" class="waves-effect waves-light btn grey center-align"><i class="fas fa-pen left"></i>Edit Film</a>
+            <a href="{{ url_for('edit_film', film_id=film._id) }}" class="waves-effect waves-light btn yellow black-text center-align"><i class="fas fa-pen left"></i>Edit Film</a>
         </div>
     {% endif %}
     <hr class="main-div">
     <!---------- REVIEWS SECTION ----------->
     <h2 class="center-align">Reviews</h2>
+    {% if session.member %}
+        <div class="center-align">
+            <a href="{{ url_for('add_review', film_id=film._id, film=film) }}" class="waves-effect waves-light btn teal center-align"><i class="fas fa-pen left"></i>Add Review</a>
+        </div>
+    {% endif %}
+
     {% for review in reviews %}
         <p>{{ review.title }} by {{ review.member }}</p>
         {{ review.review }}<br>
@@ -31,7 +37,7 @@
         {{ review.metric_5 }}<br><br>
         {% if session.member %}
         <div class="center-align">
-            <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn grey center-align"><i class="fas fa-pen left"></i>Edit Review</a>
+            <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn yellow black-text center-align"><i class="fas fa-pen left"></i>Edit Review</a>
         </div>
         {% endif %}
         <hr class="minor-div">
