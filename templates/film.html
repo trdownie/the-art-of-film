@@ -37,7 +37,8 @@
         {{ review.metric_5 }}<br><br>
         {% if session.member %}
         <div class="center-align">
-            <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn yellow black-text center-align"><i class="fas fa-pen left"></i>Edit Review</a>
+            <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn yellow black-text center-align">
+                <i class="fas fa-pen left"></i>Edit Review</a>
         </div>
         {% endif %}
         <hr class="minor-div">
