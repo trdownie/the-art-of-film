@@ -120,6 +120,36 @@ def members(member):
         return redirect(url_for("login"))
 
 
+@app.route("/edit_member/<member_id>", methods=["GET", "POST"])
+def edit_member(member_id):
+    # 1) DEFINE THE MEMBER DICT. FOR USE
+    member = mongo.db.users.find_one(
+        {"username": session["member"]})
+    # 2) ON SUBMIT, UPDATE MEMBER DETAILS
+    if request.method == "POST":
+        # a) use the update method
+        mongo.db.users.update(
+            # i) find the user document
+            {"_id": ObjectId(member_id)},
+            # ii) use the $set method to add/update items
+            {'$set': {
+                    "tagline": request.form.get("tagline"),
+                    "film": request.form.get("film"),
+                    "quote": request.form.get("quote"),
+                    "character": request.form.get("character"),
+                    "creator": request.form.get("creator"),
+                }
+            }
+        )
+        # b) display a success message
+        flash("Here's looking at you, kid.")
+        # c) return the user back to the updated Member's Area
+        return redirect(url_for("members", member=member))
+
+    # 2) DEFAULT VIEW ACTION: DISPLAY PRE-POPULATED EDIT MEMBER TEMPLATE
+    return render_template("edit_member.html", member=member)
+
+
 @app.route("/logout")
 def logout():
     # 1) DEFINE NEW VARIABLE MEMBER

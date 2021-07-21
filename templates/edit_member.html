@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="center-align">Edit Member</h1>
+
+
+<div class="row">
+    <form class="col s12 m8 l6 offset-m2 offset-l3" method="POST" action="{{ url_for('edit_member', member_id=member._id) }}">
+        <div class="row">
+            <div class="input-field col s12 field">
+                <input value="{{ member.tagline }}" id="tagline" name="tagline" type="text" class="">
+                <label for="tagline">Tagline</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 field">
+                <input  value="{{ member.film }}" id="film" name="film" type="text" class="">
+                <label for="film">Film</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 field">
+                <input  value="{{ member.quote }}" id="quote" name="quote" type="text" class="">
+                <label for="quote">Quote</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 field">
+                <input  value="{{ member.character }}" id="character" name="character" type="text" class="">
+                <label for="character">Character</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 field">
+                <input  value="{{ member.creator }}" id="creator" name="creator" type="text" class="">
+                <label for="creator">Creator</label>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">Save</button>
+        </div>
+
+    </form>
+  </div>
+        
+
+
+{% endblock %}
