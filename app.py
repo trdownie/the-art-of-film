@@ -109,7 +109,7 @@ def members(member):
     # a) take the session["member"] and find its instance in the db
     # b) since this will return doc, only return the ["username"] attribute
     member = mongo.db.users.find_one(
-        {"username": session["member"]})["username"]
+        {"username": session["member"]})
     # 2) IF LOGGED IN, RENDER MEMBERS TEMPLATE
     #    & PASS IT MEMBER VARIABLE
     if session["member"]:

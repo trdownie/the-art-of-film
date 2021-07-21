@@ -3,6 +3,19 @@
 
     <h1 class="center-align">Member's Area</h1>
 
-    <h2 class="center-align">{{ member }}</h2>
+    <h2 class="center-align">{{ member.username }}</h2>
+    <div class="row">
+        <div class="col s4">
+            <img class="profile" src="../media/img/barton-fink.jpeg">
+        </div>
+        <div class="col s8">
+            <h5 class="left-align">Tagline: {{ member.tagline }}</h5>
+            <h5 class="left-align">Film: {{ member.film }}</h5>
+            <h5 class="left-align">Quote: "{{ member.quote }}"</h5>
+            <h5 class="left-align">Character: {{ member.character }}</h5>
+            <h5 class="left-align">Creator: {{ member.creator }}</h5>
+        </div>
+    </div>
+
     
 {% endblock %}
