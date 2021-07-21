@@ -343,15 +343,13 @@ def delete_review(review_id):
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
-    # 1) DEFINE THE MEMBER VARIABLE
-    # a) take the session["member"] and find its instance in the db
-    # b) since this will return doc, only return the ["username"] attribute
+    # 1) DEFINE THE FULL USER OBJECT
     user = mongo.db.users.find_one(
         {"username": username})
-    # 2) IF LOGGED IN, RENDER MEMBERS TEMPLATE
-    #    & PASS IT MEMBER VARIABLE
+    # 2) DEFINE THE NECESSARY REQUIREMENTS
     reviews = list(mongo.db.reviews.find())
     films = list(mongo.db.films.find())
+    # 3) RENDER THE TEMPLATE
     return render_template("profile.html", user=user, reviews=reviews, films=films)
 
 
