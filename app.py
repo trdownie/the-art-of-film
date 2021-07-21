@@ -150,6 +150,19 @@ def edit_member(member_id):
     return render_template("edit_member.html", member=member)
 
 
+@app.route("/delete_member/<member_id>")
+def delete_member(member_id):
+    # 1) REMOVE THE MEMBER FROM THE DB COLLECTION
+    mongo.db.users.remove(
+        {"_id": ObjectId(member_id)})
+    # 2) REMOVE THE SESSION COOKIE
+    session.clear()
+    # 3) RETURN A FLASH MESSAGE
+    flash("Wait a minute, wait a minute. You ain't heard nothin' yet!")
+    # 4) RETURN THE USER TO THE INDEX
+    return redirect(url_for("index"))
+
+
 @app.route("/logout")
 def logout():
     # 1) DEFINE NEW VARIABLE MEMBER

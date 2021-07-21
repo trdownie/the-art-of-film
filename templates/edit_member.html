@@ -37,6 +37,8 @@
         </div>
         <div class="row">
             <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">Save</button>
+            <a href="{{ url_for('delete_member', member_id=member._id) }}" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small red white-text">Delete Profile</a>
+            <a href="{{ url_for('members', member=member) }}" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small teal black-text">Cancel</a>
         </div>
 
     </form>
