@@ -6,6 +6,7 @@
     <!---------- SUMMARY SECTION ----------->
     <h2 class="center-align">Summary</h2>
     {{ film.synopsis }}<br><br>
+    <div>Added by <a href="{{ url_for('profile', username=film.member) }}" >{{ film.member }}</a></div>
     <hr class="main-div">
     <!---------- DETAILS SECTION ----------->
     <h2 class="center-align">Details</h2>
@@ -29,7 +30,7 @@
 
     {% for review in reviews %}
         <p>{{ review.title }}</p>
-        by <a href="{{ url_for('profile', username=review.member) }}" >{{ review.member }}</a>
+        <div>by <a href="{{ url_for('profile', username=review.member) }}" >{{ review.member }}</a></div>
         {{ review.review }}<br>
         {{ review.metric_1 }}<br>
         {{ review.metric_2 }}<br>
