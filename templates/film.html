@@ -28,7 +28,8 @@
     {% endif %}
 
     {% for review in reviews %}
-        <p>{{ review.title }} by {{ review.member }}</p>
+        <p>{{ review.title }}</p>
+        by <a href="{{ url_for('profile', username=review.member) }}" >{{ review.member }}</a>
         {{ review.review }}<br>
         {{ review.metric_1 }}<br>
         {{ review.metric_2 }}<br>

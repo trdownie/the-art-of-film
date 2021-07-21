@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h1 class="center-align">User Profile</h1>
+    
+    <h2 class="center-align">{{ user.username }}</h2>
+    <div class="row">
+        <div class="col s4">
+            <img class="profile" src="">
+        </div>
+        <div class="col s8">
+            <h5 class="left-align">Tagline: {{ user.tagline }}</h5>
+            <h5 class="left-align">Film: {{ user.film }}</h5>
+            <h5 class="left-align">Quote: "{{ user.quote }}"</h5>
+            <h5 class="left-align">Character: {{ user.character }}</h5>
+            <h5 class="left-align">Creator: {{ user.creator }}</h5>
+        </div>
+    </div>
+    <hr class="main-div">
+    <!---------- FILMS SECTION ----------->
+    <h2 class="center-align">Films</h2>
+    {% for film in films %}
+        {% if film.member == user.username %}
+            {{ film.title }}<br>
+            {{ film.year }}<br>
+            {{ film.director }}<br>
+            {{ film.image_url }}<br><br>
+            <a href="{{ url_for('film', film_id=film._id) }}">See more</a>
+            <hr class="minor-div">
+        {% endif %}
+    {% endfor %}
+    <hr class="main-div">
+    <!---------- REVIEWS SECTION ----------->
+    <h2 class="center-align">Reviews</h2>
+    {% for review in reviews %}
+        {% if review.member == user.username %}
+            {{ review.title }}<br>
+            {{ review.review }}<br>
+            {{ review.metric_1 }}<br>
+            {{ review.metric_2 }}<br>
+            {{ review.metric_3 }}<br>
+            {{ review.metric_4 }}<br>
+            {{ review.metric_5 }}<br><br>
+            <hr class="minor-div">
+        {% endif %}
+    {% endfor %}
+{% endblock %}

@@ -341,6 +341,20 @@ def delete_review(review_id):
     return render_template("film.html", film=film, reviews=reviews)
 
 
+@app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+    # 1) DEFINE THE MEMBER VARIABLE
+    # a) take the session["member"] and find its instance in the db
+    # b) since this will return doc, only return the ["username"] attribute
+    user = mongo.db.users.find_one(
+        {"username": username})
+    # 2) IF LOGGED IN, RENDER MEMBERS TEMPLATE
+    #    & PASS IT MEMBER VARIABLE
+    reviews = list(mongo.db.reviews.find())
+    films = list(mongo.db.films.find())
+    return render_template("profile.html", user=user, reviews=reviews, films=films)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
