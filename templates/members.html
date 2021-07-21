@@ -19,5 +19,36 @@
     <div class="center-align">
         <a href="{{ url_for('edit_member', member_id=member._id) }}" class="waves-effect waves-light btn yellow black-text center-align"><i class="fas fa-pen left"></i>Edit Profile</a>
     </div>
-    
+    <hr class="main-div">
+    <!---------- FILMS SECTION ----------->
+    <h2 class="center-align">Films</h2>
+    {% for film in films %}
+        {% if film.member == session.member %}
+            {{ film.title }}<br>
+            {{ film.year }}<br>
+            {{ film.director }}<br>
+            {{ film.image_url }}<br><br>
+            <a href="{{ url_for('film', film_id=film._id) }}">See more</a>
+            <hr class="minor-div">
+        {% endif %}
+    {% endfor %}
+    <hr class="main-div">
+    <!---------- REVIEWS SECTION ----------->
+    <h2 class="center-align">Reviews</h2>
+    {% for review in reviews %}
+        {% if review.member == session.member %}
+            {{ review.title }}<br>
+            {{ review.review }}<br>
+            {{ review.metric_1 }}<br>
+            {{ review.metric_2 }}<br>
+            {{ review.metric_3 }}<br>
+            {{ review.metric_4 }}<br>
+            {{ review.metric_5 }}<br><br>
+            <div class="center-align">
+                <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn yellow black-text center-align">
+                    <i class="fas fa-pen left"></i>Edit Review</a>
+            </div>
+            <hr class="minor-div">
+        {% endif %}
+    {% endfor %}
 {% endblock %}

@@ -54,15 +54,16 @@ def register():
             }
             # b) insert the dictionary into the users collection
             mongo.db.users.insert_one(register)
-
             # c) add the newly created user into the session cookie
             session["member"] = request.form.get("username").lower()
+            reviews = list(mongo.db.reviews.find())
+            films = list(mongo.db.films.find())
             # d) display registration success message
             flash("Registration successful, "
                     + request.form.get("username") 
                     + ". Welcome, human.")
             # e) redirect the member to their member's area
-            return redirect(url_for("members", member=session["member"]))
+            return redirect(url_for("members", member=session["member"], reviews=reviews, films=films))
 
     return render_template("register.html")
 
@@ -82,8 +83,10 @@ def login():
                     existing_user["password"], request.form.get("password")):
                         # i) set session variable 'member' to this username
                         session["member"] = request.form.get("username").lower()
+                        reviews = list(mongo.db.reviews.find())
+                        films = list(mongo.db.films.find())
                         # ii) send the member to their member's area
-                        return redirect(url_for("members", member=session["member"]))
+                        return redirect(url_for("members", member=session["member"], reviews=reviews, films=films))
             # b) passwords don't match
             else:
                 # i) return incorrect flash message
@@ -113,7 +116,9 @@ def members(member):
     # 2) IF LOGGED IN, RENDER MEMBERS TEMPLATE
     #    & PASS IT MEMBER VARIABLE
     if session["member"]:
-        return render_template("members.html", member=member)
+        reviews = list(mongo.db.reviews.find())
+        films = list(mongo.db.films.find())
+        return render_template("members.html", member=member, reviews=reviews, films=films)
 
     # 3) IF NOT LOGGED IN RETURN USER TO LOGIN PAGE
     else:
@@ -143,8 +148,10 @@ def edit_member(member_id):
         )
         # b) display a success message
         flash("Here's looking at you, kid.")
+        reviews = list(mongo.db.reviews.find())
+        films = list(mongo.db.films.find())
         # c) return the user back to the updated Member's Area
-        return redirect(url_for("members", member=member))
+        return redirect(url_for("members", member=member, reviews=reviews, films=films))
 
     # 2) DEFAULT VIEW ACTION: DISPLAY PRE-POPULATED EDIT MEMBER TEMPLATE
     return render_template("edit_member.html", member=member)
@@ -194,8 +201,10 @@ def add_film():
         # c) display message thanking user
         flash(
             "I have always depended on the kindness of strangers. Film added!")
+        reviews = list(mongo.db.reviews.find())
+        films = list(mongo.db.films.find())
         # d) return the user to the member's area
-        return redirect(url_for("members", member=session["member"]))
+        return redirect(url_for("members", member=session["member"], reviews=reviews, films=films))
     
     # 2) DEFAULT VIEW ACTION - RENDER TEMPLATE
     return render_template("add_film.html")
@@ -246,7 +255,9 @@ def delete_film(film_id):
     # 2) RETURN A FLASH MESSAGE
     flash("Hasta la vista, baby.")
     # 3) RETURN THE USER TO THE MEMBER'S AREA
-    return render_template("members.html", member=session["member"])
+    reviews = list(mongo.db.reviews.find())
+    films = list(mongo.db.films.find())
+    return render_template("members.html", member=session["member"], reviews=reviews, films=films)
 
 
 @app.route("/add_review/<film_id>", methods=["GET", "POST"])
@@ -290,7 +301,7 @@ def edit_review(review_id):
         # a) create a new dict. that contains updated review details
         updated_review = {
             # i) film id is not a form field so we must obtain it here
-            "film_id": review.film_id,
+            "film_id": review["film_id"],
             "title": request.form.get("title"),
             "review": request.form.get("review"),
             "metric_1": request.form.get("metric_1"),
@@ -306,7 +317,7 @@ def edit_review(review_id):
         # c) display a success message
         flash("My mother thanks you. My father thanks you. My sister thanks you. And I thank you.")
         # d) return the user back to the updated film page
-        return redirect(url_for("film", film_id=review.film_id))
+        return redirect(url_for("film", film_id=review["film_id"]))
 
     # 3) DEFAULT ACTION: DISPLAY PRE-POPULATED EDIT REVIEW TEMPLATE
     return render_template("edit_review.html", review=review)
