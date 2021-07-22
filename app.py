@@ -264,25 +264,48 @@ def delete_film(film_id):
 def add_review(film_id):
     # 1) UPON SUBMIT (POST) ADD THE REVIEW & DISPLAY MESSAGE
     if request.method == "POST":
-        # a) create review dict. that contains form elments
+        # a) define each metric as an integer for practical reasons
+        metric_1 = int(request.form.get("metric_1"))
+        metric_2 = int(request.form.get("metric_2"))
+        metric_3 = int(request.form.get("metric_3"))
+        metric_4 = int(request.form.get("metric_4"))
+        metric_5 = int(request.form.get("metric_5"))
+        # b) define a list of metrics for calculation
+        metrics = [
+            metric_1,
+            metric_2,
+            metric_3,
+            metric_4,
+            metric_5
+        ]
+        # c) calculate the average of these metrics
+        average = sum(metrics)/len(metrics)
+        # d) create review dict. that contains form elments
         review = {
             "film_id": film_id,
             "title": request.form.get("title"),
             "review": request.form.get("review"),
-            "metric_1": request.form.get("metric_1"),
-            "metric_2": request.form.get("metric_2"),
-            "metric_3": request.form.get("metric_3"),
-            "metric_4": request.form.get("metric_4"),
-            "metric_5": request.form.get("metric_5"),
+            "score": average,
+            "metric_1": metric_1,
+            "metric_2": metric_2,
+            "metric_3": metric_3,
+            "metric_4": metric_4,
+            "metric_5": metric_5,
             # i) member form field is disabled so we must set it here
             "member": session["member"]
         }
-        # b) insert review dict. into mongodb review collection
+        # e) insert review dict. into mongodb review collection
         mongo.db.reviews.insert_one(review)
-        # c) display message thanking user
+        # f) add the average to the linked film document
+        mongo.db.films.update(
+            {"_id": ObjectId(film_id)},
+            # i) update scores array, or create it first time
+            {"$push": {"scores": average}}
+        )
+        # g) display message thanking user
         flash(
             "Well, nobody's perfect.")
-        # d) redirect user to the film page
+        # h) redirect user to the film page
         return redirect(url_for("film", film_id=film_id))
 
     # 2) DEFAULT VIEW ACTION - RENDER TEMPLATE
