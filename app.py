@@ -321,25 +321,47 @@ def edit_review(review_id):
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
     # 2) ON SUBMIT, UPDATE REVIEW DETAILS
     if request.method == "POST":
-        # a) create a new dict. that contains updated review details
+        # a) define each metric as an integer for practical reasons
+        metric_1 = int(request.form.get("metric_1"))
+        metric_2 = int(request.form.get("metric_2"))
+        metric_3 = int(request.form.get("metric_3"))
+        metric_4 = int(request.form.get("metric_4"))
+        metric_5 = int(request.form.get("metric_5"))
+        # b) define a list of metrics for calculation
+        metrics = [
+            metric_1,
+            metric_2,
+            metric_3,
+            metric_4,
+            metric_5
+        ]
+        # c) calculate the average of these metrics
+        average = sum(metrics)/len(metrics)
+        # d) create review dict. that contains form elments
         updated_review = {
-            # i) film id is not a form field so we must obtain it here
             "film_id": review["film_id"],
             "title": request.form.get("title"),
             "review": request.form.get("review"),
-            "metric_1": request.form.get("metric_1"),
-            "metric_2": request.form.get("metric_2"),
-            "metric_3": request.form.get("metric_3"),
-            "metric_4": request.form.get("metric_4"),
-            "metric_5": request.form.get("metric_5"),
-            # ii) member form field is disabled so we must set it here
+            "score": average,
+            "metric_1": metric_1,
+            "metric_2": metric_2,
+            "metric_3": metric_3,
+            "metric_4": metric_4,
+            "metric_5": metric_5,
+            # i) member form field is disabled so we must set it here
             "member": session["member"]
         }
-        # b) using the review's unique id, find and update this review
+        # e) using the review's unique id, find and update this review
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, updated_review)
-        # c) display a success message
+        # f) add the average to the linked film document
+        mongo.db.films.update(
+            {"_id": ObjectId(review["film_id"])},
+            # i) update scores array, or create it first time
+            {"$push": {"scores": average}}
+        )
+        # g) display a success message
         flash("My mother thanks you. My father thanks you. My sister thanks you. And I thank you.")
-        # d) return the user back to the updated film page
+        # h) return the user back to the updated film page
         return redirect(url_for("film", film_id=review["film_id"]))
 
     # 3) DEFAULT ACTION: DISPLAY PRE-POPULATED EDIT REVIEW TEMPLATE
