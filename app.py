@@ -336,13 +336,13 @@ def edit_review(review_id):
             metric_5
         ]
         # c) calculate the average of these metrics
-        average = sum(metrics)/len(metrics)
+        new_average = sum(metrics)/len(metrics)
         # d) create review dict. that contains form elments
         updated_review = {
             "film_id": review["film_id"],
             "title": request.form.get("title"),
             "review": request.form.get("review"),
-            "score": average,
+            "score": new_average,
             "metric_1": metric_1,
             "metric_2": metric_2,
             "metric_3": metric_3,
@@ -351,30 +351,63 @@ def edit_review(review_id):
             # i) member form field is disabled so we must set it here
             "member": session["member"]
         }
-        # e) using the review's unique id, find and update this review
-        mongo.db.reviews.update({"_id": ObjectId(review_id)}, updated_review)
-        # f) add the average to the linked film document
-        mongo.db.films.update_one( 
-            {"_id": ObjectId(review["film_id"])},
-            [ 
-                { "$set": { 
+        # f) obtain the first review in the scores array since the code
+        #    to update score does not function on the first item due to 
+        #    its index being zero
+        first_review = mongo.db.films.find_one({"_id": ObjectId(review["film_id"])})["scores"][0]
+        # g) if the original review score matches the first array item
+        #    then simply 'pop' this first (-1) item off using the $pop method
+        if review["score"] == first_review:
+            mongo.db.films.update({"_id": ObjectId(review["film_id"])}, {"$pop": {"scores": -1}})
+        # h) if the original review score is not the first item in the array,
+        #    then find the first matching element in the array and remove it
+        else:
+            # CODE ADAPTED FROM PRASAD_SAYA: https://www.mongodb.com/community/
+            # forums/t/pull-only-one-item-in-an-array-of-instance-in-mongodb/12928
+            # i) update_one finds the film document associated with the review
+            # ii) $set updates the film document with the required info
+            # iii) "scores" is the specific part of the document that $set updates
+            # iv) $let specifies variables (vars) to be used in (in) the expression
+            # v) 'vars' defines 'index' as the index of the 1st instance of original score
+            # vi) 'in' concatenates two strings:
+            #     - first, a string from zero up to the index of the first instance, which
+            #       would not contain that score since the index begins at zero
+            #     - second, a string that begins at the index value after the score and
+            #       continues to the end of the string (using $size to define the end) 
+            mongo.db.films.update_one(
+                {"_id": ObjectId(review["film_id"])},
+                [{"$set": {
                     "scores": {
                         "$let": {
-                            "vars": { "ix": { "$indexOfArray": [ "$scores", review["score"] ] } },
-                            "in": { "$concatArrays": [
-                                    { "$slice": [ "$scores", 0, "$$ix"] },
-                                    [ ],
-                                    { "$slice": [ "$scores", { "$add": [ 1, "$$ix" ] }, { "$size": "$scores" } ] }
-                                ]
+                            "vars": {"index": {
+                                        "$indexOfArray": [
+                                            "$scores", review["score"]]}},
+                            "in":   {"$concatArrays": [
+                                        {"$slice": [
+                                            "$scores",
+                                            0,
+                                            "$$index"]},
+                                        {"$slice": [
+                                            "$scores",
+                                            {"$add": [1, "$$index"]},
+                                            {"$size": "$scores"}]}
+                                    ]
                             }
                         }
                     }
                 }}
-            ] )
-
-        # g) display a success message
+                ]
+            )
+        # i) once the previous score has been removed, the new one is added
+        mongo.db.films.update(
+            {"_id": ObjectId(review["film_id"])},
+            {"$push": {"scores": new_average}}
+        )
+        # j) using the review's unique id, find and update the review record
+        mongo.db.reviews.update({"_id": ObjectId(review_id)}, updated_review)
+        # k) display a success message
         flash("My mother thanks you. My father thanks you. My sister thanks you. And I thank you.")
-        # h) return the user back to the updated film page
+        # l) return the user back to the updated film page
         return redirect(url_for("film", film_id=review["film_id"]))
 
     # 3) DEFAULT ACTION: DISPLAY PRE-POPULATED EDIT REVIEW TEMPLATE
