@@ -354,11 +354,24 @@ def edit_review(review_id):
         # e) using the review's unique id, find and update this review
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, updated_review)
         # f) add the average to the linked film document
-        mongo.db.films.update(
+        mongo.db.films.update_one( 
             {"_id": ObjectId(review["film_id"])},
-            # i) update scores array, or create it first time
-            {"$push": {"scores": average}}
-        )
+            [ 
+                { "$set": { 
+                    "scores": {
+                        "$let": {
+                            "vars": { "ix": { "$indexOfArray": [ "$scores", review["score"] ] } },
+                            "in": { "$concatArrays": [
+                                    { "$slice": [ "$scores", 0, "$$ix"] },
+                                    [ ],
+                                    { "$slice": [ "$scores", { "$add": [ 1, "$$ix" ] }, { "$size": "$scores" } ] }
+                                ]
+                            }
+                        }
+                    }
+                }}
+            ] )
+
         # g) display a success message
         flash("My mother thanks you. My father thanks you. My sister thanks you. And I thank you.")
         # h) return the user back to the updated film page
