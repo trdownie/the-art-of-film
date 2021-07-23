@@ -351,15 +351,18 @@ def edit_review(review_id):
             # i) member form field is disabled so we must set it here
             "member": session["member"]
         }
-        # f) obtain the first review in the scores array since the code
+        # e) obtain the first review in the scores array since the code
         #    to update score does not function on the first item due to 
         #    its index being zero
-        first_review = mongo.db.films.find_one({"_id": ObjectId(review["film_id"])})["scores"][0]
-        # g) if the original review score matches the first array item
+        first_review = mongo.db.films.find_one(
+            {"_id": ObjectId(review["film_id"])})["scores"][0]
+        # f) if the original review score matches the first array item
         #    then simply 'pop' this first (-1) item off using the $pop method
         if review["score"] == first_review:
-            mongo.db.films.update({"_id": ObjectId(review["film_id"])}, {"$pop": {"scores": -1}})
-        # h) if the original review score is not the first item in the array,
+            mongo.db.films.update(
+                {"_id": ObjectId(review["film_id"])},
+                {"$pop": {"scores": -1}})
+        # g) if the original review score is not the first item in the array,
         #    then find the first matching element in the array and remove it
         else:
             # CODE ADAPTED FROM PRASAD_SAYA: https://www.mongodb.com/community/
@@ -369,10 +372,10 @@ def edit_review(review_id):
             # iii) "scores" is the specific part of the document that $set updates
             # iv) $let specifies variables (vars) to be used in (in) the expression
             # v) 'vars' defines 'index' as the index of the 1st instance of original score
-            # vi) 'in' concatenates two strings:
-            #     - first, a string from zero up to the index of the first instance, which
+            # vi) 'in' concatenates two arrays:
+            #     - first, an array from zero up to the index of the first instance, which
             #       would not contain that score since the index begins at zero
-            #     - second, a string that begins at the index value after the score and
+            #     - second, an array that begins at the index value after the score and
             #       continues to the end of the string (using $size to define the end) 
             mongo.db.films.update_one(
                 {"_id": ObjectId(review["film_id"])},
@@ -398,16 +401,16 @@ def edit_review(review_id):
                 }}
                 ]
             )
-        # i) once the previous score has been removed, the new one is added
+        # h) once the previous score has been removed, the new one is added
         mongo.db.films.update(
             {"_id": ObjectId(review["film_id"])},
             {"$push": {"scores": new_average}}
         )
-        # j) using the review's unique id, find and update the review record
+        # i) using the review's unique id, find and update the review record
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, updated_review)
-        # k) display a success message
+        # j) display a success message
         flash("My mother thanks you. My father thanks you. My sister thanks you. And I thank you.")
-        # l) return the user back to the updated film page
+        # k) return the user back to the updated film page
         return redirect(url_for("film", film_id=review["film_id"]))
 
     # 3) DEFAULT ACTION: DISPLAY PRE-POPULATED EDIT REVIEW TEMPLATE
