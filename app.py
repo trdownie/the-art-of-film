@@ -215,7 +215,24 @@ def film(film_id):
     # 1) LOCATE THE FILM IN THE DATABASE USING THE ID
     film = mongo.db.films.find_one(
         {"_id": ObjectId(film_id)})
+    # 2) LOCATE ALL ASSOCIATED REVIEWS IN THE DATABASE
     reviews = mongo.db.reviews.find({"film_id": film_id})
+    # 3) UPDATE THE FILM'S AVERAGE SCORE
+    scores_cursor = mongo.db.reviews.aggregate(
+        [{"$group": {
+            "_id": film_id,
+            "ultimate_average": {"$avg": "$ultimate_score"},
+            "visual_average": {"$avg": "$visual"},
+            "auditory_average": {"$avg": "$auditory"},
+            "dialogue_average": {"$avg": "$dialogue"},
+            "emotive_average": {"$avg": "$emotive"},
+            "symbolism_average": {"$avg": "$symbolism"},
+            }
+        }]
+    )
+    scores_array = list(scores_cursor)
+    flash(scores_array)
+
     # 2) RETURN THE FILM AS AN OBJECT
     #    WHILE RENDERING THE FILM'S OWN UNIQUE PAGE
     return render_template("film.html", film=film, reviews=reviews)
@@ -264,16 +281,27 @@ def delete_film(film_id):
 def add_review(film_id):
     # 1) UPON SUBMIT (POST) ADD THE REVIEW & DISPLAY MESSAGE
     if request.method == "POST":
+        metrics = {
+            "visual": int(request.form.get("visual")),
+            "auditory": int(request.form.get("auditory")),
+            "dialogue": int(request.form.get("dialogue")),
+            "emotive": int(request.form.get("emotive")),
+            "symbolism": int(request.form.get("symbolism"))
+        }
+        metric_values = metrics.values()
+        ultimate_score = sum(metric_values) / len(metric_values)
+
         # a) create review dict. that contains form elments
         review = {
             "film_id": film_id,
             "title": request.form.get("title"),
             "review": request.form.get("review"),
-            "visual": request.form.get("visual"),
-            "auditory": request.form.get("auditory"),
-            "dialogue": request.form.get("dialogue"),
-            "emotive": request.form.get("emotive"),
-            "symbolism": request.form.get("symbolism"),
+            "ultimate_score": ultimate_score,
+            "visual": int(request.form.get("visual")),
+            "auditory": int(request.form.get("auditory")),
+            "dialogue": int(request.form.get("dialogue")),
+            "emotive": int(request.form.get("emotive")),
+            "symbolism": int(request.form.get("symbolism")),
             # i) member form field is disabled so we must set it here
             "member": session["member"]
         }
@@ -338,7 +366,7 @@ def delete_review(review_id):
     # 5) RETURN A FLASH MESSAGE
     flash("I love the smell of napalm in the morning.")
     # 6) RETURN THE USER TO THE FILM PAGE
-    return render_template("film.html", film=film, reviews=reviews)
+    return redirect(url_for("film", film_id=film["_id"]))
 
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
