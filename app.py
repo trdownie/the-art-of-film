@@ -214,8 +214,7 @@ def add_film():
 @app.route("/film/<film_id>", methods=["GET", "POST"])
 def film(film_id):
     # 1) LOCATE THE FILM IN THE DATABASE USING THE ID
-    film = mongo.db.films.find_one(
-        {"_id": ObjectId(film_id)})
+
     # 2) LOCATE ALL ASSOCIATED REVIEWS IN THE DATABASE
     reviews = mongo.db.reviews.find({"film_id": film_id})
     # 3) UPDATE THE FILM'S AVERAGE SCORE
@@ -250,7 +249,8 @@ def film(film_id):
             }
         }
     )
-
+    film = mongo.db.films.find_one(
+        {"_id": ObjectId(film_id)})
     # 2) RETURN THE FILM AS AN OBJECT
     #    WHILE RENDERING THE FILM'S OWN UNIQUE PAGE
     return render_template("film.html", film=film, reviews=reviews)
