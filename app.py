@@ -213,16 +213,17 @@ def add_film():
 
 @app.route("/film/<film_id>", methods=["GET", "POST"])
 def film(film_id):
-    # 1) LOCATE THE FILM IN THE DATABASE USING THE ID
-    # 2) LOCATE ALL ASSOCIATED REVIEWS IN THE DATABASE
-    # 3) UPDATE THE FILM'S AVERAGE SCORE
-    film = mongo.db.films.find_one(
-        {"_id": ObjectId(film_id)})
-    flash("Film within function: " + film["title"])
+    # 1) CREATE A CURSOR OBJECT CONTAINING THE AVERAGE SCORES
+    # a) aggregate simply performs functions in a sequence
     scores = list(mongo.db.reviews.aggregate([
+            # i) $match matches only the reviews for this film
             {"$match": {"film_id": film_id}},
+            # ii) $group allows functions to be performed on multiple docs
             {"$group": {
+                # iii) using records with the same film id
                 "_id": "$film_id",
+                # iv) create the object in dict.-like format
+                #     using the average scores of these reviews 
                 "ultimate_score": {"$avg": "$ultimate_score"},
                 "visual_average": {"$avg": "$metrics.visual"},
                 "auditory_average": {"$avg": "$metrics.auditory"},
@@ -232,17 +233,14 @@ def film(film_id):
             }
         }]
     ))
-    flash("Scores list: " + str(scores))
-
+    # 2) UNPACK THE OBJECT INTO PYTHON VARIABLES
     ultimate_score = scores[0]["ultimate_score"]
     visual_average = scores[0]["visual_average"]
     auditory_average = scores[0]["auditory_average"]
     dialogue_average = scores[0]["dialogue_average"]
     emotive_average = scores[0]["emotive_average"]
     symbolism_average = scores[0]["symbolism_average"]
-
-    flash("Ultimate Score: " + str(ultimate_score))
-
+    # 3) $set THE FILM RATINGS IN THE DB
     mongo.db.films.find_one_and_update(
         {"_id": ObjectId(film_id)},
         {"$set": {
@@ -255,10 +253,12 @@ def film(film_id):
             }
         }
     )
+    # 4) DEFINE ALL REVIEWS FOR PASSING INTO TEMPLATE
     reviews = mongo.db.reviews.find({"film_id": film_id})
+    # 5) DEFINE UPDATED FILM FOR PASSING INTO TEMPLATE
     film = mongo.db.films.find_one(
         {"_id": ObjectId(film_id)})
-    # 2) RETURN THE FILM AS AN OBJECT
+    # 6) RETURN THE SPECIFIC FILM & REVIEWS OBJECTS
     #    WHILE RENDERING THE FILM'S OWN UNIQUE PAGE
     return render_template("film.html", film=film, reviews=reviews)
 
