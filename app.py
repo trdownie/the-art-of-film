@@ -20,7 +20,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/index")
 def index():
-    films = mongo.db.films.find().sort([("title", 1)])
+    films = mongo.db.films.find().sort([("ultimate_score", -1), ("title", 1)])
     return render_template("index.html", films=films)
 
 
@@ -221,7 +221,8 @@ def film(film_id):
     flash("Film within function: " + film["title"])
     scores = list(mongo.db.reviews.aggregate([
             {"$match": {"film_id": film_id}},
-            {"$project": {
+            {"$group": {
+                "_id": "$film_id",
                 "ultimate_score": {"$avg": "$ultimate_score"},
                 "visual_average": {"$avg": "$metrics.visual"},
                 "auditory_average": {"$avg": "$metrics.auditory"},
