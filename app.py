@@ -204,7 +204,8 @@ def add_film():
         reviews = list(mongo.db.reviews.find())
         films = list(mongo.db.films.find())
         # d) return the user to the member's area
-        return redirect(url_for("members", member=session["member"], reviews=reviews, films=films))
+        return redirect(url_for("members",
+                member=session["member"], reviews=reviews, films=films))
     
     # 2) DEFAULT VIEW ACTION - RENDER TEMPLATE
     return render_template("add_film.html")
@@ -218,10 +219,10 @@ def film(film_id):
     # 2) LOCATE ALL ASSOCIATED REVIEWS IN THE DATABASE
     reviews = mongo.db.reviews.find({"film_id": film_id})
     # 3) UPDATE THE FILM'S AVERAGE SCORE
-    scores_cursor = mongo.db.reviews.aggregate(
+    scores = list(mongo.db.reviews.aggregate(
         [{"$group": {
             "_id": film_id,
-            "ultimate_average": {"$avg": "$ultimate_score"},
+            "ultimate_score": {"$avg": "$ultimate_score"},
             "visual_average": {"$avg": "$visual"},
             "auditory_average": {"$avg": "$auditory"},
             "dialogue_average": {"$avg": "$dialogue"},
@@ -229,9 +230,26 @@ def film(film_id):
             "symbolism_average": {"$avg": "$symbolism"},
             }
         }]
+    ))
+    ultimate_score = scores[0]["ultimate_score"]
+    visual_average = scores[0]["visual_average"]
+    auditory_average = scores[0]["auditory_average"]
+    dialogue_average = scores[0]["dialogue_average"]
+    emotive_average = scores[0]["emotive_average"]
+    symbolism_average = scores[0]["symbolism_average"]
+
+    mongo.db.films.find_one_and_update(
+        {"_id": ObjectId(film_id)},
+        {"$set": {
+            "ultimate_score": ultimate_score,
+            "visual_average": visual_average,
+            "auditory_average": auditory_average,
+            "dialogue_average": dialogue_average,
+            "emotive_average": emotive_average,
+            "symbolism_average": symbolism_average,
+            }
+        }
     )
-    scores_array = list(scores_cursor)
-    flash(scores_array)
 
     # 2) RETURN THE FILM AS AN OBJECT
     #    WHILE RENDERING THE FILM'S OWN UNIQUE PAGE
@@ -282,11 +300,11 @@ def add_review(film_id):
     # 1) UPON SUBMIT (POST) ADD THE REVIEW & DISPLAY MESSAGE
     if request.method == "POST":
         metrics = {
-            "visual": int(request.form.get("visual")),
-            "auditory": int(request.form.get("auditory")),
-            "dialogue": int(request.form.get("dialogue")),
-            "emotive": int(request.form.get("emotive")),
-            "symbolism": int(request.form.get("symbolism"))
+            "visual": float(request.form.get("visual")),
+            "auditory": float(request.form.get("auditory")),
+            "dialogue": float(request.form.get("dialogue")),
+            "emotive": float(request.form.get("emotive")),
+            "symbolism": float(request.form.get("symbolism"))
         }
         metric_values = metrics.values()
         ultimate_score = sum(metric_values) / len(metric_values)
@@ -297,11 +315,11 @@ def add_review(film_id):
             "title": request.form.get("title"),
             "review": request.form.get("review"),
             "ultimate_score": ultimate_score,
-            "visual": int(request.form.get("visual")),
-            "auditory": int(request.form.get("auditory")),
-            "dialogue": int(request.form.get("dialogue")),
-            "emotive": int(request.form.get("emotive")),
-            "symbolism": int(request.form.get("symbolism")),
+            "visual": float(request.form.get("visual")),
+            "auditory": float(request.form.get("auditory")),
+            "dialogue": float(request.form.get("dialogue")),
+            "emotive": float(request.form.get("emotive")),
+            "symbolism": float(request.form.get("symbolism")),
             # i) member form field is disabled so we must set it here
             "member": session["member"]
         }

@@ -12,10 +12,18 @@
     <hr class="main-div">
     <!---------- DETAILS SECTION ----------->
     <h2 class="center-align">Details</h2>
-    {{ film.title }}<br>
-    {{ film.year }}<br>
-    {{ film.director }}<br>
-    {{ film.image_url }}<br><br>
+    <p>
+    TITLE: {{ film.title }}<br>
+    YEAR: {{ film.year }}<br>
+    DIRECTOR: {{ film.director }}<br>
+    IMAGE: {{ film.image_url }}<br>
+    ULTIMATE RATING: {{ film.ultimate_score }}<br>
+    VISUAL RATING: {{ film.visual_average }}<br>
+    AUDITORY RATING: {{ film.auditory_average }}<br>
+    DIALOGUE RATING: {{ film.dialogue_average }}<br>
+    EMOTIVE RATING: {{ film.emotive_average }}<br>
+    SYMBOLISM RATING: {{ film.symbolism_average }}<br><br>
+    </p>
     {% if session.member %}
         <div class="center-align">
             <a href="{{ url_for('edit_film', film_id=film._id) }}" class="waves-effect waves-light btn yellow black-text center-align"><i class="fas fa-pen left"></i>Edit Film</a>
