@@ -20,7 +20,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/index")
 def index():
-    films = mongo.db.films.find()
+    films = mongo.db.films.find().sort([("title", 1)])
     return render_template("index.html", films=films)
 
 
@@ -214,27 +214,33 @@ def add_film():
 @app.route("/film/<film_id>", methods=["GET", "POST"])
 def film(film_id):
     # 1) LOCATE THE FILM IN THE DATABASE USING THE ID
-
     # 2) LOCATE ALL ASSOCIATED REVIEWS IN THE DATABASE
     # 3) UPDATE THE FILM'S AVERAGE SCORE
-    scores = list(mongo.db.reviews.aggregate(
-        [{"$group": {
-            "_id": "$film_id",
-            "ultimate_score": {"$avg": "$ultimate_score"},
-            "visual_average": {"$avg": "$metrics.visual"},
-            "auditory_average": {"$avg": "$metrics.auditory"},
-            "dialogue_average": {"$avg": "$metrics.dialogue"},
-            "emotive_average": {"$avg": "$metrics.emotive"},
-            "symbolism_average": {"$avg": "$metrics.symbolism"},
+    film = mongo.db.films.find_one(
+        {"_id": ObjectId(film_id)})
+    flash("Film within function: " + film["title"])
+    scores = list(mongo.db.reviews.aggregate([
+            {"$match": {"film_id": film_id}},
+            {"$project": {
+                "ultimate_score": {"$avg": "$ultimate_score"},
+                "visual_average": {"$avg": "$metrics.visual"},
+                "auditory_average": {"$avg": "$metrics.auditory"},
+                "dialogue_average": {"$avg": "$metrics.dialogue"},
+                "emotive_average": {"$avg": "$metrics.emotive"},
+                "symbolism_average": {"$avg": "$metrics.symbolism"},
             }
         }]
     ))
+    flash("Scores list: " + str(scores))
+
     ultimate_score = scores[0]["ultimate_score"]
     visual_average = scores[0]["visual_average"]
     auditory_average = scores[0]["auditory_average"]
     dialogue_average = scores[0]["dialogue_average"]
     emotive_average = scores[0]["emotive_average"]
     symbolism_average = scores[0]["symbolism_average"]
+
+    flash("Ultimate Score: " + str(ultimate_score))
 
     mongo.db.films.find_one_and_update(
         {"_id": ObjectId(film_id)},
