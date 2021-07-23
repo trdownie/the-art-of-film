@@ -36,11 +36,11 @@
         {% if review.member == user.username %}
             {{ review.title }}<br>
             {{ review.review }}<br>
-            {{ review.metric_1 }}<br>
-            {{ review.metric_2 }}<br>
-            {{ review.metric_3 }}<br>
-            {{ review.metric_4 }}<br>
-            {{ review.metric_5 }}<br><br>
+            {{ review.visual }}<br>
+            {{ review.auditory }}<br>
+            {{ review.dialogue }}<br>
+            {{ review.emotive }}<br>
+            {{ review.symbolism }}<br><br>
             <hr class="minor-div">
         {% endif %}
     {% endfor %}

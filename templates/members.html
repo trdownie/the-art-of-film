@@ -39,11 +39,11 @@
         {% if review.member == session.member %}
             {{ review.title }}<br>
             {{ review.review }}<br>
-            {{ review.metric_1 }}<br>
-            {{ review.metric_2 }}<br>
-            {{ review.metric_3 }}<br>
-            {{ review.metric_4 }}<br>
-            {{ review.metric_5 }}<br><br>
+            {{ review.visual }}<br>
+            {{ review.auditory }}<br>
+            {{ review.dialogue }}<br>
+            {{ review.emotive }}<br>
+            {{ review.symbolism }}<br><br>
             <div class="center-align">
                 <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn yellow black-text center-align">
                     <i class="fas fa-pen left"></i>Edit Review</a>

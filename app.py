@@ -269,11 +269,11 @@ def add_review(film_id):
             "film_id": film_id,
             "title": request.form.get("title"),
             "review": request.form.get("review"),
-            "metric_1": request.form.get("metric_1"),
-            "metric_2": request.form.get("metric_2"),
-            "metric_3": request.form.get("metric_3"),
-            "metric_4": request.form.get("metric_4"),
-            "metric_5": request.form.get("metric_5"),
+            "visual": request.form.get("visual"),
+            "auditory": request.form.get("auditory"),
+            "dialogue": request.form.get("dialogue"),
+            "emotive": request.form.get("emotive"),
+            "symbolism": request.form.get("symbolism"),
             # i) member form field is disabled so we must set it here
             "member": session["member"]
         }
@@ -304,11 +304,11 @@ def edit_review(review_id):
             "film_id": review["film_id"],
             "title": request.form.get("title"),
             "review": request.form.get("review"),
-            "metric_1": request.form.get("metric_1"),
-            "metric_2": request.form.get("metric_2"),
-            "metric_3": request.form.get("metric_3"),
-            "metric_4": request.form.get("metric_4"),
-            "metric_5": request.form.get("metric_5"),
+            "visual": request.form.get("visual"),
+            "auditory": request.form.get("auditory"),
+            "dialogue": request.form.get("dialogue"),
+            "emotive": request.form.get("emotive"),
+            "symbolism": request.form.get("symbolism"),
             # ii) member form field is disabled so we must set it here
             "member": session["member"]
         }
