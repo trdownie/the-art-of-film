@@ -344,17 +344,27 @@ def edit_review(review_id):
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
     # 2) ON SUBMIT, UPDATE REVIEW DETAILS
     if request.method == "POST":
+        metrics = {
+            "visual": float(request.form.get("visual")),
+            "auditory": float(request.form.get("auditory")),
+            "dialogue": float(request.form.get("dialogue")),
+            "emotive": float(request.form.get("emotive")),
+            "symbolism": float(request.form.get("symbolism"))
+        }
+        metric_values = metrics.values()
+        ultimate_score = sum(metric_values) / len(metric_values)
         # a) create a new dict. that contains updated review details
         updated_review = {
             # i) film id is not a form field so we must obtain it here
             "film_id": review["film_id"],
             "title": request.form.get("title"),
             "review": request.form.get("review"),
-            "visual": request.form.get("visual"),
-            "auditory": request.form.get("auditory"),
-            "dialogue": request.form.get("dialogue"),
-            "emotive": request.form.get("emotive"),
-            "symbolism": request.form.get("symbolism"),
+            "ultimate_score": ultimate_score,
+            "visual": float(request.form.get("visual")),
+            "auditory": float(request.form.get("auditory")),
+            "dialogue": float(request.form.get("dialogue")),
+            "emotive": float(request.form.get("emotive")),
+            "symbolism": float(request.form.get("symbolism")),
             # ii) member form field is disabled so we must set it here
             "member": session["member"]
         }
