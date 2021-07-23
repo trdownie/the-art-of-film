@@ -222,11 +222,11 @@ def film(film_id):
         [{"$group": {
             "_id": film_id,
             "ultimate_score": {"$avg": "$ultimate_score"},
-            "visual_average": {"$avg": "$visual"},
-            "auditory_average": {"$avg": "$auditory"},
-            "dialogue_average": {"$avg": "$dialogue"},
-            "emotive_average": {"$avg": "$emotive"},
-            "symbolism_average": {"$avg": "$symbolism"},
+            "visual_average": {"$avg": "$metrics.visual"},
+            "auditory_average": {"$avg": "$metrics.auditory"},
+            "dialogue_average": {"$avg": "$metrics.dialogue"},
+            "emotive_average": {"$avg": "$metrics.emotive"},
+            "symbolism_average": {"$avg": "$metrics.symbolism"},
             }
         }]
     ))
@@ -306,20 +306,14 @@ def add_review(film_id):
             "emotive": float(request.form.get("emotive")),
             "symbolism": float(request.form.get("symbolism"))
         }
-        metric_values = metrics.values()
-        ultimate_score = sum(metric_values) / len(metric_values)
-
+        ultimate_score = sum(metrics.values()) / len(metrics.values())
         # a) create review dict. that contains form elments
         review = {
             "film_id": film_id,
             "title": request.form.get("title"),
             "review": request.form.get("review"),
             "ultimate_score": ultimate_score,
-            "visual": float(request.form.get("visual")),
-            "auditory": float(request.form.get("auditory")),
-            "dialogue": float(request.form.get("dialogue")),
-            "emotive": float(request.form.get("emotive")),
-            "symbolism": float(request.form.get("symbolism")),
+            "metrics": metrics,
             # i) member form field is disabled so we must set it here
             "member": session["member"]
         }
@@ -344,15 +338,14 @@ def edit_review(review_id):
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
     # 2) ON SUBMIT, UPDATE REVIEW DETAILS
     if request.method == "POST":
-        metrics = {
+        updated_metrics = {
             "visual": float(request.form.get("visual")),
             "auditory": float(request.form.get("auditory")),
             "dialogue": float(request.form.get("dialogue")),
             "emotive": float(request.form.get("emotive")),
             "symbolism": float(request.form.get("symbolism"))
         }
-        metric_values = metrics.values()
-        ultimate_score = sum(metric_values) / len(metric_values)
+        ultimate_score = sum(updated_metrics.values()) / len(updated_metrics.values())
         # a) create a new dict. that contains updated review details
         updated_review = {
             # i) film id is not a form field so we must obtain it here
@@ -360,11 +353,7 @@ def edit_review(review_id):
             "title": request.form.get("title"),
             "review": request.form.get("review"),
             "ultimate_score": ultimate_score,
-            "visual": float(request.form.get("visual")),
-            "auditory": float(request.form.get("auditory")),
-            "dialogue": float(request.form.get("dialogue")),
-            "emotive": float(request.form.get("emotive")),
-            "symbolism": float(request.form.get("symbolism")),
+            "metrics": updated_metrics,
             # ii) member form field is disabled so we must set it here
             "member": session["member"]
         }

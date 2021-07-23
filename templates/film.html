@@ -44,11 +44,11 @@
             by <a href="{{ url_for('profile', username=review.member) }}" >{{ review.member }}</a>
         </div>
         {{ review.review }}<br>
-        {{ review.visual }}<br>
-        {{ review.auditory }}<br>
-        {{ review.dialogue }}<br>
-        {{ review.emotive }}<br>
-        {{ review.symbolism }}<br><br>
+        {{ review.metrics.visual }}<br>
+        {{ review.metrics.auditory }}<br>
+        {{ review.metrics.dialogue }}<br>
+        {{ review.metrics.emotive }}<br>
+        {{ review.metrics.symbolism }}<br><br>
         {% if session.member %}
         <div class="center-align">
             <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn yellow black-text center-align">
