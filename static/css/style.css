@@ -29,5 +29,8 @@ body {
 
 .profile {
     width: 100%;
+    display: inline;
+    visibility: visible;
+    
 }
 
