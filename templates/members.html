@@ -14,10 +14,10 @@
             <h5 class="left-align">Quote: "{{ member.quote }}"</h5>
             <h5 class="left-align">Character: {{ member.character }}</h5>
             <h5 class="left-align">Creator: {{ member.creator }}</h5>
+            <div class="spacer">
+                <a href="{{ url_for('edit_member', member_id=member._id) }}" class="waves-effect waves-light btn yellow black-text center-align"><i class="fas fa-pen left"></i>Edit Profile</a>
+            </div>
         </div>
-    </div>
-    <div class="center-align">
-        <a href="{{ url_for('edit_member', member_id=member._id) }}" class="waves-effect waves-light btn yellow black-text center-align"><i class="fas fa-pen left"></i>Edit Profile</a>
     </div>
     <hr class="main-div">
     <!---------- FILMS SECTION ----------->
