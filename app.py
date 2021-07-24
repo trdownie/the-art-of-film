@@ -25,6 +25,14 @@ def index():
     return render_template("index.html", films=films)
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    # 1) SORT FILMS, 1ST DESCENDING BY ULTIMATE SCORE, SECOND BY TITLE
+    films = mongo.db.films.find({"$text": {"$search": query}}).sort([("ultimate_score", -1), ("title", 1)])
+    return render_template("index.html", films=films)
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":

@@ -2,6 +2,23 @@
 {% block content %}
     <h1 class="center-align">The Art of Film</h1>
 
+    <div class="row">
+        <form class="col s12 m6 offset-m3" method="post" action="{{ url_for('search') }}">
+            <div class="row valign-wrapper">
+                <div class="col input-field s9">
+                    <input class="white-text" type="text" name="query" id="query" minlength="3" required>
+                    <label for="query">Search Films</label>
+                </div>
+                <div class="col s3">
+                    <button type="submit" class="btn grey darken-3">
+                        <i class="fas fa-search green-text"></i>
+                    </button>
+                    <a href="{{ url_for('index') }}" class="btn grey darken-3"><i class="fas fa-undo blue-text"></i></a>
+                </div>
+            </div>
+        </form>
+    </div>
+
     {% for film in films %}
         {{ film.ultimate_score|round(1) }}<br>
         {{ film.title }}<br>
