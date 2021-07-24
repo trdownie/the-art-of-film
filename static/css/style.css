@@ -18,11 +18,11 @@ body {
 }
 
 .main-div {
-    border-top: 5px solid white;
+    border-top: 2px solid white;
 }
 
 .minor-div {
-    border-top: 5px solid white;
+    border-top: 2px solid white;
     border-radius: 5px;
     width: 25%;
 }
@@ -31,6 +31,6 @@ body {
     width: 100%;
     display: inline;
     visibility: visible;
-    
+
 }
 
