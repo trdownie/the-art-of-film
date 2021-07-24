@@ -25,10 +25,12 @@
             {% if film.member == session.member %}
                 <p class="lg-text"><b>{{ film.title }}</b></p>
                 <p class="md-text">{{ film.director }}<br>
-                    ({{ film.year }})</p><br>
+                    ({{ film.year }})</p>
                 <a href="{{ url_for('film', film_id=film._id) }}">See more</a>
-                {% if loop.last == False %}
-                    <hr class="minor-div">
+                {% if loop.first %}
+                    {% if loop.last == False %}
+                        <hr class="minor-div">
+                    {% endif %}
                 {% endif %}
             {% endif %}
         {% endfor %}
@@ -36,24 +38,24 @@
     <hr class="main-div">
 <!-------------------------------------------- REVIEWS -->
     <h2 class="center-align">Reviews</h2>
-        <div class="center-align">
-            {% for review in reviews %}
-                {% if review.member == session.member %}
-                    <p class="xl-text"><b>{{ review.title }}</b></p>
-                    <p class="md-text">{{ review.review }}</p>
-                    <p>VISUAL APPEAL: {{ review.metrics.visual }}<br>
-                    AUDITORY APPEAL: {{ review.metrics.auditory }}<br>
-                    DIALOGUE: {{ review.metrics.dialogue }}<br>
-                    EMOTIVE IMPACT: {{ review.metrics.emotive }}<br>
-                    SYMBOLISM: {{ review.metrics.symbolism }}</p><br>
-                    <div class="center-align">
-                        <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn yellow black-text center-align">
-                            <i class="fas fa-pen left"></i>Edit Review</a>
-                    </div>
-                    {% if loop.last == False %}
-                        <hr class="minor-div">
-                    {% endif %}
+    <div class="center-align">
+        {% for review in reviews %}
+            {% if review.member == session.member %}
+                <p class="xl-text"><b>{{ review.title }}</b></p>
+                <p class="md-text">{{ review.review }}</p>
+                <p>VISUAL APPEAL: {{ review.metrics.visual }}<br>
+                AUDITORY APPEAL: {{ review.metrics.auditory }}<br>
+                DIALOGUE: {{ review.metrics.dialogue }}<br>
+                EMOTIVE IMPACT: {{ review.metrics.emotive }}<br>
+                SYMBOLISM: {{ review.metrics.symbolism }}<br></p>
+                <div class="center-align">
+                    <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn yellow black-text center-align">
+                        <i class="fas fa-pen left"></i>Edit Review</a>
+                </div>
+                {% if loop.last == False %}
+                    <hr class="minor-div">
                 {% endif %}
-            {% endfor %}
-        </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 {% endblock %}
