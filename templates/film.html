@@ -6,7 +6,7 @@
     <h2 class="center-align"><b>{{ film.ultimate_score|round(1) }}</b></h2>
     <!---------- SUMMARY SECTION ----------->
     <h2 class="center-align">Summary</h2>
-    SYNOPSIS: {{ film.synopsis }}<br><br>
+    SYNOPSIS: {{ film.synopsis }}<br>
     <div>
         <p>Added by <a href="{{ url_for('profile', username=film.member) }}" >{{ film.member }}</a></p>
     </div>
@@ -14,14 +14,14 @@
     <!---------- DETAILS SECTION ----------->
     <h2 class="center-align">Details</h2>
     <p>
-    TITLE: {{ film.title }}<br>
-    YEAR: {{ film.year }}<br>
-    DIRECTOR: {{ film.director }}<br>
-    VISUAL RATING: {{ film.visual_average|round(1) }}<br>
-    AUDITORY RATING: {{ film.auditory_average|round(1) }}<br>
-    DIALOGUE RATING: {{ film.dialogue_average|round(1) }}<br>
-    EMOTIVE RATING: {{ film.emotive_average|round(1) }}<br>
-    SYMBOLISM RATING: {{ film.symbolism_average|round(1) }}<br><br>
+    <h5>{{ film.title }}</h5>
+    <h6>{{ film.year }}</h6>
+    Directed by <b>{{ film.director }}</b><br><br>
+    VISUAL APPEAL: <b>{{ film.visual_average|round(1) }}</b><br>
+    AUDITORY APPEAL: <b>{{ film.auditory_average|round(1) }}</b><br>
+    DIALOGUE: <b>{{ film.dialogue_average|round(1) }}</b><br>
+    EMOTIVE IMPACT: <b>{{ film.emotive_average|round(1) }}</b><br>
+    SYMBOLISM: <b>{{ film.symbolism_average|round(1) }}</b><br><br>
     </p>
     {% if session.member %}
         <div class="center-align">
@@ -38,16 +38,16 @@
     {% endif %}
 
     {% for review in reviews %}
-        <p>{{ review.title }}</p>
+        <h5>{{ review.title }}</h5>
         <div>
             by <a href="{{ url_for('profile', username=review.member) }}" >{{ review.member }}</a>
         </div>
-        {{ review.review }}<br>
-        {{ review.metrics.visual }}<br>
-        {{ review.metrics.auditory }}<br>
-        {{ review.metrics.dialogue }}<br>
-        {{ review.metrics.emotive }}<br>
-        {{ review.metrics.symbolism }}<br><br>
+        <br>{{ review.review }}<br><br>
+        VISUAL APPEAL: {{ review.metrics.visual }}<br>
+        AUDITORY APPEAL: {{ review.metrics.auditory }}<br>
+        DIALOGUE: {{ review.metrics.dialogue }}<br>
+        EMOTIVE IMPACT: {{ review.metrics.emotive }}<br>
+        SYMBOLISM: {{ review.metrics.symbolism }}<br><br>
         {% if session.member %}
         <div class="center-align">
             <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn yellow black-text center-align">
