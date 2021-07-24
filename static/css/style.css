@@ -43,14 +43,26 @@ body {
     margin-top: 50px;
 }
 
+.md-text {
+    font-size: 1.5rem;
+    margin-top: 0px;
+}
+
 .lg-text {
     font-size: 1.5rem;
+    margin-top: 0px;
 }
 
 .xl-text {
     font-size: 2rem;
+    margin-top: 0px;
 }
 
 .xxl-text {
     font-size: 2.5rem;
+    margin-top: 0px;
+}
+
+.affiliate {
+    margin-top: 20px;
 }

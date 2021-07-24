@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+<!-------------------------------------------- HEADER -->
     <h1 class="center-align">The Art of Film</h1>
-
+<!-------------------------------------------- SEARCH BAR -->
     <div class="row">
         <form class="col s12 m8 offset-m2" method="post" action="{{ url_for('search') }}">
             <div class="row valign-wrapper">
@@ -18,7 +19,7 @@
             </div>
         </form>
     </div>
-
+<!-------------------------------------------- INDEX -->
     <div class="row">
         <div class="col s12 m4 offset-m4 center-align">
             {% for film in films %}
@@ -33,5 +34,4 @@
             {% endfor %}
         </div>
     </div>
-
 {% endblock %}
