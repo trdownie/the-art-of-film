@@ -37,6 +37,12 @@ def search():
     return render_template("index.html", films=films)
 
 
+@app.route("/about")
+def about():
+    # 1) RENDER THE ABOUT TEMPLATE
+    return render_template("about.html")
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":

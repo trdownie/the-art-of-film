@@ -29,7 +29,9 @@
             {{ film.director }}<br>
             {{ film.image_url }}<br><br>
             <a href="{{ url_for('film', film_id=film._id) }}">See more</a>
-            <hr class="minor-div">
+            {% if loop.last == False %}
+                <hr class="minor-div">
+            {% endif %}
         {% endif %}
     {% endfor %}
     <hr class="main-div">
