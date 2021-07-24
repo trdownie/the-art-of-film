@@ -21,13 +21,14 @@
     <h2 class="center-align">Films</h2>
     {% for film in films %}
         {% if film.member == user.username %}
-            {{ film.title }}<br>
-            {{ film.year }}<br>
+            <h5>{{ film.title }}</h5>
             {{ film.director }}<br>
-            {{ film.image_url }}<br><br>
+            ({{ film.year }})<br><br>
             <a href="{{ url_for('film', film_id=film._id) }}">See more</a>
-            {% if loop.last == False %}
-                <hr class="minor-div">
+            {% if loop.first %}
+                {% if loop.last == False %}
+                    <hr class="minor-div">
+                {% endif %}
             {% endif %}
         {% endif %}
     {% endfor %}
@@ -36,13 +37,13 @@
     <h2 class="center-align">Reviews</h2>
     {% for review in reviews %}
         {% if review.member == user.username %}
-            {{ review.title }}<br>
-            {{ review.review }}<br>
-            {{ review.visual }}<br>
-            {{ review.auditory }}<br>
-            {{ review.dialogue }}<br>
-            {{ review.emotive }}<br>
-            {{ review.symbolism }}<br><br>
+        <h5>{{ review.title }}</h5>
+        {{ review.review }}<br>
+        VISUAL APPEAL: {{ review.metrics.visual }}<br>
+        AUDITORY APPEAL: {{ review.metrics.auditory }}<br>
+        DIALOGUE: {{ review.metrics.dialogue }}<br>
+        EMOTIVE IMPACT: {{ review.metrics.emotive }}<br>
+        SYMBOLISM: {{ review.metrics.symbolism }}<br><br>
             {% if loop.last == False %}
                 <hr class="minor-div">
             {% endif %}

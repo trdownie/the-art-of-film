@@ -24,10 +24,9 @@
     <h2 class="center-align">Films</h2>
     {% for film in films %}
         {% if film.member == session.member %}
-            {{ film.title }}<br>
-            {{ film.year }}<br>
+            <h5>{{ film.title }}</h5>
             {{ film.director }}<br>
-            {{ film.image_url }}<br><br>
+            ({{ film.year }})<br><br>
             <a href="{{ url_for('film', film_id=film._id) }}">See more</a>
             {% if loop.last == False %}
                 <hr class="minor-div">
@@ -39,13 +38,13 @@
     <h2 class="center-align">Reviews</h2>
     {% for review in reviews %}
         {% if review.member == session.member %}
-            {{ review.title }}<br>
+            <h5>{{ review.title }}</h5>
             {{ review.review }}<br>
-            {{ review.visual }}<br>
-            {{ review.auditory }}<br>
-            {{ review.dialogue }}<br>
-            {{ review.emotive }}<br>
-            {{ review.symbolism }}<br><br>
+            VISUAL APPEAL: {{ review.metrics.visual }}<br>
+            AUDITORY APPEAL: {{ review.metrics.auditory }}<br>
+            DIALOGUE: {{ review.metrics.dialogue }}<br>
+            EMOTIVE IMPACT: {{ review.metrics.emotive }}<br>
+            SYMBOLISM: {{ review.metrics.symbolism }}<br><br>
             <div class="center-align">
                 <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn yellow black-text center-align">
                     <i class="fas fa-pen left"></i>Edit Review</a>

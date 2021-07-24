@@ -20,12 +20,12 @@
     </div>
 
     <div class="row">
-        <div class="col s12 m8 offset-m2">
+        <div class="col s12 m4 offset-m4 center-align">
             {% for film in films %}
-                {{ film.ultimate_score|round(1) }}<br>
-                {{ film.title }}<br>
-                {{ film.year }}<br>
-                {{ film.director }}<br>
+                <h5>{{ film.ultimate_score|round(1) }}</h5><br>
+                <b>{{ film.title }}</b><br>
+                ({{ film.year }})<br>
+                {{ film.director }}<br><br>
                 <a href="{{ url_for('film', film_id=film._id) }}">See more</a>
                 {% if loop.last == False %}
                 <hr class="minor-div">
