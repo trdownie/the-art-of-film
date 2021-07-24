@@ -27,9 +27,13 @@ def index():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
+    # 1) DEFINE A QUERY CONTAINING SEARCH BAR INPUT
     query = request.form.get("query")
-    # 1) SORT FILMS, 1ST DESCENDING BY ULTIMATE SCORE, SECOND BY TITLE
-    films = mongo.db.films.find({"$text": {"$search": query}}).sort([("ultimate_score", -1), ("title", 1)])
+    # 2) FIND FILMS THAT MATCH THIS QUERY AND SORT THEM AS ABOVE
+    films = mongo.db.films.find(
+        {"$text": {"$search": query}}).sort(
+            [("ultimate_score", -1), ("title", 1)])
+    # 3) PASS FILTERED AND SORTED FILM LIST INTO INDEX
     return render_template("index.html", films=films)
 
 
