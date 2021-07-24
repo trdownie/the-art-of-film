@@ -50,7 +50,9 @@
                 <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn yellow black-text center-align">
                     <i class="fas fa-pen left"></i>Edit Review</a>
             </div>
-            <hr class="minor-div">
+            {% if loop.last == False %}
+                <hr class="minor-div">
+            {% endif %}
         {% endif %}
     {% endfor %}
 {% endblock %}

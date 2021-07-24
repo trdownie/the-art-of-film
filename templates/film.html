@@ -55,6 +55,8 @@
                 <i class="fas fa-pen left"></i>Edit Review</a>
         </div>
         {% endif %}
-        <hr class="minor-div">
+        {% if loop.last == False %}
+            <hr class="minor-div">
+        {% endif %}
     {% endfor %}
 {% endblock %}
