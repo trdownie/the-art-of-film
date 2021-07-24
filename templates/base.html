@@ -15,12 +15,11 @@
     <title>The Art of Film</title>
 </head>
 <body>
-
     <header>
-        <!-- main navbar -->
+        <!-------------------------------------------- NAVBAR -->
         <nav class="nav-extended transparent z-depth-0">
             <div class="nav-wrapper">
-                <a href="{{ url_for('index') }}" class="brand-logo">Logo</a>
+                <a href="{{ url_for('index') }}" class="brand-logo">A|F</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('index') }}">Home</a></li>
@@ -36,8 +35,7 @@
                 </ul>
             </div>
         </nav>
-        
-        <!-- mobile sidenav -->
+        <!-------------------------------------------- MOBILE SIDENAV -->
         <ul class="sidenav" id="mobile-demo">
             <li><h4 class="center-align dark-text">LOGO</a></li>
             <li><a href="{{ url_for('index') }}">Home</a></li>
@@ -52,9 +50,9 @@
             <li><a href="{{ url_for('about') }}">About</a></li>
         </ul>
     </header>
-
+    <!-------------------------------------------- FLASH MESSAGES -->
     <section>
-        <!-- display flash messages -->
+        <h2 class="hidden">Notifications</h2>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -65,25 +63,23 @@
             {% endif %}
         {% endwith %}
     </section>
-
-    <div class="container s12 m10 offset-m1">
+    <!-------------------------------------------- CHILD TEMPLATES -->
+    <section class="container s12 m10 offset-m1">
+        <h2 class="hidden">Main Content</h2>
         {% block content %}
-
         {% endblock %}
-
+        <!-------------------------------------------- AFFILIATE BOX -->
         <div class="row affiliate">
             <div class="col s6 offset-s3 center-align grey darken-3">
-                <h5>Ready to watch a movie?</h5>
+                <h3 class="lg-text">Ready to watch a movie?</h3>
                 <p>Amazon's Prime Video has a constantly increasing catalogue of films,
                     but it also allows for the rental and purchase of almost any film you can think of.</p>
                 <a class="center-align" target="_blank" href="https://www.amazon.com/gp/search?ie=UTF8&tag=wildapeventur-20&linkCode=ur2&linkId=84797582b0b79cd03c9f2f8a39722e95&camp=1789&creative=9325&index=instant-video&keywords=prime video">Visit Prime</a>
                 <p>(The Art of Film makes a minor commision if you use this link and purchase something from Amazon. This does not impact the price you pay.)</p>
             </div>
         </div>
-    </div>
-
-
-
+    </section>
+    <!-------------------------------------------- END OF CONTENT -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
