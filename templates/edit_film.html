@@ -1,58 +1,63 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="center-align">Edit Film</h1>
-
-
-<div class="row">
-    <form class="col s12 m8 l6 offset-m2 offset-l3" method="POST" action="{{ url_for('edit_film', film_id=film_id) }}">
-        <div class="row">
-            <div class="input-field col s12 field">
-                <input value="{{ film.title }}" id="title" name="title" type="text" class="">
-                <label for="title">Title</label>
+    <!-------------------------------------------- HEADER -->
+    <h1 class="center-align">Edit Film</h1>
+    <!-------------------------------------------- EDIT FILM FORM -->
+    <section class="row">
+        <h2 class="hidden">Edit Film Form</h2>
+        <form class="col s12 m10 l8 offset-m1 offset-l2" method="POST" action="{{ url_for('edit_film', film_id=film_id) }}">
+            <!------------- film title -->
+            <div class="row">
+                <div class="input-field col s12 field">
+                    <input value="{{ film.title }}" id="title" name="title" type="text" class="">
+                    <label for="title">Title</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 field">
-                <input  value="{{ film.year }}" id="year" name="year" type="text" class="">
-                <label for="year">Year</label>
+            <!------------- film year -->
+            <div class="row">
+                <div class="input-field col s12 field">
+                    <input  value="{{ film.year }}" id="year" name="year" type="text" class="">
+                    <label for="year">Year</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 field">
-                <input  value="{{ film.director }}" id="director" name="director" type="text" class="">
-                <label for="director">Director</label>
+            <!------------- film director -->
+            <div class="row">
+                <div class="input-field col s12 field">
+                    <input  value="{{ film.director }}" id="director" name="director" type="text" class="">
+                    <label for="director">Director</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 field">
-                <textarea id="synopsis" name="synopsis"class="materialize-textarea">
-                    {{- film.synopsis -}}
-                </textarea>
-                <label for="synopsis">Synopsis</label>
+            <!------------- film synopsis -->
+            <div class="row">
+                <div class="input-field col s12 field">
+                    <textarea id="synopsis" name="synopsis"class="materialize-textarea">
+                        {{- film.synopsis -}}
+                    </textarea>
+                    <label for="synopsis">Synopsis</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 field">
-                <input  value="{{ film.image_url }}" id="image_url" name="image_url" type="text" class="">
-                <label for="image_url">Image URL</label>
+            <!------------- film image url -->
+            <div class="row">
+                <div class="input-field col s12 field">
+                    <input  value="{{ film.image_url }}" id="image_url" name="image_url" type="text" class="">
+                    <label for="image_url">Image URL</label>
+                </div>
             </div>
-        </div>
-        <div class="chips chips-placeholder chips-autocomplete field"></div>
-        <div class="row">
-            <div class="input-field col s12 field">
-                <input disabled value="{{ session['member'] }}" name="member" id="member">
-                <label for="member" class=""></label>
+            <!------------- film tag: tbc -->
+            <div class="chips chips-placeholder chips-autocomplete field"></div>
+            <!------------- submitting member: disabled -->
+            <div class="row">
+                <div class="input-field col s12 field">
+                    <input disabled value="{{ session['member'] }}" name="member" id="member">
+                    <label for="member" class=""></label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">Save</button>
-            <a href="{{ url_for('delete_film', film_id=film_id) }}" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small red white-text">Delete Film</a>
-            <a href="{{ url_for('film', film_id=film_id) }}" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small teal black-text">Cancel</a>
-        </div>
-
-    </form>
-  </div>
-        
-
-
+            <!------------- submit button -->
+            <div class="row">
+                <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">Save</button>
+                <a href="{{ url_for('delete_film', film_id=film_id) }}" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small red white-text">Delete Film</a>
+                <a href="{{ url_for('film', film_id=film_id) }}" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small teal black-text">Cancel</a>
+            </div>
+        </form>
+    </section>
 {% endblock %}
