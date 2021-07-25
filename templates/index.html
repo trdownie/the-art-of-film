@@ -3,7 +3,8 @@
 <!-------------------------------------------- HEADER -->
     <h1 class="center-align">The Art of Film</h1>
 <!-------------------------------------------- SEARCH BAR -->
-    <div class="row">
+    <section class="row">
+        <h2 class="hidden">Search Bar</h2>
         <form class="col s12 m8 offset-m2" method="post" action="{{ url_for('search') }}">
             <div class="row valign-wrapper">
                 <div class="col input-field s9">
@@ -18,21 +19,22 @@
                 </div>
             </div>
         </form>
-    </div>
+    </section>
 <!-------------------------------------------- INDEX -->
-    <div class="row">
+    <section class="row">
+        <h2 class="hidden">Main Index</h2>
         <div class="col s12 m4 offset-m4 center-align">
             {% for film in films %}
                 <p>
-                    <span class="">{{ film.ultimate_score|round(1) }}</h3>
-                    <p class="lg-text"><a href="{{ url_for('film', film_id=film._id) }}">{{ film.title }}</a></p>
-                    <h5>({{ film.year }})</h5>
-                    <h5>{{ film.director }}</h5>
+                    <span class="xxl-text"><b>{{ film.ultimate_score|round(1) }}</b><br>
+                    <span class="xl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></span><br>
+                    <span class="lg-text">({{ film.year }})</span><br>
+                    <span class="lg-text">{{ film.director }}</span>
                 </p>
                 {% if loop.last == False %}
-                <hr class="minor-div">
+                    <hr class="minor-div">
                 {% endif %}
             {% endfor %}
         </div>
-    </div>
+    </section>
 {% endblock %}

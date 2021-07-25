@@ -18,8 +18,8 @@ body {
     color: #272727;
 }
 
-.btn-small {
-    margin: 5px;
+.btn, .btn-small {
+    margin-bottom: 10px;
 }
 
 .main-div {
@@ -29,7 +29,6 @@ body {
 .minor-div {
     border-top: 2px solid white;
     border-radius: 5px;
-    width: 25%;
 }
 
 .profile {
@@ -69,10 +68,23 @@ body {
 }
 
 .affiliate {
-    margin-top: 20px;
-    padding-top: 20px;
+    margin: 20px 0px;
 }
 
 .hidden {
     display: none;
+}
+
+a {
+    color: goldenrod;
+}
+
+.parent {
+    height: 300px;
+    position: relative;
+}
+
+.child {
+    position: absolute;
+    bottom: 0;
 }
