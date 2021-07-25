@@ -23,11 +23,12 @@
     <div class="row">
         <div class="col s12 m4 offset-m4 center-align">
             {% for film in films %}
-                <h3>{{ film.ultimate_score|round(1) }}</h3>
-                <h4>{{ film.title }}</h4>
-                <h5>({{ film.year }})</h5>
-                <h5>{{ film.director }}</h5><br>
-                <a href="{{ url_for('film', film_id=film._id) }}">See more</a>
+                <p>
+                    <span class="">{{ film.ultimate_score|round(1) }}</h3>
+                    <p class="lg-text"><a href="{{ url_for('film', film_id=film._id) }}">{{ film.title }}</a></p>
+                    <h5>({{ film.year }})</h5>
+                    <h5>{{ film.director }}</h5>
+                </p>
                 {% if loop.last == False %}
                 <hr class="minor-div">
                 {% endif %}
