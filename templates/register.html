@@ -1,34 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="center-align">Register</h1>
-
-<div class="row">
-  <form class="col s10 m8 l6 offset-m2 offset-l3 offset-s1" method="POST" action="{{ url_for('register') }}">
-    <div class="card-panel white">
-      <!-- username -->
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="fas fa-user-plus prefix grey-text"></i>
-          <input id="username" name="username" type="text" minlength="3" maxlength="20"
-            pattern="^[a-zA-Z0-9]{3,20}$" class="validate" required>
-          <label for="username">Username</label>
-        </div>
-      </div>
-      <!-- password -->
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="fas fa-user-lock prefix grey-text"></i>
-          <input id="password" name="password" type="password" minlength="8" maxlength="20"
-            pattern="^[a-zA-Z0-9]{8,20}$" class="validate" required>
-          <label for="password">Password</label>
-        </div>
-      </div>
-      <!-- submit -->
-      <div class="row">
-        <button type="submit" class="col s12 btn-large grey white-text">Submit</button>
-      </div>
-    </div>
-  </form>
-</div>
-
+    <!-------------------------------------------- HEADER -->
+    <h1 class="center-align">Register</h1>
+    <!-------------------------------------------- REGISTER FORM -->
+    <section class="row">
+        <h2 class="hidden">Register Form</h2>
+        <form class="col s12 m10 l8 offset-m1 offset-l2" method="POST" action="{{ url_for('register') }}">
+            <div class="card-panel grey darken-3 z-depth-5">
+                <!------------- username -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-plus prefix white-text"></i>
+                        <input id="username" name="username" type="text" minlength="3" maxlength="20"
+                            pattern="^[a-zA-Z0-9]{3,20}$" class="validate white-text" required>
+                        <label for="username" class="white-text">Username</label>
+                    </div>
+                </div>
+                <!------------- password -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-lock prefix white-text"></i>
+                        <input id="password" name="password" type="password" minlength="8" maxlength="20"
+                            pattern="^[a-zA-Z0-9]{8,20}$" class="validate white-text" required>
+                        <label for="password" class="white-text">Password</label>
+                    </div>
+                </div>
+                <!------------- submit button -->
+                <div class="row">
+                    <button type="submit" class="col s12 btn-large grey white-text">Submit</button>
+                </div>
+            </div>
+        </form>
+    </section>
 {% endblock %}

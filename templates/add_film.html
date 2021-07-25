@@ -6,53 +6,55 @@
     <section class="row">
         <h2 class="hidden">Add Film Form</h2>
         <form class="col s12 m10 l8 offset-m1 offset-l2" method="POST" action="{{ url_for('add_film') }}">
-            <!------------- film title -->
-            <div class="row">
-                <div class="input-field col s12 field">
-                    <input id="title" name="title" type="text" class="">
-                    <label for="title">Title</label>
+            <div class="card-panel grey darken-3 z-depth-5">
+                <!------------- film title -->
+                <div class="row">
+                    <div class="input-field col s12 field">
+                        <input id="title" name="title" type="text" class="white-text">
+                        <label for="title" class="white-text">Title</label>
+                    </div>
                 </div>
-            </div>
-            <!------------- film year -->
-            <div class="row">
-                <div class="input-field col s12 field">
-                    <input id="year" name="year" type="text" class="">
-                    <label for="year">Year</label>
+                <!------------- film year -->
+                <div class="row">
+                    <div class="input-field col s12 field">
+                        <input id="year" name="year" type="text" class="white-text">
+                        <label for="year" class="white-text">Year</label>
+                    </div>
                 </div>
-            </div>
-            <!------------- film director -->
-            <div class="row">
-                <div class="input-field col s12 field">
-                    <input id="director" name="director" type="text" class="">
-                    <label for="director">Director</label>
+                <!------------- film director -->
+                <div class="row">
+                    <div class="input-field col s12 field">
+                        <input id="director" name="director" type="text" class="white-text">
+                        <label for="director" class="white-text">Director</label>
+                    </div>
                 </div>
-            </div>
-            <!------------- film synopsis -->
-            <div class="row">
-                <div class="input-field col s12 field">
-                    <textarea id="synopsis" name="synopsis"class="materialize-textarea"></textarea>
-                    <label for="synopsis">Synopsis</label>
+                <!------------- film synopsis -->
+                <div class="row">
+                    <div class="input-field col s12 field">
+                        <textarea id="synopsis" name="synopsis"class="materialize-textarea white-text"></textarea>
+                        <label for="synopsis" class="white-text">Synopsis</label>
+                    </div>
                 </div>
-            </div>
-            <!------------- film image url -->
-            <div class="row">
-                <div class="input-field col s12 field">
-                    <input id="image_url" name="image_url" type="text" class="">
-                    <label for="image_url">Image URL</label>
+                <!------------- film image url -->
+                <div class="row">
+                    <div class="input-field col s12 field">
+                        <input id="image_url" name="image_url" type="text" class="white-text">
+                        <label for="image_url" class="white-text">Image URL</label>
+                    </div>
                 </div>
-            </div>
-            <!------------- film tag: tbc -->
-            <div class="chips chips-placeholder-1 chips-autocomplete-1 field"></div>
-            <!------------- submitting member: disabled -->
-            <div class="row">
-                <div class="input-field col s12 field">
-                    <input disabled value="{{ session['member'] }}" name="member" id="member">
-                    <label for="member" class=""></label>
+                <!------------- film tag: tbc -->
+                <div class="chips chips-placeholder-1 chips-autocomplete-1 field"></div>
+                <!------------- submitting member: disabled -->
+                <div class="row">
+                    <div class="input-field col s12 field">
+                        <input disabled value="{{ session['member'] }}" name="member" id="member" class="white-text">
+                        <label for="member" class="white-text"></label>
+                    </div>
                 </div>
-            </div>
-            <!------------- submit button -->
-            <div class="row">
-                <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">Save</button>
+                <!------------- submit button -->
+                <div class="row">
+                    <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">Save</button>
+                </div>
             </div>
         </form>
     </section>

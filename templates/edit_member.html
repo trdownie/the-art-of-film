@@ -5,55 +5,57 @@
     <!-------------------------------------------- EDIT MEMBER FORM -->
     <section class="row">
         <h2 class="center-align">{{ member.username }}</h2>
-        <form class="col s12 m8 l6 offset-m2 offset-l3" method="POST" action="{{ url_for('edit_member', member_id=member._id) }}">
-            <!------------- tagline -->
-            <div class="row">
-                <div class="input-field col s12 field">
-                    <input value="{{ member.tagline }}" id="tagline" name="tagline" type="text" class="">
-                    <label for="tagline">Tagline</label>
+        <form class="col s12 m10 l8 offset-m1 offset-l2" method="POST" action="{{ url_for('edit_member', member_id=member._id) }}">
+            <div class="card-panel grey darken-3 z-depth-5">
+                <!------------- tagline -->
+                <div class="row">
+                    <div class="input-field col s12 field">
+                        <input value="{{ member.tagline }}" id="tagline" name="tagline" type="text" class="white-text">
+                        <label for="tagline" class="white-text">Tagline</label>
+                    </div>
                 </div>
-            </div>
-            <!------------- film -->
-            <div class="row">
-                <div class="input-field col s12 field">
-                    <input  value="{{ member.film }}" id="film" name="film" type="text" class="">
-                    <label for="film">Film</label>
+                <!------------- film -->
+                <div class="row">
+                    <div class="input-field col s12 field">
+                        <input  value="{{ member.film }}" id="film" name="film" type="text" class="white-text">
+                        <label for="film" class="white-text">Film</label>
+                    </div>
                 </div>
-            </div>
-            <!------------- quote -->
-            <div class="row">
-                <div class="input-field col s12 field">
-                    <input  value="{{ member.quote }}" id="quote" name="quote" type="text" class="">
-                    <label for="quote">Quote</label>
+                <!------------- quote -->
+                <div class="row">
+                    <div class="input-field col s12 field">
+                        <input  value="{{ member.quote }}" id="quote" name="quote" type="text" class="white-text">
+                        <label for="quote" class="white-text">Quote</label>
+                    </div>
                 </div>
-            </div>
-            <!------------- character -->
-            <div class="row">
-                <div class="input-field col s12 field">
-                    <input  value="{{ member.character }}" id="character" name="character" type="text" class="">
-                    <label for="character">Character</label>
+                <!------------- character -->
+                <div class="row">
+                    <div class="input-field col s12 field">
+                        <input  value="{{ member.character }}" id="character" name="character" type="text" class="white-text">
+                        <label for="character" class="white-text">Character</label>
+                    </div>
                 </div>
-            </div>
-            <!------------- creator -->
-            <div class="row">
-                <div class="input-field col s12 field">
-                    <input  value="{{ member.creator }}" id="creator" name="creator" type="text" class="">
-                    <label for="creator">Creator</label>
+                <!------------- creator -->
+                <div class="row">
+                    <div class="input-field col s12 field">
+                        <input  value="{{ member.creator }}" id="creator" name="creator" type="text" class="white-text">
+                        <label for="creator" class="white-text">Creator</label>
+                    </div>
                 </div>
-            </div>
-            <!------------- save/delete/cancel -->
-            <div class="row">
-                <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">
-                    Save
-                </button>
-                <a href="{{ url_for('delete_member', member_id=member._id) }}"
-                    class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small red white-text">
-                    Delete
-                </a>
-                <a href="{{ url_for('members', member=member) }}"
-                    class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small teal black-text">
-                    Cancel
-                </a>
+                <!------------- save/delete/cancel -->
+                <div class="row">
+                    <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">
+                        Save
+                    </button>
+                    <a href="{{ url_for('delete_member', member_id=member._id) }}"
+                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small red white-text">
+                        Delete
+                    </a>
+                    <a href="{{ url_for('members', member=member) }}"
+                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small teal black-text">
+                        Cancel
+                    </a>
+                </div>
             </div>
         </form>
     </section>

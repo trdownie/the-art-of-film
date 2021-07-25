@@ -1,56 +1,66 @@
 {% extends "base.html" %}
 {% block content %}
-<!-------------------------------------------- HEADER -->
+    <!-------------------------------------------- HEADER -->
     <h1 class="center-align">User Profile</h1>
-<!-------------------------------------------- PROFILE -->
-    <h2 class="center-align">{{ user.username }}</h2>
-    <div class="row">
-        <div class="col s4">
-            <img class="profile" src="{{url_for('static', filename='img/tyler-durdin.png')}}">
+    <!-------------------------------------------- PROFILE -->
+    <section>
+        <h2 class="center-align">{{ user.username }}</h2>
+        <div class="row">
+            <!------------- profile picture -->
+            <div class="col s4">
+                <img class="profile" src="{{url_for('static', filename='img/tyler-durdin.png')}}">
+            </div>
+            <!------------- profile text -->
+            <div class="col s8">
+                <p class="lg-text"><b>Tagline:</b> {{ user.tagline }}</p>
+                <p class="lg-text"><b>Film:</b> {{ user.film }}</p>
+                <p class="lg-text"><b>Quote:</b> "{{ user.quote }}"</p>
+                <p class="lg-text"><b>Character:</b> {{ user.character }}</p>
+                <p class="lg-text"><b>Creator:</b> {{ user.creator }}</p>
+            </div>
         </div>
-        <div class="col s8">
-            <p class="lg-text"><b>Tagline:</b> {{ user.tagline }}</p>
-            <p class="lg-text"><b>Film:</b> {{ user.film }}</p>
-            <p class="lg-text"><b>Quote:</b> "{{ user.quote }}"</p>
-            <p class="lg-text"><b>Character:</b> {{ user.character }}</p>
-            <p class="lg-text"><b>Creator:</b> {{ user.creator }}</p>
+        <hr class="main-div">
+    </section>
+    <!-------------------------------------------- FILMS -->
+    <section>
+        <h2 class="center-align">Films</h2>
+        <div class="row">
+            {% for film in films %}
+                {% if film.member == user.username %}
+                    <p class="xl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></p>
+                    <p class="lg-text"><b>{{ film.ultimate_score }}</b></p>
+                    <p class="md-text">{{ film.director }}</p>
+                    <p class="md-text">({{ film.year }})</p>
+                    {% if loop.first %}
+                        {% if loop.last == False %}
+                            <hr class="minor-div">
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
         </div>
-    </div>
-    <hr class="main-div">
-<!-------------------------------------------- FILMS -->
-    <h2 class="center-align">Films</h2>
-    <div class="center-align">
-        {% for film in films %}
-            {% if film.member == user.username %}
-                <p class="lg-text"><b>{{ film.title }}</b></p>
-                <p class="md-text">{{ film.director }}<br>
-                    ({{ film.year }})</p>
-                <a href="{{ url_for('film', film_id=film._id) }}">See more</a>
-                {% if loop.first %}
+        <hr class="main-div">
+    </section>
+<!-------------------------------------------- REVIEWS -->
+    <section>
+        <h2 class="center-align">Reviews</h2>
+        <div class="row">
+            {% for review in reviews %}
+                {% if review.member == user.username %}
+                    <p class="xl-text"><b>{{ review.title }}</b></p>
+                    <p class="md-text">{{ review.review }}</p>
+                    <p>
+                        VISUAL APPEAL: <b>{{ review.metrics.visual }}</b><br>
+                        AUDITORY APPEAL: <b>{{ review.metrics.auditory }}</b><br>
+                        DIALOGUE: <b>{{ review.metrics.dialogue }}</b><br>
+                        EMOTIVE IMPACT: <b>{{ review.metrics.emotive }}</b><br>
+                        SYMBOLISM: <b>{{ review.metrics.symbolism }}</b><br><br>
+                    </p>
                     {% if loop.last == False %}
                         <hr class="minor-div">
                     {% endif %}
                 {% endif %}
-            {% endif %}
-        {% endfor %}
-    </div>
-    <hr class="main-div">
-<!-------------------------------------------- REVIEWS -->
-    <h2 class="center-align">Reviews</h2>
-    <div class="center-align">
-        {% for review in reviews %}
-            {% if review.member == user.username %}
-                <p class="xl-text"><b>{{ review.title }}</b></p>
-                <p class="md-text">{{ review.review }}</p>
-                <p>VISUAL APPEAL: {{ review.metrics.visual }}<br>
-                AUDITORY APPEAL: {{ review.metrics.auditory }}<br>
-                DIALOGUE: {{ review.metrics.dialogue }}<br>
-                EMOTIVE IMPACT: {{ review.metrics.emotive }}<br>
-                SYMBOLISM: {{ review.metrics.symbolism }}<br></p>
-                {% if loop.last == False %}
-                    <hr class="minor-div">
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}
