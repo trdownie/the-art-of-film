@@ -1,49 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="center-align">Edit Member</h1>
-
-
-<div class="row">
-    <form class="col s12 m8 l6 offset-m2 offset-l3" method="POST" action="{{ url_for('edit_member', member_id=member._id) }}">
-        <div class="row">
-            <div class="input-field col s12 field">
-                <input value="{{ member.tagline }}" id="tagline" name="tagline" type="text" class="">
-                <label for="tagline">Tagline</label>
+    <!-------------------------------------------- HEADER -->
+    <h1 class="center-align">Edit Member</h1>
+    <!-------------------------------------------- EDIT MEMBER FORM -->
+    <section class="row">
+        <h2 class="center-align">{{ member.username }}</h2>
+        <form class="col s12 m8 l6 offset-m2 offset-l3" method="POST" action="{{ url_for('edit_member', member_id=member._id) }}">
+            <!------------- tagline -->
+            <div class="row">
+                <div class="input-field col s12 field">
+                    <input value="{{ member.tagline }}" id="tagline" name="tagline" type="text" class="">
+                    <label for="tagline">Tagline</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 field">
-                <input  value="{{ member.film }}" id="film" name="film" type="text" class="">
-                <label for="film">Film</label>
+            <!------------- film -->
+            <div class="row">
+                <div class="input-field col s12 field">
+                    <input  value="{{ member.film }}" id="film" name="film" type="text" class="">
+                    <label for="film">Film</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 field">
-                <input  value="{{ member.quote }}" id="quote" name="quote" type="text" class="">
-                <label for="quote">Quote</label>
+            <!------------- quote -->
+            <div class="row">
+                <div class="input-field col s12 field">
+                    <input  value="{{ member.quote }}" id="quote" name="quote" type="text" class="">
+                    <label for="quote">Quote</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 field">
-                <input  value="{{ member.character }}" id="character" name="character" type="text" class="">
-                <label for="character">Character</label>
+            <!------------- character -->
+            <div class="row">
+                <div class="input-field col s12 field">
+                    <input  value="{{ member.character }}" id="character" name="character" type="text" class="">
+                    <label for="character">Character</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 field">
-                <input  value="{{ member.creator }}" id="creator" name="creator" type="text" class="">
-                <label for="creator">Creator</label>
+            <!------------- creator -->
+            <div class="row">
+                <div class="input-field col s12 field">
+                    <input  value="{{ member.creator }}" id="creator" name="creator" type="text" class="">
+                    <label for="creator">Creator</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">Save</button>
-            <a href="{{ url_for('delete_member', member_id=member._id) }}" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small red white-text">Delete Profile</a>
-            <a href="{{ url_for('members', member=member) }}" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small teal black-text">Cancel</a>
-        </div>
-
-    </form>
-  </div>
-        
-
-
+            <!------------- save/delete/cancel -->
+            <div class="row">
+                <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">
+                    Save
+                </button>
+                <a href="{{ url_for('delete_member', member_id=member._id) }}" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small red white-text">
+                    Delete
+                </a>
+                <a href="{{ url_for('members', member=member) }}" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small teal black-text">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </section>
 {% endblock %}
