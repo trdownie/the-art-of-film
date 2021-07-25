@@ -30,18 +30,19 @@
         <h2 class="center-align">Films</h2>
         <div class="row card-panel grey darken-3 z-depth-5">
             {% for film in films %}
-                {% if film.member == session.member %}
-                    <p class="xl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></p>
-                    <p class="lg-text"><b>{{ film.ultimate_score }}</b></p>
-                    <p class="md-text">{{ film.director }}</p>
-                    <p class="md-text">({{ film.year }})</p>
-                    {% if loop.first %}
-                        {% if loop.last == False %}
-                            <hr class="minor-div">
-                        {% endif %}
+                <p class="xl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></p>
+                <p class="lg-text"><b>{{ film.ultimate_score }}</b></p>
+                <p class="md-text">{{ film.director }}</p>
+                <p class="md-text">({{ film.year }})</p>
+                {% if loop.first %}
+                    {% if loop.last == False %}
+                        <hr class="minor-div">
                     {% endif %}
                 {% endif %}
             {% endfor %}
+            {% if films|length == 0 %}
+                <p>No films added yet! Add one <a href="{{ url_for('add_film') }}"><b>here</b></a></p>
+            {% endif %}
         </div>
     </section>
 <!-------------------------------------------- REVIEWS -->
@@ -49,25 +50,28 @@
         <h2 class="center-align">Reviews</h2>
         <div class="row">
             {% for review in reviews %}
-                {% if review.member == session.member %}
-                    <div class="card-panel grey darken-3 z-depth-5">
-                        <p class="xl-text"><b>{{ review.title }}</b></p>
-                        <p class="md-text">{{ review.review }}</p>
-                        <p>
-                            VISUAL APPEAL: <b>{{ review.metrics.visual }}</b><br>
-                            AUDITORY APPEAL: <b>{{ review.metrics.auditory }}</b><br>
-                            DIALOGUE: <b>{{ review.metrics.dialogue }}</b><br>
-                            EMOTIVE IMPACT: <b>{{ review.metrics.emotive }}</b><br>
-                            SYMBOLISM: <b>{{ review.metrics.symbolism }}</b><br><br>
-                        </p>
-                        <div class="center-align">
-                            <a href="{{ url_for('edit_review', review_id=review._id) }}"
-                                class="waves-effect waves-light btn yellow black-text center-align">
-                                <i class="fas fa-pen left"></i>Edit Review</a>
-                        </div>
+                <div class="card-panel grey darken-3 z-depth-5">
+                    <p class="xl-text"><b>{{ review.title }}</b></p>
+                    <p class="md-text">{{ review.review }}</p>
+                    <p>
+                        VISUAL APPEAL: <b>{{ review.metrics.visual }}</b><br>
+                        AUDITORY APPEAL: <b>{{ review.metrics.auditory }}</b><br>
+                        DIALOGUE: <b>{{ review.metrics.dialogue }}</b><br>
+                        EMOTIVE IMPACT: <b>{{ review.metrics.emotive }}</b><br>
+                        SYMBOLISM: <b>{{ review.metrics.symbolism }}</b><br><br>
+                    </p>
+                    <div class="center-align">
+                        <a href="{{ url_for('edit_review', review_id=review._id) }}"
+                            class="waves-effect waves-light btn yellow black-text center-align">
+                            <i class="fas fa-pen left"></i>Edit Review</a>
                     </div>
-                {% endif %}
+                </div>
             {% endfor %}
+            {% if reviews|length == 0 %}
+                <div class="card-panel grey darken-3 z-depth-5">
+                    <p>No reviews added yet! Find a film to review <a href="{{ url_for('index') }}"><b>here</b></a></p>
+                </div>
+            {% endif %}
         </div>
     </section>
 

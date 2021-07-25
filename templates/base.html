@@ -56,8 +56,8 @@
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
-                    <div class="row s6">
-                        <h4 class="white-text center-align">{{ message }}</h4>
+                    <div class="row">
+                        <p class="lg-text amber-text center-align">{{ message }}</p>
                     </div>
                 {% endfor %}
             {% endif %}
@@ -70,7 +70,7 @@
         {% endblock %}
         <!-------------------------------------------- AFFILIATE BOX -->
         <div class="row">
-            <div class="col s6 offset-s3 center-align grey darken-3 z-depth-5">
+            <div class="col s6 offset-s3 center-align grey darken-1 z-depth-5">
                 <h3 class="lg-text affiliate">Ready to watch a movie?</h3>
                 <p>Amazon's Prime Video has a constantly increasing catalogue of films,
                     but it also allows for the rental and purchase of almost any film you can think of.</p>

@@ -104,7 +104,9 @@ def login():
                         session["member"] = request.form.get("username").lower()
                         reviews = list(mongo.db.reviews.find())
                         films = list(mongo.db.films.find())
-                        # ii) send the member to their member's area
+                        # ii) display welcome message
+                        flash("Hello, gorgeous")
+                        # iii) send the member to their member's area
                         return redirect(url_for("members", member=session["member"], reviews=reviews, films=films))
             # b) passwords don't match
             else:
@@ -135,9 +137,10 @@ def members(member):
     # 2) IF LOGGED IN, RENDER MEMBERS TEMPLATE
     #    & PASS IT MEMBER VARIABLE
     if session["member"]:
-        reviews = list(mongo.db.reviews.find())
-        films = list(mongo.db.films.find())
-        return render_template("members.html", member=member, reviews=reviews, films=films)
+        reviews = list(mongo.db.reviews.find({"member": session["member"]}))
+        films = list(mongo.db.films.find({"member": session["member"]}))
+        return render_template(
+            "members.html", member=member, reviews=reviews, films=films)
 
     # 3) IF NOT LOGGED IN RETURN USER TO LOGIN PAGE
     else:
