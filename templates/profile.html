@@ -3,21 +3,27 @@
     <!-------------------------------------------- HEADER -->
     <h1 class="center-align satisfy">{{ user.username }}</h1>
     <!-------------------------------------------- PROFILE -->
-    <section>
+    <section class="row">
         <h2 class="center-align">Profile</h2>
-        <div class="row card-panel grey darken-3 z-depth-5">
-            <!------------- profile picture -->
-            <div class="col s4">
-                <img class="profile" src="{{ user.profile_url }}">
-            </div>
+        <div class="col s12">
+            <div class="card horizontal grey darken-3 z-depth-5">
+                <!------------- profile picture -->
+                <div class="card-image">
+                    <img class="profile-img" src="{{ user.profile_url }}">
+                </div>
             <!------------- profile text -->
-            <h3 class="xl-text center-align"></h3>
-            <div class="col s8 spacer">
-                <p class="lg-text"><b>Tagline:</b> {{ user.tagline }}</p>
-                <p class="lg-text"><b>Film:</b> {{ user.film }}</p>
-                <p class="lg-text"><b>Quote:</b> "{{ user.quote }}"</p>
-                <p class="lg-text"><b>Character:</b> {{ user.character }}</p>
-                <p class="lg-text"><b>Creator:</b> {{ user.creator }}</p>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <h3 class="xl-text center-align"></h3>
+                        <div class="col s8">
+                            <p class="lg-text"><b>Tagline:</b> {{ user.tagline }}</p>
+                            <p class="lg-text"><b>Film:</b> {{ user.film }}</p>
+                            <p class="lg-text"><b>Quote:</b> "{{ user.quote }}"</p>
+                            <p class="lg-text"><b>Character:</b> {{ user.character }}</p>
+                            <p class="lg-text"><b>Creator:</b> {{ user.creator }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
