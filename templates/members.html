@@ -8,7 +8,7 @@
         <div class="row card-panel grey darken-3 z-depth-5">
             <!------------- profile picture -->
             <div class="col s4">
-                <img class="profile" src="{{url_for('static', filename='img/barton-fink.jpeg')}}">
+                <img class="profile" src="{{ member.profile_url }}">
             </div>
             <!------------- profile text -->
             <h3 class="xl-text center-align">{{ member.username }}</h3>

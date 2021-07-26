@@ -30,7 +30,7 @@
                         <img src="{{ film.image_url }}">
                     </div>
                     <div class="card-stacked">
-                        <div class="card-content valign-wrapper">
+                        <div class="card-content">
                             <p>
                                 <span class="xxl-text"><i class="fas fa-star amber-text text-accent-4"></i><b> {{ film.ultimate_score|round(1) }}</b><br>
                                 <span class="xl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></span><br>

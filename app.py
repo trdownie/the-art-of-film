@@ -172,6 +172,7 @@ def edit_member(member_id):
                     "quote": request.form.get("quote"),
                     "character": request.form.get("character"),
                     "creator": request.form.get("creator"),
+                    "profile_url": request.form.get("profile_url")
                 }
             }
         )

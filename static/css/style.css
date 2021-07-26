@@ -2,8 +2,7 @@
 
 html {
     font-family: Economica, sans-serif;
-    font-size: 18px;
-    font-weight: 200;
+    font-size: 20px;
     letter-spacing: 1px;
 }
 
@@ -110,4 +109,9 @@ a {
 
 .thumbnail {
     max-height: 100px;
+}
+
+.btn {
+    font-size: 20px;
+    font-weight: 400;
 }
