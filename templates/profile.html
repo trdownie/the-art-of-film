@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <!-------------------------------------------- HEADER -->
-    <h1 class="center-align">User Profile</h1>
+    <h1 class="center-align">{{ user.username }}</h1>
     <!-------------------------------------------- PROFILE -->
     <section>
         <h2 class="center-align">Profile</h2>
@@ -11,7 +11,7 @@
                 <img class="profile" src="{{url_for('static', filename='img/tyler-durdin.png')}}">
             </div>
             <!------------- profile text -->
-            <h3 class="xl-text center-align">{{ user.username }}</h3>
+            <h3 class="xl-text center-align"></h3>
             <div class="col s8 spacer">
                 <p class="lg-text"><b>Tagline:</b> {{ user.tagline }}</p>
                 <p class="lg-text"><b>Film:</b> {{ user.film }}</p>
@@ -22,63 +22,78 @@
         </div>
     </section>
     <!-------------------------------------------- FILMS -->
-    <section>
+    <section class="row">
         <h2 class="center-align">Films</h2>
-        <div class="row">
+        <div class="col s12 m8 offset-m2">
             {% for film in films %}
-                <div class="card-panel grey darken-3 z-depth-5">
-                    <p class="xxl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></p>
-                    <p class="lg-text"><b>{{ film.ultimate_score }}</b></p>
-                    <p class="md-text">{{ film.director }}</p>
-                    <p class="md-text">({{ film.year }})</p>
+                <div class="card horizontal grey darken-3 z-depth-5">
+                    <div class="card-image">
+                        <img src="{{ film.image_url }}">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p class="xl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></p>
+                            <p class="lg-text"><i class="fas fa-star amber-text text-accent-4"></i><b> {{ film.ultimate_score }}</b></p>
+                            <p class="md-text">{{ film.director }}</p>
+                            <p class="md-text">({{ film.year }})</p><br>
+                            <p class="md-text left-align word-space">
+                                <i class="fas fa-eye amber-text text-accent-4"></i><b> {{ film.visual_average|round(1) }}</b>
+                                <i class="fas fa-headphones amber-text text-accent-4"></i><b> {{ film.auditory_average|round(1) }}</b>
+                                <i class="fas fa-quote-right amber-text text-accent-4"></i><b> {{ film.dialogue_average|round(1) }}</b>
+                                <i class="fas fa-surprise amber-text text-accent-4"></i><b> {{ film.emotive_average|round(1) }}</b>
+                                <i class="fas fa-peace amber-text text-accent-4"></i><b> {{ film.symbolism_average|round(1) }}</b>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
             {% if films|length == 0 %}
                 <div class="card-panel grey darken-3 z-depth-5">
-                    <p>No films added yet! Add one <a href="{{ url_for('add_film') }}"><b>here</b></a></p>
+                    <p>{{ user.username }} hasn't added any films yet. Check back later.</p>
                 </div>
             {% endif %}
         </div>
     </section>
 <!-------------------------------------------- REVIEWS -->
-<section>
+<section class="row">
     <h2 class="center-align">Reviews</h2>
-    <div class="row">
+    <div class="col s12 m8 offset-m2">
         {% for review in reviews %}
             <div class="card-panel grey darken-3 z-depth-5">
                 {% for film in all_films %}
                     {% if film._id|string == review.film_id|string %}
-                        <div class="col s3 film-img">
-                            <img src="{{ film.image_url }}" class="film-img">
+                        <div class="row">
+                            <div class="col s12 center-align">
+                                <img src="{{ film.image_url }}" class="thumbnail">
+                            </div>
+                            <div class="col s12 center-align md-text">
+                                <p>
+                                    <a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a><br>
+                                    <i class="fas fa-star amber-text text-accent-4"></i><b> {{ film.ultimate_score }}</b>
+                                </p>
+                            </div>
                         </div>
                     {% endif %}
                 {% endfor %}
-                <p class="xxl-text"><b>{{ review.title }}</b></p>
-                {% for film in all_films %}
-                    {% if film._id|string == review.film_id|string %}
-                        <p class="md-text">
-                            <a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a>
+                <div class="row">
+                    <div class="col s12">
+                        <p class="xl-text"><b> {{ review.title }}</b></p>
+                        <p class="xl-text"><i class="fas fa-star amber-text text-accent-4"></i><b> {{ review.ultimate_score }}</b></p>
+                        <p class="md-text">{{ review.review }}</p><br>
+                        <p class="md-text center-align word-space">
+                            <i class="fas fa-eye amber-text text-accent-4"></i><b> {{ review.metrics.visual }} </b>
+                            <i class="fas fa-headphones amber-text text-accent-4"></i><b> {{ review.metrics.auditory }} </b>
+                            <i class="fas fa-quote-right amber-text text-accent-4"></i><b> {{ review.metrics.dialogue }} </b>
+                            <i class="fas fa-surprise amber-text text-accent-4"></i><b> {{ review.metrics.emotive }} </b>
+                            <i class="fas fa-peace amber-text text-accent-4"></i><b> {{ review.metrics.symbolism }} </b>
                         </p>
-                    {% endif %}
-                {% endfor %}
-                <p class="md-text">{{ review.review }}</p>
-                <p>
-                    VISUAL APPEAL: <b>{{ review.metrics.visual }}</b><br>
-                    AUDITORY APPEAL: <b>{{ review.metrics.auditory }}</b><br>
-                    DIALOGUE: <b>{{ review.metrics.dialogue }}</b><br>
-                    EMOTIVE IMPACT: <b>{{ review.metrics.emotive }}</b><br>
-                    SYMBOLISM: <b>{{ review.metrics.symbolism }}</b><br><br>
-                </p>
-                <div class="center-align">
-                    <a href="{{ url_for('edit_review', review_id=review._id) }}"
-                        class="waves-effect waves-light btn yellow black-text center-align">
-                        <i class="fas fa-pen left"></i>Edit Review</a>
+                    </div>
                 </div>
             </div>
         {% endfor %}
         {% if reviews|length == 0 %}
             <div class="card-panel grey darken-3 z-depth-5">
-                <p>No reviews added yet! Find a film to review <a href="{{ url_for('index') }}"><b>here</b></a></p>
+                <p>{{ user.username }} hasn't added any reviews yet. Check back later.</p>
             </div>
         {% endif %}
     </div>

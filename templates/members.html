@@ -19,7 +19,7 @@
                 <p class="lg-text"><b>Character:</b> {{ member.character }}</p>
                 <p class="lg-text"><b>Creator:</b> {{ member.creator }}</p>
                 <a href="{{ url_for('edit_member', member_id=member._id) }}"
-                    class="waves-effect waves-light btn yellow black-text center-align spacer">
+                    class="waves-effect waves-light btn white grey-text text-darken-3 center-align spacer">
                     <i class="fas fa-pen left"></i>Edit Profile
                 </a>
             </div>
@@ -37,16 +37,16 @@
                     </div>
                     <div class="card-stacked">
                         <div class="card-content">
-                            <p class="xxl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></p>
-                            <p class="lg-text"><b>{{ film.ultimate_score }}</b></p>
+                            <p class="xl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></p>
+                            <p class="lg-text"><i class="fas fa-star amber-text text-accent-4"></i><b> {{ film.ultimate_score }}</b></p>
                             <p class="md-text">{{ film.director }}</p>
                             <p class="md-text">({{ film.year }})</p><br>
-                            <p>
-                                VISUAL APPEAL: <b>{{ film.visual_average }}</b><br>
-                                AUDITORY APPEAL: <b>{{ film.auditory_average }}</b><br>
-                                DIALOGUE: <b>{{ film.dialogue_average }}</b><br>
-                                EMOTIVE IMPACT: <b>{{ film.emotive_average }}</b><br>
-                                SYMBOLISM: <b>{{ film.symbolism_average }}</b><br><br>
+                            <p class="md-text left-align word-space">
+                                <i class="fas fa-eye amber-text text-accent-4"></i><b> {{ film.visual_average|round(1) }}</b>
+                                <i class="fas fa-headphones amber-text text-accent-4"></i><b> {{ film.auditory_average|round(1) }}</b>
+                                <i class="fas fa-quote-right amber-text text-accent-4"></i><b> {{ film.dialogue_average|round(1) }}</b>
+                                <i class="fas fa-surprise amber-text text-accent-4"></i><b> {{ film.emotive_average|round(1) }}</b>
+                                <i class="fas fa-peace amber-text text-accent-4"></i><b> {{ film.symbolism_average|round(1) }}</b>
                             </p>
                         </div>
                     </div>
@@ -64,36 +64,39 @@
         <h2 class="center-align">Reviews</h2>
         <div class="col s12 m8 offset-m2">
             {% for review in reviews %}
-                <div class="card horizontal grey darken-3 z-depth-5">
+                <div class="card-panel grey darken-3 z-depth-5">
                     {% for film in all_films %}
                         {% if film._id|string == review.film_id|string %}
-                            <div class="card-image">
-                                <img src="{{ film.image_url }}">
+                            <div class="row">
+                                <div class="col s12 center-align">
+                                    <img src="{{ film.image_url }}" class="thumbnail">
+                                </div>
+                                <div class="col s12 center-align md-text">
+                                    <p>
+                                        <a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a><br>
+                                        <i class="fas fa-star amber-text text-accent-4"></i><b> {{ film.ultimate_score }}</b>
+                                    </p>
+                                </div>
                             </div>
                         {% endif %}
                     {% endfor %}
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p class="xl-text"><b>{{ review.title }}</b></p>
-                            {% for film in all_films %}
-                                {% if film._id|string == review.film_id|string %}
-                                    <p class="lg-text"><b>{{ film.ultimate_score }}</b></p>
-                                    <p class="md-text">
-                                        <a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a>
-                                    </p>
-                                {% endif %}
-                            {% endfor %}
+                    <div class="row">
+                        <div class="col s12">
+                            <p class="xl-text"><b> {{ review.title }}</b></p>
+                            <p class="xl-text"><i class="fas fa-star amber-text text-accent-4"></i><b> {{ review.ultimate_score }}</b></p>
                             <p class="md-text">{{ review.review }}</p><br>
-                            <p>
-                                VISUAL APPEAL: <b>{{ review.metrics.visual }}</b><br>
-                                AUDITORY APPEAL: <b>{{ review.metrics.auditory }}</b><br>
-                                DIALOGUE: <b>{{ review.metrics.dialogue }}</b><br>
-                                EMOTIVE IMPACT: <b>{{ review.metrics.emotive }}</b><br>
-                                SYMBOLISM: <b>{{ review.metrics.symbolism }}</b><br><br>
+                            <p class="md-text center-align word-space">
+                                <i class="fas fa-eye amber-text text-accent-4"></i><b> {{ review.metrics.visual }} </b>
+                                <i class="fas fa-headphones amber-text text-accent-4"></i><b> {{ review.metrics.auditory }} </b>
+                                <i class="fas fa-quote-right amber-text text-accent-4"></i><b> {{ review.metrics.dialogue }} </b>
+                                <i class="fas fa-surprise amber-text text-accent-4"></i><b> {{ review.metrics.emotive }} </b>
+                                <i class="fas fa-peace amber-text text-accent-4"></i><b> {{ review.metrics.symbolism }} </b>
                             </p>
+                        </div>
+                        <div class="col s12">
                             <div class="center-align">
                                 <a href="{{ url_for('edit_review', review_id=review._id) }}"
-                                    class="waves-effect waves-light btn yellow black-text center-align">
+                                    class="waves-effect waves-light btn white grey-text text-darken-3 center-align spacer">
                                     <i class="fas fa-pen left"></i>Edit Review</a>
                             </div>
                         </div>

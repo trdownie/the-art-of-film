@@ -74,7 +74,7 @@ body {
 }
 
 a {
-    color: goldenrod;
+    color: #ffab00;
 }
 
 .parent {
@@ -94,4 +94,16 @@ a {
 .film-img {
     max-width: 250px;
 
+}
+
+.word-space {
+    word-spacing: 0.5rem;
+}
+
+.letter-space{
+    letter-spacing: 0.1rem;
+}
+
+.thumbnail {
+    max-height: 100px;
 }

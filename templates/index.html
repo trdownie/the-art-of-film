@@ -13,9 +13,9 @@
                 </div>
                 <div class="col s3">
                     <button type="submit" class="btn grey darken-3">
-                        <i class="fas fa-search green-text"></i>
+                        <i class="fas fa-search amber-text text-accent-4"></i>
                     </button>
-                    <a href="{{ url_for('index') }}" class="btn grey darken-3"><i class="fas fa-undo blue-text"></i></a>
+                    <a href="{{ url_for('index') }}" class="btn grey darken-3"><i class="fas fa-undo amber-text text-accent-4"></i></a>
                 </div>
             </div>
         </form>
@@ -32,7 +32,7 @@
                     <div class="card-stacked">
                         <div class="card-content valign-wrapper">
                             <p>
-                                <span class="xxl-text"><b>{{ film.ultimate_score|round(1) }}</b><br>
+                                <span class="xxl-text"><i class="fas fa-star amber-text text-accent-4"></i><b> {{ film.ultimate_score|round(1) }}</b><br>
                                 <span class="xl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></span><br>
                                 <span class="lg-text">({{ film.year }})</span><br>
                                 <span class="lg-text">{{ film.director }}</span>
