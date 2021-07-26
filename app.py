@@ -139,8 +139,9 @@ def members(member):
     if session["member"]:
         reviews = list(mongo.db.reviews.find({"member": session["member"]}))
         films = list(mongo.db.films.find({"member": session["member"]}))
+        all_films = list(mongo.db.films.find())
         return render_template(
-            "members.html", member=member, reviews=reviews, films=films)
+            "members.html", member=member, reviews=reviews, films=films, all_films=all_films)
 
     # 3) IF NOT LOGGED IN RETURN USER TO LOGIN PAGE
     else:
@@ -421,10 +422,12 @@ def profile(username):
     user = mongo.db.users.find_one(
         {"username": username})
     # 2) DEFINE THE NECESSARY REQUIREMENTS
-    reviews = list(mongo.db.reviews.find())
-    films = list(mongo.db.films.find())
+    reviews = list(mongo.db.reviews.find({"member": username}))
+    films = list(mongo.db.films.find({"member": username}))
+    all_films = list(mongo.db.films.find())
     # 3) RENDER THE TEMPLATE
-    return render_template("profile.html", user=user, reviews=reviews, films=films)
+    return render_template(
+        "profile.html", user=user, reviews=reviews, films=films, all_films=all_films)
 
 
 if __name__ == "__main__":

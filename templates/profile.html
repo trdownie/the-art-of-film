@@ -4,14 +4,15 @@
     <h1 class="center-align">User Profile</h1>
     <!-------------------------------------------- PROFILE -->
     <section>
-        <h2 class="center-align">{{ user.username }}</h2>
-        <div class="row">
+        <h2 class="center-align">Profile</h2>
+        <div class="row card-panel grey darken-3 z-depth-5">
             <!------------- profile picture -->
             <div class="col s4">
                 <img class="profile" src="{{url_for('static', filename='img/tyler-durdin.png')}}">
             </div>
             <!------------- profile text -->
-            <div class="col s8">
+            <h3 class="xl-text center-align">{{ user.username }}</h3>
+            <div class="col s8 spacer">
                 <p class="lg-text"><b>Tagline:</b> {{ user.tagline }}</p>
                 <p class="lg-text"><b>Film:</b> {{ user.film }}</p>
                 <p class="lg-text"><b>Quote:</b> "{{ user.quote }}"</p>
@@ -19,48 +20,60 @@
                 <p class="lg-text"><b>Creator:</b> {{ user.creator }}</p>
             </div>
         </div>
-        <hr class="main-div">
     </section>
     <!-------------------------------------------- FILMS -->
     <section>
         <h2 class="center-align">Films</h2>
         <div class="row">
             {% for film in films %}
-                {% if film.member == user.username %}
-                    <p class="xl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></p>
+                <div class="card-panel grey darken-3 z-depth-5">
+                    <p class="xxl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></p>
                     <p class="lg-text"><b>{{ film.ultimate_score }}</b></p>
                     <p class="md-text">{{ film.director }}</p>
                     <p class="md-text">({{ film.year }})</p>
-                    {% if loop.first %}
-                        {% if loop.last == False %}
-                            <hr class="minor-div">
-                        {% endif %}
-                    {% endif %}
-                {% endif %}
+                </div>
             {% endfor %}
+            {% if films|length == 0 %}
+                <div class="card-panel grey darken-3 z-depth-5">
+                    <p>No films added yet! Add one <a href="{{ url_for('add_film') }}"><b>here</b></a></p>
+                </div>
+            {% endif %}
         </div>
-        <hr class="main-div">
     </section>
 <!-------------------------------------------- REVIEWS -->
-    <section>
-        <h2 class="center-align">Reviews</h2>
-        <div class="row">
-            {% for review in reviews %}
-                {% if review.member == user.username %}
-                    <p class="xl-text"><b>{{ review.title }}</b></p>
-                    <p class="md-text">{{ review.review }}</p>
-                    <p>
-                        VISUAL APPEAL: <b>{{ review.metrics.visual }}</b><br>
-                        AUDITORY APPEAL: <b>{{ review.metrics.auditory }}</b><br>
-                        DIALOGUE: <b>{{ review.metrics.dialogue }}</b><br>
-                        EMOTIVE IMPACT: <b>{{ review.metrics.emotive }}</b><br>
-                        SYMBOLISM: <b>{{ review.metrics.symbolism }}</b><br><br>
-                    </p>
-                    {% if loop.last == False %}
-                        <hr class="minor-div">
+<section>
+    <h2 class="center-align">Reviews</h2>
+    <div class="row">
+        {% for review in reviews %}
+            <div class="card-panel grey darken-3 z-depth-5">
+                <p class="xxl-text"><b>{{ review.title }}</b></p>
+                {% for film in all_films %}
+                    {% if film._id|string == review.film_id|string %}
+                        <p class="md-text">
+                            <a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a>
+                        </p>
                     {% endif %}
-                {% endif %}
-            {% endfor %}
-        </div>
-    </section>
+                {% endfor %}
+                <p class="md-text">{{ review.review }}</p>
+                <p>
+                    VISUAL APPEAL: <b>{{ review.metrics.visual }}</b><br>
+                    AUDITORY APPEAL: <b>{{ review.metrics.auditory }}</b><br>
+                    DIALOGUE: <b>{{ review.metrics.dialogue }}</b><br>
+                    EMOTIVE IMPACT: <b>{{ review.metrics.emotive }}</b><br>
+                    SYMBOLISM: <b>{{ review.metrics.symbolism }}</b><br><br>
+                </p>
+                <div class="center-align">
+                    <a href="{{ url_for('edit_review', review_id=review._id) }}"
+                        class="waves-effect waves-light btn yellow black-text center-align">
+                        <i class="fas fa-pen left"></i>Edit Review</a>
+                </div>
+            </div>
+        {% endfor %}
+        {% if reviews|length == 0 %}
+            <div class="card-panel grey darken-3 z-depth-5">
+                <p>No reviews added yet! Find a film to review <a href="{{ url_for('index') }}"><b>here</b></a></p>
+            </div>
+        {% endif %}
+    </div>
+</section>
 {% endblock %}
