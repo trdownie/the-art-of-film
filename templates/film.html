@@ -4,17 +4,27 @@
     <h1 class="center-align">{{ film.title }}</h1>
     <p class="center-align xxl-text yellow-text text-darken-2"><b>{{ film.ultimate_score|round(1) }}</b></p>
     <!--------------------------------------------  SUMMARY -->
-    <section>
+    <section class="row">
         <h2 class="center-align">Summary</h2>
-        <p class="md-text"><b>SYNOPSIS:</b> {{ film.synopsis }}</p>
-        <p>Added by <a href="{{ url_for('profile', username=film.member) }}">{{ film.member }}</a></p>
-        <hr class="main-div">
+            <div class="col s12 m8 offset-m2">
+                <div class="card horizontal grey darken-3 z-depth-5">
+                    <div class="card-image">
+                        <img src="{{ film.image_url }}">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p class="md-text"><b>SYNOPSIS:</b> {{ film.synopsis }}</p><br><br>
+                            <p>Added by <a href="{{ url_for('profile', username=film.member) }}">{{ film.member }}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </section>
     <!--------------------------------------------  DETAILS -->
-    <section>
+    <section class="row">
         <h2 class="center-align">Details</h2>
-        <div class="row">
-            <div class="col s8">
+        <div class="col s12 m8 offset-m2">
+            <div class="card-panel grey darken-3 z-depth-5">
                 <p>
                     <span class="xl-text">{{ film.title }}</span>
                     <span class="xl-text">({{ film.year }})</span></br>
@@ -27,10 +37,8 @@
                     EMOTIVE IMPACT: <b>{{ film.emotive_average|round(1) }}</b><br>
                     SYMBOLISM: <b>{{ film.symbolism_average|round(1) }}</b><br><br>
                 </p>
-            </div>
-            <div class="col s4 parent">
                 {% if session.member %}
-                    <div class="center-align child">
+                    <div class="center-align">
                         <a href="{{ url_for('edit_film', film_id=film._id) }}" class="waves-effect waves-light btn yellow black-text center-align">
                             <i class="fas fa-pen left"></i>Edit Film
                         </a>
@@ -38,47 +46,41 @@
                 {% endif %}
             </div>
         </div>
-        <hr class="main-div">
     </section>
     <!--------------------------------------------  REVIEWS -->
-    <section>
+    <section class="row">
         <h2 class="center-align">Reviews</h2>
         {% if session.member %}
-            <div class="center-align">
+            <div class="col s12 center-align">
                 <a href="{{ url_for('add_review', film_id=film._id, film=film) }}" class="waves-effect waves-light btn teal center-align">
                     <i class="fas fa-pen left"></i>Add Review
                 </a>
             </div>
         {% endif %}
-        {% for review in reviews %}
-            <div class="row">
-                <div class="col s8">
-                    <p class="xl-text">
-                        {{ review.title }}<br><span class="md-text">by <a href="{{ url_for('profile', username=review.member) }}" ><b>{{ review.member }}</b></a></span>
-                    </p>
-                    <p>
-                        {{ review.review }}
-                    </p>
-                    <p>
-                        VISUAL APPEAL: <b>{{ review.metrics.visual }}</b><br>
-                        AUDITORY APPEAL: <b>{{ review.metrics.auditory }}</b><br>
-                        DIALOGUE: <b>{{ review.metrics.dialogue }}</b><br>
-                        EMOTIVE IMPACT: <b>{{ review.metrics.emotive }}</b><br>
-                        SYMBOLISM: <b>{{ review.metrics.symbolism }}</b><br><br>
-                    </p>
-                </div>
-                <div class="col s4 parent">
-                    {% if session.member %}
-                    <div class="center-align child">
-                        <a href="{{ url_for('edit_review', review_id=review._id) }}" class="waves-effect waves-light btn yellow black-text center-align">
-                            <i class="fas fa-pen left"></i>Edit Review</a>
+        <div class="col s12 m8 offset-m2">
+            {% for review in reviews %}
+                <div class="card-panel grey darken-3 z-depth-5">
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p class="xl-text"><b>{{ review.title }}</b></p>
+                            <p class="md-text">{{ review.review }}</p><br>
+                            <p>
+                                VISUAL APPEAL: <b>{{ review.metrics.visual }}</b><br>
+                                AUDITORY APPEAL: <b>{{ review.metrics.auditory }}</b><br>
+                                DIALOGUE: <b>{{ review.metrics.dialogue }}</b><br>
+                                EMOTIVE IMPACT: <b>{{ review.metrics.emotive }}</b><br>
+                                SYMBOLISM: <b>{{ review.metrics.symbolism }}</b><br><br>
+                            </p>
+                            <p>by <a href="{{ url_for('profile', username=film.member) }}"><b>{{ review.member }}</b></a></p><br>
+                            <div class="center-align">
+                                <a href="{{ url_for('edit_review', review_id=review._id) }}"
+                                    class="waves-effect waves-light btn yellow black-text center-align">
+                                    <i class="fas fa-pen left"></i>Edit Review</a>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-            </div>
-            {% endif %}
-            {% if loop.last == False %}
-                <hr class="minor-div">
-            {% endif %}
-        {% endfor %}
-    </section>
+            {% endfor %}
+        </div>
 {% endblock %}
