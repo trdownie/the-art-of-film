@@ -33,7 +33,9 @@ def search():
     films = mongo.db.films.find(
         {"$text": {"$search": query}}).sort(
             [("ultimate_score", -1), ("title", 1)])
-    # 3) PASS FILTERED AND SORTED FILM LIST INTO INDEX
+    # 3) DISPLAY FLASH MESSAGE TO USER
+    flash("Look what ya did, you little jerk!")
+    # 4) PASS FILTERED AND SORTED FILM LIST INTO INDEX
     return render_template("index.html", films=films)
 
 
@@ -75,14 +77,16 @@ def register():
             mongo.db.users.insert_one(register)
             # c) add the newly created user into the session cookie
             session["member"] = request.form.get("username").lower()
+            # d) define variables needed for logging in
             reviews = list(mongo.db.reviews.find())
             films = list(mongo.db.films.find())
             # d) display registration success message
             flash("Registration successful, "
-                    + request.form.get("username") 
-                    + ". Welcome, human.")
+                + request.form.get("username") 
+                + ". Welcome, human.")
             # e) redirect the member to their member's area
-            return redirect(url_for("members", member=session["member"], reviews=reviews, films=films))
+            return redirect(url_for(
+                "members", member=session["member"], reviews=reviews, films=films))
 
     return render_template("register.html")
 
@@ -107,12 +111,14 @@ def login():
                         # ii) display welcome message
                         flash("Hello, gorgeous")
                         # iii) send the member to their member's area
-                        return redirect(url_for("members", member=session["member"], reviews=reviews, films=films))
+                        return redirect(url_for(
+                            "members", member=session["member"],
+                            reviews=reviews, films=films))
             # b) passwords don't match
             else:
                 # i) return incorrect flash message
                 flash("Username and/or password incorrect."
-                         + " Thought Police dispatched.")                
+                    + " Thought Police dispatched.")                
                 # ii) reload login page
                 return redirect(url_for("login"))
 
@@ -223,7 +229,7 @@ def add_film():
         mongo.db.films.insert_one(film)
         # c) display message thanking user
         flash(
-            "I have always depended on the kindness of strangers. Film added!")
+            "I have always depended on the kindness of strangers.")
         reviews = list(mongo.db.reviews.find())
         films = list(mongo.db.films.find())
         # d) return the user to the member's area
@@ -299,7 +305,17 @@ def edit_film(film_id):
             "image_url": request.form.get("image_url"),
         }
         # b) using the film's unique id, find and update this film
-        mongo.db.films.update({"_id": ObjectId(film_id)}, updated_film)
+        mongo.db.films.find_one_and_update(
+            {"_id": ObjectId(film_id)},
+            {"$set": {
+                "title": request.form.get("title"),
+                "year": request.form.get("year"),
+                "director": request.form.get("director"),
+                "synopsis": request.form.get("synopsis"),
+                "image_url": request.form.get("image_url"),
+                }
+            }
+        )
         # c) display a success message (of sorts)
         flash("It's alive! It's alive!")
         # d) return the user back to the updated film page
@@ -390,7 +406,8 @@ def edit_review(review_id):
         # b) using the review's unique id, find and update this review
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, updated_review)
         # c) display a success message
-        flash("My mother thanks you. My father thanks you. My sister thanks you. And I thank you.")
+        flash("My mother thanks you. My father thanks you."
+            + " My sister thanks you. And I thank you.")
         # d) return the user back to the updated film page
         return redirect(url_for("film", film_id=review["film_id"]))
 
@@ -426,6 +443,8 @@ def profile(username):
     films = list(mongo.db.films.find({"member": username}))
     all_films = list(mongo.db.films.find())
     # 3) RENDER THE TEMPLATE
+    flash("This is the beginning of a beautiful friendship.")
+    # 4) RENDER THE TEMPLATE
     return render_template(
         "profile.html", user=user, reviews=reviews, films=films, all_films=all_films)
 
