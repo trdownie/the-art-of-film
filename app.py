@@ -21,7 +21,7 @@ mongo = PyMongo(app)
 @app.route("/index")
 def index():
     # 1) SORT FILMS, 1ST DESCENDING BY ULTIMATE SCORE, SECOND BY TITLE
-    films = mongo.db.films.find().sort([("ultimate_score", -1), ("title", 1)])
+    films = mongo.db.films.find().sort([("ultimate_score", 1), ("title", 1)])
     return render_template("index.html", films=films)
 
 
