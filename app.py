@@ -178,10 +178,13 @@ def edit_member(member_id):
         )
         # b) display a success message
         flash("Here's looking at you, kid.")
-        reviews = list(mongo.db.reviews.find())
-        films = list(mongo.db.films.find())
         # c) return the user back to the updated Member's Area
-        return redirect(url_for("members", member=member, reviews=reviews, films=films))
+        reviews = list(mongo.db.reviews.find({"member": session["member"]}))
+        films = list(mongo.db.films.find({"member": session["member"]}))
+        all_films = list(mongo.db.films.find())
+        return render_template(
+            "members.html", member=member, reviews=reviews,
+            films=films, all_films=all_films)
 
     # 2) DEFAULT VIEW ACTION: DISPLAY PRE-POPULATED EDIT MEMBER TEMPLATE
     return render_template("edit_member.html", member=member)

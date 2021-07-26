@@ -53,7 +53,14 @@
                 </div>
                 <!------------- submit button -->
                 <div class="row">
-                    <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small teal white-text">Save</button>
+                    <button type="submit" class="col s6 m4 l2 offset-s3
+                        offset-m4 offset-l5 btn-small teal white-text">
+                        <i class="fas fa-save left"></i>Save
+                    </button>
+                    <a href="{{ url_for('index') }}"
+                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">
+                        <i class="far fa-trash-alt left"></i>Cancel
+                    </a>
                 </div>
             </div>
         </form>

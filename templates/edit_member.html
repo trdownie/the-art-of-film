@@ -52,15 +52,15 @@
                 <!------------- save/delete/cancel -->
                 <div class="row">
                     <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small teal white-text">
-                        Save
+                        <i class="far fa-save left"></i>Save
                     </button>
+                    <a href="{{ url_for('members', member=member.username) }}"
+                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey black-text">
+                        <i class="fas fa-times left"></i>Cancel
+                    </a>
                     <a href="{{ url_for('delete_member', member_id=member._id) }}"
                         class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small red white-text">
-                        Delete
-                    </a>
-                    <a href="{{ url_for('members', member=member) }}"
-                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey black-text">
-                        Cancel
+                        <i class="far fa-trash-alt left"></i>Delete
                     </a>
                 </div>
             </div>

@@ -33,9 +33,11 @@
                         <div class="card-content">
                             <p>
                                 <span class="xxl-text"><i class="fas fa-star amber-text text-accent-4"></i><b> {{ film.ultimate_score|round(1) }}</b><br>
-                                <span class="xl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></span><br>
+                                <span class="xl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></span>
                                 <span class="lg-text">({{ film.year }})</span><br>
-                                <span class="lg-text">{{ film.director }}</span>
+                                <span class="lg-text">Directed by <b>{{ film.director }}</b></span><br>
+                                {% set url = "https://www.amazon.com/gp/search?ie=UTF8&tag=wildapeventur-20&linkCode=ur2&linkId=84797582b0b79cd03c9f2f8a39722e95&camp=1789&creative=9325&index=instant-video&keywords=" %}
+                                <a class="left-align lg-text" target="_blank" href="{{ url + film.title }}"><em>Watch Now</em></a>
                             </p>
                         </div>
                     </div>
