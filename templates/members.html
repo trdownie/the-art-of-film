@@ -27,15 +27,29 @@
     </section>
 
 <!-------------------------------------------- FILMS -->
-    <section>
+    <section class="row">
         <h2 class="center-align">Films</h2>
-        <div class="row">
+        <div class="col s12 m8 offset-m2">
             {% for film in films %}
-                <div class="card-panel grey darken-3 z-depth-5">
-                    <p class="xxl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></p>
-                    <p class="lg-text"><b>{{ film.ultimate_score }}</b></p>
-                    <p class="md-text">{{ film.director }}</p>
-                    <p class="md-text">({{ film.year }})</p>
+                <div class="card horizontal grey darken-3 z-depth-5">
+                    <div class="card-image">
+                        <img src="{{ film.image_url }}">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p class="xxl-text"><a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a></p>
+                            <p class="lg-text"><b>{{ film.ultimate_score }}</b></p>
+                            <p class="md-text">{{ film.director }}</p>
+                            <p class="md-text">({{ film.year }})</p><br>
+                            <p>
+                                VISUAL APPEAL: <b>{{ film.visual_average }}</b><br>
+                                AUDITORY APPEAL: <b>{{ film.auditory_average }}</b><br>
+                                DIALOGUE: <b>{{ film.dialogue_average }}</b><br>
+                                EMOTIVE IMPACT: <b>{{ film.emotive_average }}</b><br>
+                                SYMBOLISM: <b>{{ film.symbolism_average }}</b><br><br>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
             {% if films|length == 0 %}
@@ -46,31 +60,43 @@
         </div>
     </section>
 <!-------------------------------------------- REVIEWS -->
-    <section>
+    <section class="row">
         <h2 class="center-align">Reviews</h2>
-        <div class="row">
+        <div class="col s12 m8 offset-m2">
             {% for review in reviews %}
-                <div class="card-panel grey darken-3 z-depth-5">
-                    <p class="xxl-text"><b>{{ review.title }}</b></p>
+                <div class="card horizontal grey darken-3 z-depth-5">
                     {% for film in all_films %}
                         {% if film._id|string == review.film_id|string %}
-                            <p class="md-text">
-                                <a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a>
-                            </p>
+                            <div class="card-image">
+                                <img src="{{ film.image_url }}">
+                            </div>
                         {% endif %}
                     {% endfor %}
-                    <p class="md-text">{{ review.review }}</p>
-                    <p>
-                        VISUAL APPEAL: <b>{{ review.metrics.visual }}</b><br>
-                        AUDITORY APPEAL: <b>{{ review.metrics.auditory }}</b><br>
-                        DIALOGUE: <b>{{ review.metrics.dialogue }}</b><br>
-                        EMOTIVE IMPACT: <b>{{ review.metrics.emotive }}</b><br>
-                        SYMBOLISM: <b>{{ review.metrics.symbolism }}</b><br><br>
-                    </p>
-                    <div class="center-align">
-                        <a href="{{ url_for('edit_review', review_id=review._id) }}"
-                            class="waves-effect waves-light btn yellow black-text center-align">
-                            <i class="fas fa-pen left"></i>Edit Review</a>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p class="xl-text"><b>{{ review.title }}</b></p>
+                            {% for film in all_films %}
+                                {% if film._id|string == review.film_id|string %}
+                                    <p class="lg-text"><b>{{ film.ultimate_score }}</b></p>
+                                    <p class="md-text">
+                                        <a href="{{ url_for('film', film_id=film._id) }}"><b>{{ film.title }}</b></a>
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
+                            <p class="md-text">{{ review.review }}</p><br>
+                            <p>
+                                VISUAL APPEAL: <b>{{ review.metrics.visual }}</b><br>
+                                AUDITORY APPEAL: <b>{{ review.metrics.auditory }}</b><br>
+                                DIALOGUE: <b>{{ review.metrics.dialogue }}</b><br>
+                                EMOTIVE IMPACT: <b>{{ review.metrics.emotive }}</b><br>
+                                SYMBOLISM: <b>{{ review.metrics.symbolism }}</b><br><br>
+                            </p>
+                            <div class="center-align">
+                                <a href="{{ url_for('edit_review', review_id=review._id) }}"
+                                    class="waves-effect waves-light btn yellow black-text center-align">
+                                    <i class="fas fa-pen left"></i>Edit Review</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

@@ -46,6 +46,13 @@
     <div class="row">
         {% for review in reviews %}
             <div class="card-panel grey darken-3 z-depth-5">
+                {% for film in all_films %}
+                    {% if film._id|string == review.film_id|string %}
+                        <div class="col s3 film-img">
+                            <img src="{{ film.image_url }}" class="film-img">
+                        </div>
+                    {% endif %}
+                {% endfor %}
                 <p class="xxl-text"><b>{{ review.title }}</b></p>
                 {% for film in all_films %}
                     {% if film._id|string == review.film_id|string %}
