@@ -215,7 +215,16 @@ def logout():
 def add_film():
     # 1) UPON SUBMIT (POST) ADD THE FILM & DISPLAY MESSAGE
     if request.method == "POST":
-        # a) create film dict. that contains form elments
+        # a) define metric dict.
+        metrics = {
+            "visual": float(request.form.get("visual")),
+            "auditory": float(request.form.get("auditory")),
+            "dialogue": float(request.form.get("dialogue")),
+            "emotive": float(request.form.get("emotive")),
+            "symbolism": float(request.form.get("symbolism"))}
+        # b) calculate ultimate score for film & review
+        ultimate_score = sum(metrics.values()) / len(metrics.values())
+        # c) create film dict. that contains form elments
         film = {
             "title": request.form.get("film_title"),
             "year": request.form.get("year"),
@@ -224,25 +233,25 @@ def add_film():
             "image_url": request.form.get("image_url"),
             # i) member form field is disabled so we must set it here
             "member": session["member"],
-
-        }
-        # b) insert film dict. into mongodb films collection
+            "ultimate_score": ultimate_score,
+            "metrics": {
+                "visual_average": metrics["visual"],
+                "auditory_average": metrics["auditory"],
+                "dialogue_average": metrics["dialogue"],
+                "emotive_average": metrics["emotive"],
+                "symbolism_average": metrics["symbolism"]}}
+        # d) insert film dict. into mongodb films collection
         mongo.db.films.insert_one(film)
-        # c) create review dict. that contains form elments
-        metrics = {
-            "visual": float(request.form.get("visual")),
-            "auditory": float(request.form.get("auditory")),
-            "dialogue": float(request.form.get("dialogue")),
-            "emotive": float(request.form.get("emotive")),
-            "symbolism": float(request.form.get("symbolism"))
-        }
-        ultimate_score = sum(metrics.values()) / len(metrics.values())
+        # e) find the freshly created film in the db
         new_film = mongo.db.films.find_one({
                 "title": request.form.get("film_title"),
-                "synopsis": request.form.get("synopsis")})
-        id = new_film["_id"]
-        new_film_id = str(id)
-
+                "year": request.form.get("year"),
+                "director": request.form.get("director"),
+                "synopsis": request.form.get("synopsis"),
+                "image_url": request.form.get("image_url"),})
+        # f) obtain string of the film's ObjectId
+        new_film_id = str(new_film["_id"])
+        # g) create review dict. that contains form elments
         review = {
             "film_id": new_film_id,
             "title": request.form.get("review_title"),
@@ -250,27 +259,15 @@ def add_film():
             "ultimate_score": ultimate_score,
             "metrics": metrics,
             # i) member form field is disabled so we must set it here
-            "member": session["member"]
-        }
-        # d) insert review dict. into mongodb reviews collection
+            "member": session["member"]}
+        # h) insert review dict. into mongodb reviews collection
         mongo.db.reviews.insert_one(review)
-
-        mongo.db.films.find_one_and_update(
-        {"_id": ObjectId(new_film_id)},
-        {"$set": {
-            "ultimate_score": ultimate_score,
-            "metrics.visual_average": float(request.form.get("visual")),
-            "metrics.auditory_average": float(request.form.get("auditory")),
-            "metrics.dialogue_average": float(request.form.get("dialogue")),
-            "metrics.emotive_average": float(request.form.get("emotive")),
-            "metrics.symbolism_average": float(request.form.get("symbolism")),
-            }})
-        # e) display message thanking user
+        # i) display message thanking user
         flash(
             "I have always depended on the kindness of strangers.")
+        # j) return user to the member's area with req. info
         reviews = list(mongo.db.reviews.find())
         films = list(mongo.db.films.find())
-        # f) return the user to the member's area
         return redirect(url_for("members",
                 member=session["member"], reviews=reviews, films=films))
     
@@ -296,7 +293,7 @@ def film(film_id):
                 "auditory_average": {"$avg": "$metrics.auditory"},
                 "dialogue_average": {"$avg": "$metrics.dialogue"},
                 "emotive_average": {"$avg": "$metrics.emotive"},
-                "symbolism_average": {"$avg": "$metrics.symbolism"},
+                "symbolism_average": {"$avg": "$metrics.symbolism"}
             }
         }]
     ))
