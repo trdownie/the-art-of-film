@@ -455,8 +455,10 @@ def edit_review(review_id):
         # d) return the user back to the updated film page
         return redirect(url_for("film", film_id=review["film_id"]))
 
+    num_of_reviews = mongo.db.reviews.find({"film_id": review["film_id"]}).count()
     # 3) DEFAULT ACTION: DISPLAY PRE-POPULATED EDIT REVIEW TEMPLATE
-    return render_template("edit_review.html", review=review, film=film)
+    return render_template("edit_review.html", review=review,
+                                film=film, num_of_reviews=num_of_reviews)
 
 
 @app.route("/delete_review/<review_id>")
