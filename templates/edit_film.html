@@ -62,10 +62,19 @@
                         class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">
                         <i class="fas fa-times left"></i>Cancel
                     </a></p>
-                    <a href="{{ url_for('delete_film', film_id=film_id) }}"
-                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small red white-text">
-                        <i class="far fa-trash-alt left"></i>Delete
-                    </a>
+                    {% if final_review.member == session.member %}
+                        <a href="{{ url_for('delete_film', film_id=film_id) }}"
+                            class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small red white-text">
+                            <i class="far fa-trash-alt left"></i>Delete
+                        </a>
+                    {% else %}
+                        <div class="col s12">
+                            <p>You can't delete {{ film.title }} as there are existing reviews by other users
+                                against the film. Edit/delete your reviews 
+                                <a href="{{ url_for('members', member=session['member']) }}">here</a>.
+                            </p>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </form>

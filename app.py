@@ -336,15 +336,7 @@ def film(film_id):
 def edit_film(film_id):
     # 1) ON SUBMIT, UPDATE FILM DETAILS
     if request.method == "POST":
-        # a) create a dict. that contains the updated film details
-        updated_film = {
-            "title": request.form.get("title"),
-            "year": request.form.get("year"),
-            "director": request.form.get("director"),
-            "synopsis": request.form.get("synopsis"),
-            "image_url": request.form.get("image_url"),
-        }
-        # b) using the film's unique id, find and update this film
+        # a) using the film's unique id, find and update this film
         mongo.db.films.find_one_and_update(
             {"_id": ObjectId(film_id)},
             {"$set": {
@@ -352,20 +344,26 @@ def edit_film(film_id):
                 "year": request.form.get("year"),
                 "director": request.form.get("director"),
                 "synopsis": request.form.get("synopsis"),
-                "image_url": request.form.get("image_url"),
-                }
-            }
-        )
-        # c) display a success message (of sorts)
+                "image_url": request.form.get("image_url"),}})
+        # b) display a success message (of sorts)
         flash("It's alive! It's alive!")
-        # d) return the user back to the updated film page
+        # c) return the user back to the updated film page
         return redirect(url_for("film", film_id=film_id))
 
     # 2) DEFAULT VIEW ACTION: DISPLAY PRE-POPULATED EDIT FORM TEMPLATE
-    # a) create a film object that contains the film info
+    # a) first, determine 'final review' status
+    # i) find the number of reviews against this film
+    num_of_reviews = mongo.db.reviews.find({"film_id": film_id}).count()
+    # ii) if only one review, define dict. containing this review
+    if num_of_reviews == 1:
+        final_review = mongo.db.reviews.find_one({"film_id": film_id})
+    # iii) otherwise, define this variable as False
+    else:
+        final_review = False
+    # b) render the page and pass the necessaries
     film = mongo.db.films.find_one({"_id": ObjectId(film_id)})
-    # b) render the page and pass the film id & film object
-    return render_template("edit_film.html", film_id=film_id, film=film)
+    return render_template("edit_film.html", film_id=film_id,
+                            film=film, final_review=final_review)
 
 
 @app.route("/delete_film/<film_id>")
