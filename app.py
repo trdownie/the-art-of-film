@@ -135,14 +135,10 @@ def login():
 
 @app.route("/members/<member>", methods=["GET", "POST"])
 def members(member):
-    # 1) DEFINE THE MEMBER VARIABLE
-    # a) take the session["member"] and find its instance in the db
-    # b) since this will return doc, only return the ["username"] attribute
-    member = mongo.db.users.find_one(
-        {"username": session["member"]})
-    # 2) IF LOGGED IN, RENDER MEMBERS TEMPLATE
-    #    & PASS IT MEMBER VARIABLE
-    if session["member"]:
+    # 1) IF LOGGED IN, RENDER MEMBERS TEMPLATE
+    #    & PASS IT REQUIRED OBJECTS
+    if session.get("member"):
+        member = mongo.db.users.find_one({"username": session["member"]})
         reviews = list(mongo.db.reviews.find({"member": session["member"]}))
         films = list(mongo.db.films.find({"member": session["member"]}))
         all_films = list(mongo.db.films.find())
@@ -291,9 +287,13 @@ def film(film_id):
     # 5) DEFINE UPDATED FILM FOR PASSING INTO TEMPLATE
     film = mongo.db.films.find_one(
         {"_id": ObjectId(film_id)})
+    if session.get("member"):
+        user_reviews = mongo.db.reviews.find({"film_id": film_id, "member": session["member"]}).count()
+    else:
+        user_reviews = 0
     # 6) RETURN THE SPECIFIC FILM & REVIEWS OBJECTS
     #    WHILE RENDERING THE FILM'S OWN UNIQUE PAGE
-    return render_template("film.html", film=film, reviews=reviews)
+    return render_template("film.html", film=film, reviews=reviews, user_reviews=user_reviews)
 
 
 @app.route("/edit_film/<film_id>", methods=["GET", "POST"])

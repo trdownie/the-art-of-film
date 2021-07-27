@@ -54,12 +54,12 @@
     <!--------------------------------------------  REVIEWS -->
     <section class="row">
         <h2 class="center-align">Reviews</h2>
-        {% if session.member %}
-            <div class="col s12 center-align">
-                <a href="{{ url_for('add_review', film_id=film._id, film=film) }}" class="waves-effect waves-light btn amber accent-4 grey-text text-darken-3 center-align">
-                    <i class="fas fa-plus left"></i>Add Review
-                </a>
-            </div>
+        {% if (session.member) and (user_reviews == 0) %}
+                <div class="col s12 center-align">
+                    <a href="{{ url_for('add_review', film_id=film._id, film=film) }}" class="waves-effect waves-light btn amber accent-4 grey-text text-darken-3 center-align">
+                        <i class="fas fa-plus left"></i>Add Review
+                    </a>
+                </div>
         {% endif %}
         <div class="col s12 m8 offset-m2">
             {% for review in reviews %}
