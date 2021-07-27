@@ -5,19 +5,12 @@ html {
     font-family: Economica, sans-serif;
     font-size: 20px;
     letter-spacing: 1px;
+    background-color: #272727;
+    color: #fff;
 }
 
 .satisfy {
     font-family: Satisfy, cursive;
-}
-
-.field {
-    
-}
-
-body {
-    background-color: #272727;
-    color: #fff;
 }
 
 .dark-text {

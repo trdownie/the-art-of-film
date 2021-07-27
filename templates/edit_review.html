@@ -92,13 +92,13 @@
                     <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small teal white-text">
                         <i class="far fa-save left"></i>Save
                     </button>
+                    <a href="{{ url_for('film', film_id=review.film_id) }}"
+                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">
+                        <i class="fas fa-times left"></i>Cancel
+                    </a>
                     <a href="{{ url_for('delete_review', review_id=review._id) }}"
                         class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small red white-text">
                         <i class="far fa-trash-alt left"></i>Delete
-                    </a>
-                    <a href="{{ url_for('film', film_id=review.film_id) }}"
-                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">
-                        <i class="fas times left"></i>Cancel
                     </a>
                 </div>
             </div>
