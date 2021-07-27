@@ -13,8 +13,8 @@ html {
     font-family: Satisfy, cursive;
 }
 
-.dark-text {
-    color: #272727;
+.brand-logo {
+    margin-left: 10px;
 }
 
 .btn, .btn-small {

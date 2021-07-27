@@ -37,7 +37,7 @@
         </nav>
         <!-------------------------------------------- MOBILE SIDENAV -->
         <ul class="sidenav" id="mobile-demo">
-            <li><h4 class="center-align dark-text">LOGO</a></li>
+            <li><a class="center-align grey-text text-darken-3">A|F</a></li>
             <li><a href="{{ url_for('index') }}">Home</a></li>
             {% if session.member %}
                 <li><a href="{{ url_for('members', member=session['member']) }}">Member's Area</a></li>
