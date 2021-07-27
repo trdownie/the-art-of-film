@@ -217,22 +217,60 @@ def add_film():
     if request.method == "POST":
         # a) create film dict. that contains form elments
         film = {
-            "title": request.form.get("title"),
+            "title": request.form.get("film_title"),
             "year": request.form.get("year"),
             "director": request.form.get("director"),
             "synopsis": request.form.get("synopsis"),
             "image_url": request.form.get("image_url"),
             # i) member form field is disabled so we must set it here
-            "member": session["member"]
+            "member": session["member"],
+
         }
         # b) insert film dict. into mongodb films collection
         mongo.db.films.insert_one(film)
-        # c) display message thanking user
+        # c) create review dict. that contains form elments
+        metrics = {
+            "visual": float(request.form.get("visual")),
+            "auditory": float(request.form.get("auditory")),
+            "dialogue": float(request.form.get("dialogue")),
+            "emotive": float(request.form.get("emotive")),
+            "symbolism": float(request.form.get("symbolism"))
+        }
+        ultimate_score = sum(metrics.values()) / len(metrics.values())
+        new_film = mongo.db.films.find_one({
+                "title": request.form.get("film_title"),
+                "synopsis": request.form.get("synopsis")})
+        id = new_film["_id"]
+        new_film_id = str(id)
+
+        review = {
+            "film_id": new_film_id,
+            "title": request.form.get("review_title"),
+            "review": request.form.get("review"),
+            "ultimate_score": ultimate_score,
+            "metrics": metrics,
+            # i) member form field is disabled so we must set it here
+            "member": session["member"]
+        }
+        # d) insert review dict. into mongodb reviews collection
+        mongo.db.reviews.insert_one(review)
+
+        mongo.db.films.find_one_and_update(
+        {"_id": ObjectId(new_film_id)},
+        {"$set": {
+            "ultimate_score": ultimate_score,
+            "metrics.visual_average": float(request.form.get("visual")),
+            "metrics.auditory_average": float(request.form.get("auditory")),
+            "metrics.dialogue_average": float(request.form.get("dialogue")),
+            "metrics.emotive_average": float(request.form.get("emotive")),
+            "metrics.symbolism_average": float(request.form.get("symbolism")),
+            }})
+        # e) display message thanking user
         flash(
             "I have always depended on the kindness of strangers.")
         reviews = list(mongo.db.reviews.find())
         films = list(mongo.db.films.find())
-        # d) return the user to the member's area
+        # f) return the user to the member's area
         return redirect(url_for("members",
                 member=session["member"], reviews=reviews, films=films))
     
@@ -341,9 +379,12 @@ def delete_film(film_id):
     # 2) RETURN A FLASH MESSAGE
     flash("Hasta la vista, baby.")
     # 3) RETURN THE USER TO THE MEMBER'S AREA
-    reviews = list(mongo.db.reviews.find())
-    films = list(mongo.db.films.find())
-    return render_template("members.html", member=session["member"], reviews=reviews, films=films)
+    member = mongo.db.users.find_one({"username": session["member"]})
+    reviews = list(mongo.db.reviews.find({"member": session["member"]}))
+    films = list(mongo.db.films.find({"member": session["member"]}))
+    all_films = list(mongo.db.films.find())
+    return render_template(
+            "members.html", member=member, reviews=reviews, films=films, all_films=all_films)
 
 
 @app.route("/add_review/<film_id>", methods=["GET", "POST"])
