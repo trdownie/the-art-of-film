@@ -48,11 +48,11 @@
                             <p class="md-text">{{ film.director }}</p>
                             <p class="md-text">({{ film.year }})</p><br>
                             <p class="md-text left-align word-space">
-                                <i class="fas fa-eye amber-text text-accent-4"></i><b> {{ film.visual_average|round(1) }}</b>
-                                <i class="fas fa-headphones amber-text text-accent-4"></i><b> {{ film.auditory_average|round(1) }}</b>
-                                <i class="fas fa-quote-right amber-text text-accent-4"></i><b> {{ film.dialogue_average|round(1) }}</b>
-                                <i class="fas fa-surprise amber-text text-accent-4"></i><b> {{ film.emotive_average|round(1) }}</b>
-                                <i class="fas fa-peace amber-text text-accent-4"></i><b> {{ film.symbolism_average|round(1) }}</b>
+                                <i class="fas fa-eye amber-text text-accent-4"></i><b> {{ film.metrics.visual_average|round(1) }}</b>
+                                <i class="fas fa-headphones amber-text text-accent-4"></i><b> {{ film.metrics.auditory_average|round(1) }}</b>
+                                <i class="fas fa-quote-right amber-text text-accent-4"></i><b> {{ film.metrics.dialogue_average|round(1) }}</b>
+                                <i class="fas fa-surprise amber-text text-accent-4"></i><b> {{ film.metrics.emotive_average|round(1) }}</b>
+                                <i class="fas fa-peace amber-text text-accent-4"></i><b> {{ film.metrics.symbolism_average|round(1) }}</b>
                             </p>
                         </div>
                     </div>

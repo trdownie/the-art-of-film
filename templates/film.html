@@ -35,11 +35,11 @@
                     <span class="lg-text">by <b>{{ film.director }}</b></span><br>
                 </p>
                 <p class="lg-text center-align word-space">
-                    <i class="fas fa-eye amber-text text-accent-4"></i><b> {{ film.visual_average|round(1) }} </b>
-                    <i class="fas fa-headphones amber-text text-accent-4"></i><b> {{ film.auditory_average|round(1) }} </b>
-                    <i class="fas fa-quote-right amber-text text-accent-4"></i><b> {{ film.dialogue_average|round(1) }} </b>
-                    <i class="fas fa-surprise amber-text text-accent-4"></i><b> {{ film.emotive_average|round(1) }} </b>
-                    <i class="fas fa-peace amber-text text-accent-4"></i><b> {{ film.symbolism_average|round(1) }} </b>
+                    <i class="fas fa-eye amber-text text-accent-4"></i><b> {{ film.metrics.visual_average|round(1) }} </b>
+                    <i class="fas fa-headphones amber-text text-accent-4"></i><b> {{ film.metrics.auditory_average|round(1) }} </b>
+                    <i class="fas fa-quote-right amber-text text-accent-4"></i><b> {{ film.metrics.dialogue_average|round(1) }} </b>
+                    <i class="fas fa-surprise amber-text text-accent-4"></i><b> {{ film.metrics.emotive_average|round(1) }} </b>
+                    <i class="fas fa-peace amber-text text-accent-4"></i><b> {{ film.metrics.symbolism_average|round(1) }} </b>
                 </p>
                 {% if session.member %}
                     <div class="center-align spacer">
@@ -66,12 +66,21 @@
                 <div class="card-panel grey darken-3 z-depth-5">
                     <div class="card-stacked">
                         <div class="card-content">
-                            <p class="xl-text"><b>{{ review.title }}</b></p>
-                            <p class="md-text">{{ review.review }}</p>
+                            <p class="xl-text">
+                                <b>{{ review.title }}</b><br>
+                                <i class="fas fa-star amber-text text-accent-4"></i><b>{{ review.ultimate_score }}</b>
+                            </p>
+                            <p class="md-text">
+                                {{ review.review }}
+                            </p>
                             {% if review.member == session.member %}
-                                <p class="right-align">by <a href="{{ url_for('members', member=session['member']) }}"><b>{{ review.member }}</b></a></p>
+                                <p class="right-align">
+                                    by <a href="{{ url_for('members', member=session['member']) }}"><b>{{ review.member }}</b></a>
+                                </p>
                             {% else %}
-                                <p class="right-align">by <a href="{{ url_for('profile', username=review.member) }}"><b>{{ review.member }}</b></a></p>
+                                <p class="right-align">
+                                    by <a href="{{ url_for('profile', username=review.member) }}"><b>{{ review.member }}</b></a>
+                                </p>
                             {% endif %}
                             <p class="lg-text center-align word-space">
                                 <i class="fas fa-eye amber-text text-accent-4"></i><b> {{ review.metrics.visual }} </b>

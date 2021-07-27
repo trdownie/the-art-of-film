@@ -278,11 +278,11 @@ def film(film_id):
         {"_id": ObjectId(film_id)},
         {"$set": {
             "ultimate_score": ultimate_score,
-            "visual_average": visual_average,
-            "auditory_average": auditory_average,
-            "dialogue_average": dialogue_average,
-            "emotive_average": emotive_average,
-            "symbolism_average": symbolism_average,
+            "metrics.visual_average": visual_average,
+            "metrics.auditory_average": auditory_average,
+            "metrics.dialogue_average": dialogue_average,
+            "metrics.emotive_average": emotive_average,
+            "metrics.symbolism_average": symbolism_average,
             }
         }
     )

@@ -13,6 +13,11 @@ html {
     font-family: Satisfy, cursive;
 }
 
+.inline {
+    display: inline;
+}
+
+
 .brand-logo {
     margin-left: 10px;
 }
