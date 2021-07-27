@@ -287,6 +287,7 @@ def film(film_id):
     # 5) DEFINE UPDATED FILM FOR PASSING INTO TEMPLATE
     film = mongo.db.films.find_one(
         {"_id": ObjectId(film_id)})
+    # 5) SET NUMBER OF USER REVIEWS TO PREVENT MORE THAN 1
     if session.get("member"):
         user_reviews = mongo.db.reviews.find({"film_id": film_id, "member": session["member"]}).count()
     else:
