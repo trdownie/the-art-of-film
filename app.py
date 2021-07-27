@@ -386,6 +386,7 @@ def add_review(film_id):
 def edit_review(review_id):
     # 1) CREATE A REVIEW DICT. FROM THE DB USING REVIEW ID
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
+    film = mongo.db.films.find_one({"_id": ObjectId(review["film_id"])})
     # 2) ON SUBMIT, UPDATE REVIEW DETAILS
     if request.method == "POST":
         updated_metrics = {
@@ -416,7 +417,7 @@ def edit_review(review_id):
         return redirect(url_for("film", film_id=review["film_id"]))
 
     # 3) DEFAULT ACTION: DISPLAY PRE-POPULATED EDIT REVIEW TEMPLATE
-    return render_template("edit_review.html", review=review)
+    return render_template("edit_review.html", review=review, film=film)
 
 
 @app.route("/delete_review/<review_id>")
