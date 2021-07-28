@@ -13,6 +13,10 @@ html {
     color: #fff;
 }
 
+label, .btn {
+    font-size: 20px;
+}
+
 a {
     color: #ffab00;
 }
@@ -86,7 +90,16 @@ a {
 
 /*****  Smaller Screens: Under 800px  *****/
 
-
-
+@media screen and (max-width: 800px){
+    html, label, .btn {
+        font-size: 16px;
+    }
+}
 
 /*****  Larger Screens: Over 800px  *****/
+
+@media screen and (min-width: 1200px){
+    html, label, .btn {
+        font-size: 24px;
+    }
+}
