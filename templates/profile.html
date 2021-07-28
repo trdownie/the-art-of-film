@@ -9,7 +9,7 @@
             <div class="card horizontal grey darken-3 z-depth-5">
                 <!------------- profile picture -->
                 <div class="card-image">
-                    <img class="profile-img" src="{{ user.profile_url }}">
+                    <img class="profile-img" src="{{ user.profile_url }}" alt="Profile image for {{ user.username }}">
                 </div>
                 <!------------- profile text -->
                 <div class="card-stacked">
@@ -17,11 +17,11 @@
                         <h3 class="xl-text center-align"></h3>
                         <div class="col s8">
                             <!------------- profile info -->
-                            <p class="lg-text"><b>Tagline:</b> {{ user.tagline }}</p>
-                            <p class="lg-text"><b>Film:</b> {{ user.film }}</p>
-                            <p class="lg-text"><b>Quote:</b> "{{ user.quote }}"</p>
-                            <p class="lg-text"><b>Character:</b> {{ user.character }}</p>
-                            <p class="lg-text"><b>Creator:</b> {{ user.creator }}</p>
+                            <p><b>Tagline:</b> {{ user.tagline }}</p>
+                            <p><b>Film:</b> {{ user.film }}</p>
+                            <p><b>Quote:</b> "{{ user.quote }}"</p>
+                            <p><b>Character:</b> {{ user.character }}</p>
+                            <p><b>Creator:</b> {{ user.creator }}</p>
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                 <div class="card horizontal grey darken-3 z-depth-5">
                     <!------------- film image -->
                     <div class="card-image">
-                        <img src="{{ film.image_url }}">
+                        <img src="{{ film.image_url }}" alt="Film image for {{ film.title }}">
                     </div>
                     <!------------- film info -->
                     <div class="card-stacked">
@@ -102,7 +102,7 @@
                             <div class="row">
                                 <!-- film thumbnail -->
                                 <div class="col s12 center-align">
-                                    <img src="{{ film.image_url }}" class="thumbnail">
+                                    <img class="thumbnail" src="{{ film.image_url }}" alt="Film image for {{ film.title }}">
                                 </div>
                                 <!-- film title & score -->
                                 <div class="col s12 center-align md-text">
