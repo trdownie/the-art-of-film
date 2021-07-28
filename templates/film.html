@@ -46,7 +46,7 @@
             <div class="card-panel grey darken-3 z-depth-5">
                 <!------------- film details -->
                 <p>
-                    <span class="xl-text"><b>{{ film.title }}</b> ({{ film.year }})</span></br>
+                    <span class="xl-text"><b>{{ film.title }}</b> ({{ film.year }})</span><br>
                     <span class="lg-text">by <b>{{ film.director }}</b></span><br>
                 </p>
                 <!------------- film metrics -->
@@ -92,7 +92,7 @@
                 <!------------- start of card panel -->
                 <div class="card-panel grey darken-3 z-depth-5">
                     <!------------- review title & score -->
-                    <p class="xl-text">
+                    <p class="xl-text center-align">
                         <b>{{ review.title }}</b><br>
                         <i class="fas fa-star amber-text text-accent-4"></i><b> {{ review.ultimate_score }}</b>
                     </p>
@@ -142,4 +142,5 @@
                 <!------------- end of card panel -->
             {% endfor %}
         </div>
+    </section>
 {% endblock %}

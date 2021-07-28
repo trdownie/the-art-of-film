@@ -71,7 +71,8 @@ def register():
             # a) create a dictionary containing the user info
             register = {
                 "username": request.form.get("username").lower(),
-                "password": generate_password_hash(request.form.get("password"))
+                "password": generate_password_hash(
+                                request.form.get("password"))
             }
             # b) insert the dictionary into the users collection
             mongo.db.users.insert_one(register)
@@ -86,7 +87,8 @@ def register():
                 + ". Welcome, human.")
             # e) redirect the member to their member's area
             return redirect(url_for(
-                "members", member=session["member"], reviews=reviews, films=films))
+                "members", member=session["member"],
+                reviews=reviews, films=films))
 
     return render_template("register.html")
 
@@ -104,16 +106,16 @@ def login():
             # a) hashed passwords match (input/db)
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
-                        # i) set session variable 'member' to this username
-                        session["member"] = request.form.get("username").lower()
-                        reviews = list(mongo.db.reviews.find())
-                        films = list(mongo.db.films.find())
-                        # ii) display welcome message
-                        flash("Hello, gorgeous")
-                        # iii) send the member to their member's area
-                        return redirect(url_for(
-                            "members", member=session["member"],
-                            reviews=reviews, films=films))
+                # i) set session variable 'member' to this username
+                session["member"] = request.form.get("username").lower()
+                reviews = list(mongo.db.reviews.find())
+                films = list(mongo.db.films.find())
+                # ii) display welcome message
+                flash("Hello, gorgeous")
+                # iii) send the member to their member's area
+                return redirect(url_for(
+                    "members", member=session["member"],
+                    reviews=reviews, films=films))
             # b) passwords don't match
             else:
                 # i) return incorrect flash message
@@ -126,7 +128,7 @@ def login():
         else:
             # a) return incorrect flash message
             flash("Username and/or password incorrect."
-                    + " Thought Police dispatched.")
+                + " Thought Police dispatched.")
             # b) reload login page
             return redirect(url_for("login"))
 
@@ -143,7 +145,8 @@ def members(member):
         films = list(mongo.db.films.find({"member": session["member"]}))
         all_films = list(mongo.db.films.find())
         return render_template(
-            "members.html", member=member, reviews=reviews, films=films, all_films=all_films)
+            "members.html", member=member, reviews=reviews,
+            films=films, all_films=all_films)
 
     # 3) IF NOT LOGGED IN RETURN USER TO LOGIN PAGE
     else:
@@ -168,10 +171,7 @@ def edit_member(member_id):
                     "quote": request.form.get("quote"),
                     "character": request.form.get("character"),
                     "creator": request.form.get("creator"),
-                    "profile_url": request.form.get("profile_url")
-                }
-            }
-        )
+                    "profile_url": request.form.get("profile_url")}})
         # b) display a success message
         flash("Here's looking at you, kid.")
         # c) return the user back to the updated Member's Area
@@ -287,16 +287,13 @@ def film(film_id):
                 # iii) using records with the same film id
                 "_id": "$film_id",
                 # iv) create the object in dict.-like format
-                #     using the average scores of these reviews 
+                #     using the average scores of these reviews
                 "ultimate_score": {"$avg": "$ultimate_score"},
                 "visual_average": {"$avg": "$metrics.visual"},
                 "auditory_average": {"$avg": "$metrics.auditory"},
                 "dialogue_average": {"$avg": "$metrics.dialogue"},
                 "emotive_average": {"$avg": "$metrics.emotive"},
-                "symbolism_average": {"$avg": "$metrics.symbolism"}
-            }
-        }]
-    ))
+                "symbolism_average": {"$avg": "$metrics.symbolism"}}}]))
     # 2) UNPACK THE OBJECT INTO PYTHON VARIABLES
     ultimate_score = scores[0]["ultimate_score"]
     visual_average = scores[0]["visual_average"]
@@ -313,10 +310,7 @@ def film(film_id):
             "metrics.auditory_average": auditory_average,
             "metrics.dialogue_average": dialogue_average,
             "metrics.emotive_average": emotive_average,
-            "metrics.symbolism_average": symbolism_average,
-            }
-        }
-    )
+            "metrics.symbolism_average": symbolism_average,}})
     # 4) DEFINE ALL REVIEWS FOR PASSING INTO TEMPLATE
     reviews = mongo.db.reviews.find({"film_id": film_id})
     # 5) DEFINE UPDATED FILM FOR PASSING INTO TEMPLATE
@@ -324,12 +318,14 @@ def film(film_id):
         {"_id": ObjectId(film_id)})
     # 5) SET NUMBER OF USER REVIEWS TO PREVENT MORE THAN 1
     if session.get("member"):
-        user_reviews = mongo.db.reviews.find({"film_id": film_id, "member": session["member"]}).count()
+        user_reviews = mongo.db.reviews.find(
+            {"film_id": film_id, "member": session["member"]}).count()
     else:
         user_reviews = 0
     # 6) RETURN THE SPECIFIC FILM & REVIEWS OBJECTS
     #    WHILE RENDERING THE FILM'S OWN UNIQUE PAGE
-    return render_template("film.html", film=film, reviews=reviews, user_reviews=user_reviews)
+    return render_template(
+        "film.html", film=film, reviews=reviews, user_reviews=user_reviews)
 
 
 @app.route("/edit_film/<film_id>", methods=["GET", "POST"])
@@ -382,7 +378,8 @@ def delete_film(film_id):
     films = list(mongo.db.films.find({"member": session["member"]}))
     all_films = list(mongo.db.films.find())
     return render_template(
-            "members.html", member=member, reviews=reviews, films=films, all_films=all_films)
+            "members.html", member=member, reviews=reviews,
+            films=films, all_films=all_films)
 
 
 @app.route("/add_review/<film_id>", methods=["GET", "POST"])
@@ -436,7 +433,8 @@ def edit_review(review_id):
             "emotive": float(request.form.get("emotive")),
             "symbolism": float(request.form.get("symbolism"))
         }
-        ultimate_score = sum(updated_metrics.values()) / len(updated_metrics.values())
+        total = sum(updated_metrics.values())
+        ultimate_score = total / len(updated_metrics.values())
         # a) create a new dict. that contains updated review details
         updated_review = {
             # i) film id is not a form field so we must obtain it here
@@ -456,10 +454,12 @@ def edit_review(review_id):
         # d) return the user back to the updated film page
         return redirect(url_for("film", film_id=review["film_id"]))
 
-    num_of_reviews = mongo.db.reviews.find({"film_id": review["film_id"]}).count()
+    num_of_reviews = mongo.db.reviews.find(
+        {"film_id": review["film_id"]}).count()
     # 3) DEFAULT ACTION: DISPLAY PRE-POPULATED EDIT REVIEW TEMPLATE
-    return render_template("edit_review.html", review=review,
-                                film=film, num_of_reviews=num_of_reviews)
+    return render_template(
+        "edit_review.html", review=review,
+        film=film, num_of_reviews=num_of_reviews)
 
 
 @app.route("/delete_review/<review_id>")
@@ -493,10 +493,11 @@ def profile(username):
     flash("This is the beginning of a beautiful friendship.")
     # 4) RENDER THE TEMPLATE
     return render_template(
-        "profile.html", user=user, reviews=reviews, films=films, all_films=all_films)
+        "profile.html", user=user, reviews=reviews,
+        films=films, all_films=all_films)
 
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True)
+            debug=False)
