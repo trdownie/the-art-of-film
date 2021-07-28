@@ -48,6 +48,7 @@ a {
     margin-top: 0px;
 }
 
+/*****  Classes  *****/
 
 .btn {
     margin-bottom: 10px;
@@ -57,10 +58,6 @@ a {
     margin-top: 50px;
 }
 
-
-
-
-
 .affiliate {
     margin: 20px 0px;
 }
@@ -69,27 +66,12 @@ a {
     display: none;
 }
 
-
-.parent {
-    height: 300px;
-    position: relative;
-}
-
-.child {
-    position: absolute;
-    bottom: 0;
-}
-
-.film-img, .profile-img {
+.profile-img {
     max-height: 500px;
 }
 
 .word-space {
     word-spacing: 0.5rem;
-}
-
-.letter-space{
-    letter-spacing: 0.1rem;
 }
 
 .thumbnail {
