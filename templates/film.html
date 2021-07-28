@@ -66,7 +66,7 @@
                 {% if session.member %}
                     <div class="center-align spacer">
                         <a href="{{ url_for('edit_film', film_id=film._id) }}"
-                            class="waves-effect waves-light btn white grey-text text-darken-3 z-depth-2">
+                            class="waves-effect waves-light btn white grey-text text-darken-3 z-depth-2 hvr-grow">
                             <i class="fas fa-pen left"></i>Edit Film
                         </a>
                     </div>
@@ -81,7 +81,7 @@
         {% if (session.member) and (user_reviews == 0) %}
                 <div class="col s12 center-align">
                     <a href="{{ url_for('add_review', film_id=film._id, film=film) }}"
-                        class="waves-effect waves-light btn amber accent-4 grey-text text-darken-3 z-depth-2">
+                        class="waves-effect waves-light btn amber accent-4 grey-text text-darken-3 z-depth-2 hvr-grow">
                         <i class="fas fa-plus left"></i>Add Review
                     </a>
                 </div>
@@ -133,7 +133,7 @@
                     {% if review.member == session.member %}
                         <div class="center-align">
                             <a href="{{ url_for('edit_review', review_id=review._id) }}"
-                                class="waves-effect waves-light btn white grey-text text-darken-3 z-depth-2 spacer">
+                                class="waves-effect waves-light btn white grey-text text-darken-3 z-depth-2 hvr-grow spacer">
                                 <i class="fas fa-pen left"></i>Edit Review
                             </a>
                         </div>
