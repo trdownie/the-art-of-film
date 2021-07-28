@@ -19,7 +19,7 @@
         <nav class="nav-extended transparent z-depth-0">
             <div class="nav-wrapper">
                 <!------------- site logo -->
-                <a href="{{ url_for('index') }}" class="brand-logo underline">A|F</a>
+                <a href="{{ url_for('index') }}" class="brand-logo hvr-grow">A|F</a>
                 <!------------- materialize functionality -->
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
                 <!------------- NAVIGATION -->
@@ -68,7 +68,7 @@
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
-                    <div class="row">
+                    <div class="row spacer">
                         <p class="lg-text amber-text text-accent-4 center-align">{{ message }}</p>
                     </div>
                 {% endfor %}
@@ -90,7 +90,7 @@
                     but it also allows for the rental and purchase of almost any film you can think of.</b>
                 </p>
                 <!------------- main afiliate link -->
-                <a class="center-align lg-text underline" target="_blank"
+                <a class="center-align lg-text hvr-grow" target="_blank"
                     href="https://www.amazon.com/gp/search?ie=UTF8&tag=wildapeventur-20&linkCode=ur2&linkId=84797582b0b79cd03c9f2f8a39722e95&camp=1789&creative=9325&index=instant-video&keywords=prime video">
                     <b>Visit Prime</b>
                 </a>

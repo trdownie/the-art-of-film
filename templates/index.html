@@ -34,33 +34,33 @@
                 <div class="card horizontal grey darken-3 z-depth-5">
                     <!------------- film image -->
                     <div class="card-image">
-                        <img src="{{ film.image_url }}" alt="Film image for {{ film.title }}">
+                        <img class="film-img" src="{{ film.image_url }}" alt="Film image for {{ film.title }}">
                     </div>
                     <!------------- film info -->
                     <div class="card-stacked">
                         <div class="card-content">
                             <!-- score -->
-                            <p class="xxl-text"><i class="fas fa-star amber-text text-accent-4"></i>
+                            <p class="xl-text"><i class="fas fa-star amber-text text-accent-4"></i>
                                 <b> {{ film.ultimate_score|round(1) }}</b><br>
                             </p>
                             <!-- title -->
-                            <p class="xl-text">
-                                <a href="{{ url_for('film', film_id=film._id) }}" class="underline">
+                            <p class="lg-text">
+                                <a href="{{ url_for('film', film_id=film._id) }}" class="hvr-grow">
                                     <b>{{ film.title }}</b>
                                 </a>
                             </p>
                             <!-- year -->
-                            <p class="lg-text">
+                            <p class="md-text">
                                 ({{ film.year }})<br><br>
                             </p>
                             <!-- director -->
-                            <p class="lg-text">
+                            <p class="md-text">
                                 Directed by <b>{{ film.director }}</b><br><br>
                             </p>
                             <!-- tailored affiliate link -->
                             <div class="spacer center-align">
                                 {% set url = "https://www.amazon.com/gp/search?ie=UTF8&tag=wildapeventur-20&linkCode=ur2&linkId=84797582b0b79cd03c9f2f8a39722e95&camp=1789&creative=9325&index=instant-video&keywords=" %}
-                                <a class="xl-text underline" target="_blank" href="{{ url + film.title }}">
+                                <a class="lg-text hvr-grow" target="_blank" href="{{ url + film.title }}">
                                     <em>Watch Now</em>
                                 </a>
                             </div>

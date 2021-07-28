@@ -22,14 +22,14 @@
                         {% if film.member == session.member %}
                             <!------------- if member added film, take member to member's area -->
                             <p class="right-align">
-                                Added by <a href="{{ url_for('members', member=session['member']) }}" class="underline">
+                                Added by <a href="{{ url_for('members', member=session['member']) }}" class="hvr-grow">
                                     <b>{{ film.member }}</b>
                                 </a>
                             </p>
                         {% else %}
                             <!------------- if other user added film, take member to their profile -->
                             <p class="right-align">
-                                Added by <a href="{{ url_for('profile', username=film.member) }}" class="underline">
+                                Added by <a href="{{ url_for('profile', username=film.member) }}" class="hvr-grow">
                                     <b>{{ film.member }}</b>
                                 </a>
                             </p>
@@ -104,14 +104,14 @@
                     {% if review.member == session.member %}
                         <!------------- if member added review, take member to member's area -->
                         <p class="right-align">
-                            by <a href="{{ url_for('members', member=session['member']) }}" class="underline">
+                            by <a href="{{ url_for('members', member=session['member']) }}" class="hvr-grow">
                                 <b>{{ review.member }}</b>
                             </a>
                         </p>
                     {% else %}
                         <!------------- if other user added review, take member to their profile -->
                         <p class="right-align">
-                            by <a href="{{ url_for('profile', username=review.member) }}" class="underline">
+                            by <a href="{{ url_for('profile', username=review.member) }}" class="hvr-grow">
                                 <b>{{ review.member }}</b>
                             </a>
                         </p>

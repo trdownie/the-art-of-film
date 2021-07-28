@@ -50,8 +50,8 @@
                     <div class="card-stacked">
                         <div class="card-content">
                             <!-- film title -->
-                            <p class="xl-text">
-                                <a href="{{ url_for('film', film_id=film._id) }}" class="underline">
+                            <p class="lg-text">
+                                <a href="{{ url_for('film', film_id=film._id) }}" class="hvr-grow">
                                     <b>{{ film.title }}</b>
                                 </a>
                             </p>
@@ -90,7 +90,7 @@
             {% if films|length == 0 %}
                 <div class="card-panel grey darken-3 z-depth-5">
                     <p>No films added yet! Add one 
-                        <a href="{{ url_for('add_film') }}" class="underline"><b>here</b></a>
+                        <a href="{{ url_for('add_film') }}" class="hvr-grow"><b>here</b></a>
                     </p>
                 </div>
             {% endif %}
@@ -115,7 +115,7 @@
                                 <!-- film title & score -->
                                 <div class="col s12 center-align md-text">
                                     <p>
-                                        <a href="{{ url_for('film', film_id=film._id) }}" class="underline">
+                                        <a href="{{ url_for('film', film_id=film._id) }}" class="hvr-grow">
                                             <b>{{ film.title }}</b>
                                         </a><br>
                                         <i class="fas fa-star amber-text text-accent-4"></i>
@@ -129,13 +129,13 @@
                     <div class="row">
                         <div class="col s12">
                             <!-- review title & ultimate score -->
-                            <p class="xl-text">
+                            <p class="lg-text">
                                 <b> {{ review.title }}</b><br>
                                 <i class="fas fa-star amber-text text-accent-4"></i>
                                 <b> {{ review.ultimate_score }}</b>
                             </p>
                             <!-- review body -->
-                            <p class="md-text">
+                            <p>
                                 {{ review.review }}
                             <br></p>
                             <!-- review metrics -->
@@ -170,7 +170,7 @@
                 <div class="card-panel grey darken-3 z-depth-5">
                     <p>
                         No reviews added yet! Find a film to review 
-                        <a href="{{ url_for('index') }}" class="underline"><b>here</b></a>
+                        <a href="{{ url_for('index') }}" class="hvr-grow"><b>here</b></a>
                     </p>
                 </div>
             {% endif %}

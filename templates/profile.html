@@ -44,8 +44,8 @@
                     <div class="card-stacked">
                         <div class="card-content">
                             <!-- film title -->
-                            <p class="xl-text">
-                                <a href="{{ url_for('film', film_id=film._id) }}" class="underline">
+                            <p class="lg-text">
+                                <a href="{{ url_for('film', film_id=film._id) }}" class="hvr-grow">
                                     <b>{{ film.title }}</b>
                                 </a>
                             </p>
@@ -107,7 +107,7 @@
                                 <!-- film title & score -->
                                 <div class="col s12 center-align md-text">
                                     <p>
-                                        <a href="{{ url_for('film', film_id=film._id) }}" class="underline">
+                                        <a href="{{ url_for('film', film_id=film._id) }}" class="hvr-grow">
                                             <b>{{ film.title }}</b>
                                         </a><br>
                                         <i class="fas fa-star amber-text text-accent-4"></i>
@@ -121,13 +121,13 @@
                     <div class="row">
                         <div class="col s12">
                             <!-- review title & ultimate score -->
-                            <p class="xl-text">
+                            <p class="lg-text">
                                 <b> {{ review.title }}</b><br>
                                 <i class="fas fa-star amber-text text-accent-4"></i>
                                 <b> {{ review.ultimate_score }}</b>
                             </p>
                             <!-- review body -->
-                            <p class="md-text">
+                            <p>
                                 {{ review.review }}
                             <br></p>
                             <!-- review metrics -->

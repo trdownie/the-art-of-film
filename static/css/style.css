@@ -26,12 +26,16 @@ html {
     color: #fff;
 }
 
+a {
+    color: #ffab00;
+}
+
 label, .btn {
     font-size: 20px;
 }
 
-a {
-    color: #ffab00;
+.btn {
+    margin-bottom: 10px;
 }
 
 /*  CODE CREDIT: UNDERLINE ON HOVER DECORATION TAKEN FROM THE BLOG BELOW  */
@@ -61,6 +65,25 @@ a {
   
 .underline:hover::before {
     transform: scaleX(1);
+}
+/*  END OF CODE CREDIT  */
+
+/* CODE CREDIT: TAKEN FROM HOVER.CSS GROW */
+.hvr-grow {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+
+.hvr-grow:hover,
+.hvr-grow:focus,
+.hvr-grow:active {
+    transform: scale(1.1);
 }
 /*  END OF CODE CREDIT  */
 
@@ -95,8 +118,13 @@ a {
 }
 
 /*****  Classes  *****/
-.btn {
-    margin-bottom: 10px;
+
+.brand-logo {
+    margin-left: 10px;
+}
+
+.film-img {
+    max-width: 300px;
 }
 
 .spacer {
@@ -121,10 +149,6 @@ a {
 
 .thumbnail {
     max-height: 100px;
-}
-
-.brand-logo {
-    margin-left: 10px;
 }
 
 /***********************************  RESPONSIVENESS  ************************************/
