@@ -19,34 +19,47 @@
         <!-------------------------------------------- NAVBAR -->
         <nav class="nav-extended transparent z-depth-0">
             <div class="nav-wrapper">
+                <!------------- site logo -->
                 <a href="{{ url_for('index') }}" class="brand-logo">A|F</a>
+                <!------------- materialize functionality -->
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
+                <!------------- NAVIGATION -->
                 <ul class="right hide-on-med-and-down">
+                    <!------------- for everyone -->
                     <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <!------------- for those logged in -->
                     {% if session.member %}
                         <li><a href="{{ url_for('members', member=session['member']) }}">Member's Area</a></li>
                         <li><a href="{{ url_for('add_film') }}">Add Film</a></li>
                         <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                    <!------------- for non-members / those logged out -->
                     {% else %}
                         <li><a href="{{ url_for('login') }}">Log In</a></li>
                         <li><a href="{{ url_for('register') }}">Register</a></li>
                     {% endif %}
+                    <!------------- for everyone -->
                     <li><a href="{{ url_for('about') }}">About</a></li>
                 </ul>
             </div>
         </nav>
         <!-------------------------------------------- MOBILE SIDENAV -->
         <ul class="sidenav" id="mobile-demo">
+            <!------------- site logo -->
             <li><a class="center-align grey-text text-darken-3">A|F</a></li>
+            <!------------- NAVIGATION -->
+            <!------------- for everyone -->
             <li><a href="{{ url_for('index') }}">Home</a></li>
+            <!------------- for those logged in -->
             {% if session.member %}
                 <li><a href="{{ url_for('members', member=session['member']) }}">Member's Area</a></li>
                 <li><a href="{{ url_for('add_film') }}">Add Film</a></li>
                 <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+            <!------------- for non-members / those logged out -->
             {% else %}
                 <li><a href="{{ url_for('login') }}">Log In</a></li>
                 <li><a href="{{ url_for('register') }}">Register</a></li>
             {% endif %}
+            <!------------- for everyone -->
             <li><a href="{{ url_for('about') }}">About</a></li>
         </ul>
     </header>
@@ -72,10 +85,20 @@
         <div class="row spacer">
             <div class="col s12 center-align grey darken-1 z-depth-5 spacer">
                 <h3 class="lg-text affiliate">Ready to watch a movie?</h3>
-                <p><b>Amazon's Prime Video has a constantly increasing catalogue of films,
-                    but it also allows for the rental and purchase of almost any film you can think of.</b></p>
-                <a class="center-align lg-text" target="_blank" href="https://www.amazon.com/gp/search?ie=UTF8&tag=wildapeventur-20&linkCode=ur2&linkId=84797582b0b79cd03c9f2f8a39722e95&camp=1789&creative=9325&index=instant-video&keywords=prime video"><b>Visit Prime</b></a>
-                <p>(The Art of Film makes a minor commision if you use this link and purchase something from Amazon. This does not impact the price you pay.)</p>
+                <!------------- pitch -->
+                <p>
+                    <b>Amazon's Prime Video has a constantly increasing catalogue of films,
+                    but it also allows for the rental and purchase of almost any film you can think of.</b>
+                </p>
+                <!------------- main afiliate link -->
+                <a class="center-align lg-text" target="_blank"
+                    href="https://www.amazon.com/gp/search?ie=UTF8&tag=wildapeventur-20&linkCode=ur2&linkId=84797582b0b79cd03c9f2f8a39722e95&camp=1789&creative=9325&index=instant-video&keywords=prime video">
+                    <b>Visit Prime</b>
+                </a>
+                <!------------- disclosure -->
+                <p>
+                    (The Art of Film makes a minor commision if you use this link and purchase something
+                    from Amazon. This does not impact the price you pay.)</p>
             </div>
         </div>
     </section>
