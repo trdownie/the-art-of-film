@@ -130,7 +130,7 @@
                         <div class="col s12">
                             <p>You can't delete this review since it is {{ film.title }}'s only review.
                                 You can edit the review, or if you must, delete the film entirely
-                                <a href="{{ url_for('edit_film', film_id=film._id) }}">here</a>.
+                                <a href="{{ url_for('edit_film', film_id=film._id) }}" class="underline">here</a>.
                             </p>
                         </div>
                     {% endif %}

@@ -19,25 +19,25 @@
         <nav class="nav-extended transparent z-depth-0">
             <div class="nav-wrapper">
                 <!------------- site logo -->
-                <a href="{{ url_for('index') }}" class="brand-logo">A|F</a>
+                <a href="{{ url_for('index') }}" class="brand-logo underline">A|F</a>
                 <!------------- materialize functionality -->
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
                 <!------------- NAVIGATION -->
                 <ul class="right hide-on-med-and-down">
                     <!------------- for everyone -->
-                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('index') }}" class="underline">Home</a></li>
                     <!------------- for those logged in -->
                     {% if session.member %}
-                        <li><a href="{{ url_for('members', member=session['member']) }}">Member's Area</a></li>
-                        <li><a href="{{ url_for('add_film') }}">Add Film</a></li>
-                        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                        <li><a href="{{ url_for('members', member=session['member']) }}" class="underline">Member's Area</a></li>
+                        <li><a href="{{ url_for('add_film') }}" class="underline">Add Film</a></li>
+                        <li><a href="{{ url_for('logout') }}" class="underline">Log Out</a></li>
                     <!------------- for non-members / those logged out -->
                     {% else %}
-                        <li><a href="{{ url_for('login') }}">Log In</a></li>
-                        <li><a href="{{ url_for('register') }}">Register</a></li>
+                        <li><a href="{{ url_for('login') }}" class="underline">Log In</a></li>
+                        <li><a href="{{ url_for('register') }}" class="underline">Register</a></li>
                     {% endif %}
                     <!------------- for everyone -->
-                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('about') }}" class="underline">About</a></li>
                 </ul>
             </div>
         </nav>
@@ -82,7 +82,7 @@
         {% endblock %}
         <!-------------------------------------------- AFFILIATE BOX -->
         <div class="row spacer">
-            <div class="col s12 center-align grey darken-1 z-depth-5 spacer">
+            <div class="col s12 center-align grey darken-2 z-depth-5 spacer">
                 <h3 class="lg-text affiliate">Ready to watch a movie?</h3>
                 <!------------- pitch -->
                 <p>
@@ -90,7 +90,7 @@
                     but it also allows for the rental and purchase of almost any film you can think of.</b>
                 </p>
                 <!------------- main afiliate link -->
-                <a class="center-align lg-text" target="_blank"
+                <a class="center-align lg-text underline" target="_blank"
                     href="https://www.amazon.com/gp/search?ie=UTF8&tag=wildapeventur-20&linkCode=ur2&linkId=84797582b0b79cd03c9f2f8a39722e95&camp=1789&creative=9325&index=instant-video&keywords=prime video">
                     <b>Visit Prime</b>
                 </a>

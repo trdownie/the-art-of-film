@@ -51,7 +51,7 @@
                         <div class="card-content">
                             <!-- film title -->
                             <p class="xl-text">
-                                <a href="{{ url_for('film', film_id=film._id) }}">
+                                <a href="{{ url_for('film', film_id=film._id) }}" class="underline">
                                     <b>{{ film.title }}</b>
                                 </a>
                             </p>
@@ -90,7 +90,7 @@
             {% if films|length == 0 %}
                 <div class="card-panel grey darken-3 z-depth-5">
                     <p>No films added yet! Add one 
-                        <a href="{{ url_for('add_film') }}"><b>here</b></a>
+                        <a href="{{ url_for('add_film') }}" class="underline"><b>here</b></a>
                     </p>
                 </div>
             {% endif %}
@@ -115,7 +115,7 @@
                                 <!-- film title & score -->
                                 <div class="col s12 center-align md-text">
                                     <p>
-                                        <a href="{{ url_for('film', film_id=film._id) }}">
+                                        <a href="{{ url_for('film', film_id=film._id) }}" class="underline">
                                             <b>{{ film.title }}</b>
                                         </a><br>
                                         <i class="fas fa-star amber-text text-accent-4"></i>
@@ -170,7 +170,7 @@
                 <div class="card-panel grey darken-3 z-depth-5">
                     <p>
                         No reviews added yet! Find a film to review 
-                        <a href="{{ url_for('index') }}"><b>here</b></a>
+                        <a href="{{ url_for('index') }}" class="underline"><b>here</b></a>
                     </p>
                 </div>
             {% endif %}

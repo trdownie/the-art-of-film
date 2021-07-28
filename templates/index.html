@@ -45,7 +45,7 @@
                             </p>
                             <!-- title -->
                             <p class="xl-text">
-                                <a href="{{ url_for('film', film_id=film._id) }}">
+                                <a href="{{ url_for('film', film_id=film._id) }}" class="underline">
                                     <b>{{ film.title }}</b>
                                 </a>
                             </p>
@@ -60,7 +60,7 @@
                             <!-- tailored affiliate link -->
                             <div class="spacer center-align">
                                 {% set url = "https://www.amazon.com/gp/search?ie=UTF8&tag=wildapeventur-20&linkCode=ur2&linkId=84797582b0b79cd03c9f2f8a39722e95&camp=1789&creative=9325&index=instant-video&keywords=" %}
-                                <a class="xl-text" target="_blank" href="{{ url + film.title }}">
+                                <a class="xl-text underline" target="_blank" href="{{ url + film.title }}">
                                     <em>Watch Now</em>
                                 </a>
                             </div>

@@ -22,14 +22,14 @@
                         {% if film.member == session.member %}
                             <!------------- if member added film, take member to member's area -->
                             <p class="right-align">
-                                Added by <a href="{{ url_for('members', member=session['member']) }}">
+                                Added by <a href="{{ url_for('members', member=session['member']) }}" class="underline">
                                     <b>{{ film.member }}</b>
                                 </a>
                             </p>
                         {% else %}
                             <!------------- if other user added film, take member to their profile -->
                             <p class="right-align">
-                                Added by <a href="{{ url_for('profile', username=film.member) }}">
+                                Added by <a href="{{ url_for('profile', username=film.member) }}" class="underline">
                                     <b>{{ film.member }}</b>
                                 </a>
                             </p>
@@ -104,14 +104,14 @@
                     {% if review.member == session.member %}
                         <!------------- if member added review, take member to member's area -->
                         <p class="right-align">
-                            by <a href="{{ url_for('members', member=session['member']) }}">
+                            by <a href="{{ url_for('members', member=session['member']) }}" class="underline">
                                 <b>{{ review.member }}</b>
                             </a>
                         </p>
                     {% else %}
                         <!------------- if other user added review, take member to their profile -->
                         <p class="right-align">
-                            by <a href="{{ url_for('profile', username=review.member) }}">
+                            by <a href="{{ url_for('profile', username=review.member) }}" class="underline">
                                 <b>{{ review.member }}</b>
                             </a>
                         </p>

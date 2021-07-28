@@ -45,7 +45,7 @@
                         <div class="card-content">
                             <!-- film title -->
                             <p class="xl-text">
-                                <a href="{{ url_for('film', film_id=film._id) }}">
+                                <a href="{{ url_for('film', film_id=film._id) }}" class="underline">
                                     <b>{{ film.title }}</b>
                                 </a>
                             </p>
@@ -107,7 +107,7 @@
                                 <!-- film title & score -->
                                 <div class="col s12 center-align md-text">
                                     <p>
-                                        <a href="{{ url_for('film', film_id=film._id) }}">
+                                        <a href="{{ url_for('film', film_id=film._id) }}" class="underline">
                                             <b>{{ film.title }}</b>
                                         </a><br>
                                         <i class="fas fa-star amber-text text-accent-4"></i>
