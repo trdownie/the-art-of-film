@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Economica:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Satisfy:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+/***********************************  GENERAL STYLING  ************************************/
+
+/*****  Elements  *****/
+
 html {
     font-family: Economica, sans-serif;
     font-size: 20px;
@@ -9,41 +13,14 @@ html {
     color: #fff;
 }
 
+a {
+    color: #ffab00;
+}
+
+/*****  Fonts  *****/
+
 .satisfy {
     font-family: Satisfy, cursive;
-}
-
-.inline {
-    display: inline;
-}
-
-
-.brand-logo {
-    margin-left: 10px;
-}
-
-.btn, .btn-small {
-    margin-bottom: 10px;
-}
-
-.main-div {
-    border-top: 2px solid white;
-}
-
-.minor-div {
-    border-top: 2px solid white;
-    border-radius: 5px;
-}
-
-.profile {
-    width: 100%;
-    display: inline;
-    visibility: visible;
-
-}
-
-.spacer {
-    margin-top: 50px;
 }
 
 .sm-text {
@@ -71,6 +48,19 @@ html {
     margin-top: 0px;
 }
 
+
+.btn {
+    margin-bottom: 10px;
+}
+
+.spacer {
+    margin-top: 50px;
+}
+
+
+
+
+
 .affiliate {
     margin: 20px 0px;
 }
@@ -79,9 +69,6 @@ html {
     display: none;
 }
 
-a {
-    color: #ffab00;
-}
 
 .parent {
     height: 300px;
@@ -91,10 +78,6 @@ a {
 .child {
     position: absolute;
     bottom: 0;
-}
-
-#card-content {
-
 }
 
 .film-img, .profile-img {
@@ -113,7 +96,6 @@ a {
     max-height: 100px;
 }
 
-.btn {
-    font-size: 20px;
-    font-weight: 400;
+.brand-logo {
+    margin-left: 10px;
 }

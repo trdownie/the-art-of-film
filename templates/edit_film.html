@@ -63,21 +63,27 @@
                     </div>
                 </div>
                 <!------------- BUTTONS -->
-                <div class="row">
-                    <button type="submit" 
-                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small teal white-text z-depth-2">
-                        <i class="far fa-save left"></i>Save
-                    </button>
-                    <p><a href="{{ url_for('film', film_id=film_id) }}"
-                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text z-depth-2">
-                        <i class="fas fa-times left"></i>Cancel
-                    </a></p>
+                <div class="row center-align">
+                    <div class="col s12 center-align">
+                        <button type="submit" 
+                            class="waves-effect waves-light btn teal z-depth-2">
+                            <i class="far fa-save left"></i>Save
+                        </button>
+                    </div>
+                    <div class="col s12 center-align">
+                        <a href="{{ url_for('film', film_id=film_id) }}"
+                            class="waves-effect waves-light btn grey z-depth-2">
+                            <i class="fas fa-times left"></i>Cancel
+                        </a>
+                    </div>
                     <!------------- film protection loop -->
                     {% if final_review.member == session.member %}
-                        <a href="{{ url_for('delete_film', film_id=film_id) }}"
-                            class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small red white-text z-depth-2">
-                            <i class="far fa-trash-alt left"></i>Delete
-                        </a>
+                        <div class="col s12 center-align">
+                            <a href="{{ url_for('delete_film', film_id=film_id) }}"
+                                class="waves-effect waves-light btn red z-depth-2">
+                                <i class="far fa-trash-alt left"></i>Delete
+                            </a>
+                        </div>
                     {% else %}
                         <div class="col s12">
                             <p>You can't delete <b>{{ film.title }}</b> as there are existing reviews by other users
