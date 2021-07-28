@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-    <!-------------------------------------------- HEADER -->
+    <!--========================================== HEADER -->
     <h1 class="center-align satisfy">Edit Member</h1>
-    <!-------------------------------------------- EDIT MEMBER FORM -->
+    <!--========================================== EDIT MEMBER FORM -->
     <section class="row">
         <h2 class="center-align amber-text text-accent-4">{{ member.username }}</h2>
         <form class="col s12 m10 l8 offset-m1 offset-l2" method="POST"
             action="{{ url_for('edit_member', member_id=member._id) }}">
             <div class="card-panel grey darken-3 z-depth-5">
-                <!------------- PROFILE SECTION -->
+                <!--=========== PROFILE SECTION -->
                 <h3 class="lg-text center-align amber-text text-accent-4">User Profile</h3>
-                <!------------- tagline -->
+                <!--=========== tagline -->
                 <div class="row">
                     <div class="input-field col s12 field">
                         <input value="{{ member.tagline }}" id="tagline" 
@@ -18,14 +18,14 @@
                         <label for="tagline" class="white-text"><b>Your tagline</b></label>
                     </div>
                 </div>
-                <!------------- film -->
+                <!--=========== film -->
                 <div class="row">
                     <div class="input-field col s12 field">
                         <input  value="{{ member.film }}" id="film" name="film" type="text" class="white-text">
                         <label for="film" class="white-text"><b>Your favourite film</b></label>
                     </div>
                 </div>
-                <!------------- quote -->
+                <!--=========== quote -->
                 <div class="row">
                     <div class="input-field col s12 field">
                         <input  value="{{ member.quote }}" id="quote"
@@ -33,7 +33,7 @@
                         <label for="quote" class="white-text"><b>Your favourite quote</b></label>
                     </div>
                 </div>
-                <!------------- character -->
+                <!--=========== character -->
                 <div class="row">
                     <div class="input-field col s12 field">
                         <input  value="{{ member.character }}" id="character"
@@ -41,7 +41,7 @@
                         <label for="character" class="white-text"><b>Your favourite character</b></label>
                     </div>
                 </div>
-                <!------------- creator -->
+                <!--=========== creator -->
                 <div class="row">
                     <div class="input-field col s12 field">
                         <input  value="{{ member.creator }}" id="creator"
@@ -49,7 +49,7 @@
                         <label for="creator" class="white-text"><b>Your favourite creator</b></label>
                     </div>
                 </div>
-                <!------------- profile pic -->
+                <!--=========== profile pic -->
                 <div class="row">
                     <div class="input-field col s12 field">
                         <input  value="{{ member.profile_url }}" id="profile_url"
@@ -59,7 +59,7 @@
                         </label>
                     </div>
                 </div>
-                <!------------- BUTTONS -->
+                <!--=========== BUTTONS -->
                 <div class="row center-align">
                     <div class="col s12 center-align">
                         <button type="submit" 
@@ -73,7 +73,7 @@
                             <i class="fas fa-times left"></i>Cancel
                         </a>
                     </div>
-                    <!------------- delete profile warning -->
+                    <!--=========== delete profile warning -->
                     <div class="col s12">
                         <p>
                             If you really must you can delete your entire account here - but there's no going back.

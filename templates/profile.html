@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-    <!-------------------------------------------- HEADER -->
+    <!--========================================== HEADER -->
     <h1 class="center-align satisfy">{{ user.username }}</h1>
-    <!-------------------------------------------- PROFILE -->
+    <!--========================================== PROFILE -->
     <section class="row">
         <h2 class="center-align">Profile</h2>
         <div class="col s12">
             <div class="card horizontal grey darken-3 z-depth-5">
-                <!------------- profile picture -->
+                <!--=========== profile picture -->
                 <div class="card-image">
                     <img class="profile-img" src="{{ user.profile_url }}" alt="Profile image for {{ user.username }}">
                 </div>
-                <!------------- profile text -->
+                <!--=========== profile text -->
                 <div class="card-stacked">
                     <div class="card-content">
                         <div class="col s8">
-                            <!------------- profile info -->
+                            <!--=========== profile info -->
                             <p><b>Tagline:</b> {{ user.tagline }}</p>
                             <p><b>Film:</b> {{ user.film }}</p>
                             <p><b>Quote:</b> "{{ user.quote }}"</p>
@@ -27,19 +27,19 @@
             </div>
         </div>
     </section>
-    <!-------------------------------------------- FILMS -->
+    <!--========================================== FILMS -->
     <section class="row">
         <h2 class="center-align">Films</h2>
-        <!------------- FILM CARD LOOP -->
+        <!--=========== FILM CARD LOOP -->
         <div class="col s12 m8 offset-m2">
             {% for film in films %}
-                <!------------- start of film panel -->
+                <!--=========== start of film panel -->
                 <div class="card horizontal grey darken-3 z-depth-5">
-                    <!------------- film image -->
+                    <!--=========== film image -->
                     <div class="card-image">
                         <img src="{{ film.image_url }}" alt="Film image for {{ film.title }}">
                     </div>
-                    <!------------- film info -->
+                    <!--=========== film info -->
                     <div class="card-stacked">
                         <div class="card-content">
                             <!-- film title -->
@@ -77,9 +77,9 @@
                         </div>
                     </div>
                 </div>
-            <!------------- end of film panel -->
+            <!--=========== end of film panel -->
             {% endfor %}
-            <!------------- zero films added panel -->
+            <!--=========== zero films added panel -->
             {% if films|length == 0 %}
                 <div class="card-panel grey darken-3 z-depth-5">
                     <p>{{ user.username }} hasn't added any films yet. Check back later.</p>
@@ -87,15 +87,15 @@
             {% endif %}
         </div>
     </section>
-    <!-------------------------------------------- REVIEWS -->
+    <!--========================================== REVIEWS -->
     <section class="row">
         <h2 class="center-align">Reviews</h2>
-        <!------------- REVIEW CARD LOOP -->
+        <!--=========== REVIEW CARD LOOP -->
         <div class="col s12 m8 offset-m2">
             {% for review in reviews %}
-                <!------------- start of review panel -->
+                <!--=========== start of review panel -->
                 <div class="card-panel grey darken-3 z-depth-5">
-                    <!------------- film info (if film matches review) -->
+                    <!--=========== film info (if film matches review) -->
                     {% for film in all_films %}
                         {% if film._id|string == review.film_id|string %}
                             <div class="row">
@@ -116,7 +116,7 @@
                             </div>
                         {% endif %}
                     {% endfor %}
-                    <!------------- review info (still within main loop) -->
+                    <!--=========== review info (still within main loop) -->
                     <div class="row">
                         <div class="col s12">
                             <!-- review title & ultimate score -->
@@ -145,9 +145,9 @@
                         </div>
                     </div>
                 </div>
-            <!------------- end of review panel -->
+            <!--=========== end of review panel -->
             {% endfor %}
-            <!------------- zero reviews added panel -->
+            <!--=========== zero reviews added panel -->
             {% if reviews|length == 0 %}
                 <div class="card-panel grey darken-3 z-depth-5">
                     <p>

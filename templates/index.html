@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-    <!-------------------------------------------- HEADER -->
+    <!--========================================== HEADER -->
     <h1 class="center-align satisfy">The Art of Film</h1>
-    <!-------------------------------------------- SEARCH BAR -->
+    <!--========================================== SEARCH BAR -->
     <section class="row">
         <h2 class="hidden">Search Bar</h2>
         <form class="col s12 m8 offset-m2" method="post" action="{{ url_for('search') }}">
             <div class="row">
-                <!------------- search input field/label -->
+                <!--=========== search input field/label -->
                 <div class="input-field col s12">
                     <input class="white-text" type="text" name="query" id="query" minlength="3" required>
                     <label for="query">Search Films</label>
                 </div>
-                <!------------- search & refresh buttons -->
+                <!--=========== search & refresh buttons -->
                 <div class="col s12 center-align">
                     <button type="submit" class="btn grey darken-3 z-depth-2 hvr-grow">
                         <i class="fas fa-search amber-text text-accent-4"></i>
@@ -24,19 +24,19 @@
             </div>
         </form>
     </section>
-    <!-------------------------------------------- INDEX -->
+    <!--========================================== INDEX -->
     <section class="row">
         <h2 class="hidden">Main Index</h2>
-        <!------------- FILM CARD LOOP -->
+        <!--=========== FILM CARD LOOP -->
         <div class="col s12 m10 offset-m1">
             {% for film in films %}
-                <!------------- start of film panel -->
+                <!--=========== start of film panel -->
                 <div class="card horizontal grey darken-3 z-depth-5">
-                    <!------------- film image -->
+                    <!--=========== film image -->
                     <div class="card-image">
                         <img class="film-img" src="{{ film.image_url }}" alt="Film image for {{ film.title }}">
                     </div>
-                    <!------------- film info -->
+                    <!--=========== film info -->
                     <div class="card-stacked">
                         <div class="card-content center-align">
                             <!-- score -->
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                 </div>
-                <!------------- end of card panel -->
+                <!--=========== end of card panel -->
             {% endfor %}
         </div>
     </section>

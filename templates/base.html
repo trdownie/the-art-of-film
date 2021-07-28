@@ -14,54 +14,54 @@
 <body>
     <a id="skip-to-main" href="#content" tabindex="0">Skip to main content</a>
     <header>
-        <!-------------------------------------------- NAVBAR -->
+        <!--========================================== NAVBAR -->
         <nav class="nav-extended transparent z-depth-0">
             <div class="nav-wrapper">
-                <!------------- site logo -->
+                <!--=========== site logo -->
                 <a href="{{ url_for('index') }}" class="brand-logo hvr-grow">A|F</a>
-                <!------------- materialize functionality -->
+                <!--=========== materialize functionality -->
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
-                <!------------- NAVIGATION -->
+                <!--=========== NAVIGATION -->
                 <ul class="right hide-on-med-and-down">
-                    <!------------- for everyone -->
+                    <!--=========== for everyone -->
                     <li><a href="{{ url_for('index') }}" class="underline">Home</a></li>
-                    <!------------- for those logged in -->
+                    <!--=========== for those logged in -->
                     {% if session.member %}
                         <li><a href="{{ url_for('members', member=session['member']) }}" class="underline">Member's Area</a></li>
                         <li><a href="{{ url_for('add_film') }}" class="underline">Add Film</a></li>
                         <li><a href="{{ url_for('logout') }}" class="underline">Log Out</a></li>
-                    <!------------- for non-members / those logged out -->
+                    <!--=========== for non-members / those logged out -->
                     {% else %}
                         <li><a href="{{ url_for('login') }}" class="underline">Log In</a></li>
                         <li><a href="{{ url_for('register') }}" class="underline">Register</a></li>
                     {% endif %}
-                    <!------------- for everyone -->
+                    <!--=========== for everyone -->
                     <li><a href="{{ url_for('about') }}" class="underline">About</a></li>
                 </ul>
             </div>
         </nav>
-        <!-------------------------------------------- MOBILE SIDENAV -->
+        <!--========================================== MOBILE SIDENAV -->
         <ul class="sidenav" id="mobile-demo">
-            <!------------- site logo -->
+            <!--=========== site logo -->
             <li><a class="center-align grey-text text-darken-3">A|F</a></li>
-            <!------------- NAVIGATION -->
-            <!------------- for everyone -->
+            <!--=========== NAVIGATION -->
+            <!--=========== for everyone -->
             <li><a href="{{ url_for('index') }}">Home</a></li>
-            <!------------- for those logged in -->
+            <!--=========== for those logged in -->
             {% if session.member %}
                 <li><a href="{{ url_for('members', member=session['member']) }}">Member's Area</a></li>
                 <li><a href="{{ url_for('add_film') }}">Add Film</a></li>
                 <li><a href="{{ url_for('logout') }}">Log Out</a></li>
-            <!------------- for non-members / those logged out -->
+            <!--=========== for non-members / those logged out -->
             {% else %}
                 <li><a href="{{ url_for('login') }}">Log In</a></li>
                 <li><a href="{{ url_for('register') }}">Register</a></li>
             {% endif %}
-            <!------------- for everyone -->
+            <!--=========== for everyone -->
             <li><a href="{{ url_for('about') }}">About</a></li>
         </ul>
     </header>
-    <!-------------------------------------------- FLASH MESSAGES -->
+    <!--========================================== FLASH MESSAGES -->
     <section>
         <h2 class="hidden">Notifications</h2>
         {% with messages = get_flashed_messages() %}
@@ -74,33 +74,33 @@
             {% endif %}
         {% endwith %}
     </section>
-    <!-------------------------------------------- CHILD TEMPLATE -->
+    <!--========================================== CHILD TEMPLATE -->
     <section class="container s12 m10 offset-m1" id="content">
         <h2 class="hidden">Main Content</h2>
         {% block content %}
         {% endblock %}
-        <!-------------------------------------------- AFFILIATE BOX -->
+        <!--========================================== AFFILIATE BOX -->
         <div class="row spacer">
             <div class="col s12 center-align grey darken-2 z-depth-5 spacer">
                 <h3 class="lg-text affiliate">Ready to watch a movie?</h3>
-                <!------------- pitch -->
+                <!--=========== pitch -->
                 <p>
                     <b>Amazon's Prime Video has a constantly increasing catalogue of films,
                     but it also allows for the rental and purchase of almost any film you can think of.</b>
                 </p>
-                <!------------- main afiliate link -->
+                <!--=========== main afiliate link -->
                 <a class="center-align lg-text hvr-grow" target="_blank"
                     href="https://www.amazon.com/gp/search?ie=UTF8&tag=wildapeventur-20&linkCode=ur2&linkId=84797582b0b79cd03c9f2f8a39722e95&camp=1789&creative=9325&index=instant-video&keywords=prime video">
                     <b>Visit Prime</b>
                 </a>
-                <!------------- disclosure -->
+                <!--=========== disclosure -->
                 <p>
                     (The Art of Film makes a minor commision if you use this link and purchase something
                     from Amazon. This does not impact the price you pay.)</p>
             </div>
         </div>
     </section>
-    <!-------------------------------------------- END OF CONTENT -->
+    <!--========================================== END OF CONTENT -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

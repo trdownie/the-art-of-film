@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-    <!-------------------------------------------- HEADER -->
+    <!--========================================== HEADER -->
     <h1 class="center-align satisfy">Add Review</h1>
-    <!-------------------------------------------- ADD REVIEW FORM -->
+    <!--========================================== ADD REVIEW FORM -->
     <section class="row">
         <h2 class="center-align amber-text text-accent-4">{{ film.title }}</h2>
         <form class="col s12 m10 l8 offset-m1 offset-l2" method="POST"
             action="{{ url_for('add_review', film_id=film_id, film=film) }}">
             <div class="card-panel grey darken-3 z-depth-5">
-                <!------------- DETAILS SECTION -->
+                <!--=========== DETAILS SECTION -->
                 <h3 class="lg-text center-align amber-text text-accent-4">Review Details</h3>
-                <!------------- review title -->
+                <!--=========== review title -->
                 <div class="row">
                     <div class="input-field col s12 field">
                         <input id="title" name="title" type="text" class="white-text" required>
                         <label for="title" class="white-text"><b>Title</b></label>
                     </div>
                 </div>
-                <!------------- review -->
+                <!--=========== review -->
                 <div class="row">
                     <div class="input-field col s12 field">
                         <textarea id="review" name="review"
@@ -25,9 +25,9 @@
                         <label for="review" class="white-text"><b>Review</b></label>
                     </div>
                 </div>
-                <!------------- METRICS SECTION -->
+                <!--=========== METRICS SECTION -->
                 <h3 class="lg-text center-align amber-text text-accent-4">Review Metrics</h3>
-                <!------------- visual appeal metric -->
+                <!--=========== visual appeal metric -->
                 <div class="row">
                     <div class="col s12 field">
                         <p class="range-field">
@@ -39,7 +39,7 @@
                         </p>
                     </div>
                 </div>
-                <!------------- auditory appeal metric -->
+                <!--=========== auditory appeal metric -->
                 <div class="row">
                     <div class="col s12 field">
                         <p class="range-field">
@@ -51,7 +51,7 @@
                         </p>
                     </div>
                 </div>
-                <!------------- dialogue metric -->
+                <!--=========== dialogue metric -->
                 <div class="row">
                     <div class="col s12 field">
                         <p class="range-field">
@@ -63,7 +63,7 @@
                         </p>
                     </div>
                 </div>
-                <!------------- emotive impact metric -->
+                <!--=========== emotive impact metric -->
                 <div class="row">
                     <div class="col s12 field">
                         <p class="range-field">
@@ -75,7 +75,7 @@
                         </p>
                     </div>
                 </div>
-                <!------------- symbolism metric -->
+                <!--=========== symbolism metric -->
                 <div class="row">
                     <div class="col s12 field">
                         <p class="range-field">
@@ -87,9 +87,9 @@
                         </p>
                     </div>
                 </div>
-                <!------------- USER SECTION -->
+                <!--=========== USER SECTION -->
                 <h3 class="lg-text center-align amber-text text-accent-4">User Details</h3>
-                <!------------- submitting member: disabled -->
+                <!--=========== submitting member: disabled -->
                 <div class="row">
                     <div class="input-field col s12 field">
                         <input disabled value="{{ session['member'] }}" 
@@ -97,7 +97,7 @@
                         <label for="member" class="white-text"></label>
                     </div>
                 </div>
-                <!------------- BUTTONS -->
+                <!--=========== BUTTONS -->
                 <div class="row center-align">
                     <div class="col s12 center-align">
                         <button type="submit" 
