@@ -371,9 +371,12 @@ def delete_film(film_id):
     # 1) REMOVE THE FILM FROM THE DB COLLECTION
     mongo.db.films.remove(
         {"_id": ObjectId(film_id)})
-    # 2) RETURN A FLASH MESSAGE
+    # 2) REMOVE THE FINAL REVIEW FROM THE DB COLLECTION
+    mongo.db.reviews.remove(
+        {"film_id": film_id})
+    # 3) RETURN A FLASH MESSAGE
     flash("Hasta la vista, baby.")
-    # 3) RETURN THE USER TO THE MEMBER'S AREA
+    # 4) RETURN THE USER TO THE MEMBER'S AREA
     member = mongo.db.users.find_one({"username": session["member"]})
     reviews = list(mongo.db.reviews.find({"member": session["member"]}))
     films = list(mongo.db.films.find({"member": session["member"]}))
