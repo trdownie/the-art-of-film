@@ -1,49 +1,72 @@
 {% extends "base.html" %}
 {% block content %}
-    <!--------------------------------------------  HEADING -->
+    <!--------------------------------------------  HEADING & RATING -->
     <h1 class="center-align satisfy">{{ film.title }}</h1>
-    <p class="center-align xxl-text white-text"><i class="fas fa-star amber-text text-accent-4"></i><b> {{ film.ultimate_score|round(1) }}</b></p>
+    <p class="center-align xxl-text white-text">
+        <i class="fas fa-star amber-text text-accent-4"></i><b> {{ film.ultimate_score|round(1) }}</b>
+    </p>
     <!--------------------------------------------  SUMMARY -->
     <section class="row">
         <h2 class="center-align">Summary</h2>
-            <div class="col s12 m8 offset-m2">
-                <div class="card horizontal grey darken-3 z-depth-5">
-                    <div class="card-image">
-                        <img src="{{ film.image_url }}">
-                    </div>
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p class="md-text"><b>SYNOPSIS:</b> {{ film.synopsis }}</p><br><br>
-                            {% if film.member == session.member %}
-                                <p class="right-align">Added by <a href="{{ url_for('members', member=session['member']) }}"><b>{{ film.member }}</b></a></p>
-                            {% else %}
-                                <p class="right-align">Added by <a href="{{ url_for('profile', username=film.member) }}"><b>{{ film.member }}</b></a></p>
-                            {% endif %}
-                        </div>
+        <div class="col s12 m8 offset-m2">
+            <div class="card horizontal grey darken-3 z-depth-5">
+                <!------------- film image -->
+                <div class="card-image">
+                    <img src="{{ film.image_url }}">
+                </div>
+                <!------------- film summary -->
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p class="md-text"><b>SYNOPSIS:</b> {{ film.synopsis }}</p><br><br>
+                        <!------------- film contributor link -->
+                        {% if film.member == session.member %}
+                            <!------------- if member added film, take member to member's area -->
+                            <p class="right-align">
+                                Added by <a href="{{ url_for('members', member=session['member']) }}">
+                                    <b>{{ film.member }}</b>
+                                </a>
+                            </p>
+                        {% else %}
+                            <!------------- if other user added film, take member to their profile -->
+                            <p class="right-align">
+                                Added by <a href="{{ url_for('profile', username=film.member) }}">
+                                    <b>{{ film.member }}</b>
+                                </a>
+                            </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
+        </div>
     </section>
     <!--------------------------------------------  DETAILS -->
     <section class="row">
         <h2 class="center-align">Details</h2>
         <div class="col s12 m8 offset-m2">
             <div class="card-panel grey darken-3 z-depth-5">
+                <!------------- film details -->
                 <p>
-                    <span class="xl-text">{{ film.title }}</span>
-                    <span class="xl-text">({{ film.year }})</span></br>
+                    <span class="xl-text"><b>{{ film.title }}</b> ({{ film.year }})</span></br>
                     <span class="lg-text">by <b>{{ film.director }}</b></span><br>
                 </p>
+                <!------------- film metrics -->
                 <p class="lg-text center-align word-space">
-                    <i class="fas fa-eye amber-text text-accent-4"></i><b> {{ film.metrics.visual_average|round(1) }} </b>
-                    <i class="fas fa-headphones amber-text text-accent-4"></i><b> {{ film.metrics.auditory_average|round(1) }} </b>
-                    <i class="fas fa-quote-right amber-text text-accent-4"></i><b> {{ film.metrics.dialogue_average|round(1) }} </b>
-                    <i class="fas fa-surprise amber-text text-accent-4"></i><b> {{ film.metrics.emotive_average|round(1) }} </b>
-                    <i class="fas fa-peace amber-text text-accent-4"></i><b> {{ film.metrics.symbolism_average|round(1) }} </b>
+                    <i class="fas fa-eye amber-text text-accent-4"></i>
+                        <b> {{ film.metrics.visual_average|round(1) }} </b>
+                    <i class="fas fa-headphones amber-text text-accent-4"></i>
+                        <b> {{ film.metrics.auditory_average|round(1) }} </b>
+                    <i class="fas fa-quote-right amber-text text-accent-4"></i>
+                        <b> {{ film.metrics.dialogue_average|round(1) }} </b>
+                    <i class="fas fa-surprise amber-text text-accent-4"></i>
+                        <b> {{ film.metrics.emotive_average|round(1) }} </b>
+                    <i class="fas fa-peace amber-text text-accent-4"></i>
+                        <b> {{ film.metrics.symbolism_average|round(1) }} </b>
                 </p>
+                <!------------- edit film button (members only) -->
                 {% if session.member %}
                     <div class="center-align spacer">
-                        <a href="{{ url_for('edit_film', film_id=film._id) }}" class="waves-effect waves-light btn white grey-text text-darken-3 center-align">
+                        <a href="{{ url_for('edit_film', film_id=film._id) }}"
+                            class="waves-effect waves-light btn white grey-text text-darken-3 center-align">
                             <i class="fas fa-pen left"></i>Edit Film
                         </a>
                     </div>
@@ -54,6 +77,7 @@
     <!--------------------------------------------  REVIEWS -->
     <section class="row">
         <h2 class="center-align">Reviews</h2>
+        <!------------- add review button for members who haven't added one yet -->
         {% if (session.member) and (user_reviews == 0) %}
                 <div class="col s12 center-align">
                     <a href="{{ url_for('add_review', film_id=film._id, film=film) }}"
@@ -62,44 +86,55 @@
                     </a>
                 </div>
         {% endif %}
+        <!------------- REVIEW CARD LOOP -->
         <div class="col s12 m8 offset-m2">
             {% for review in reviews %}
+                <!------------- start of card panel -->
                 <div class="card-panel grey darken-3 z-depth-5">
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p class="xl-text">
-                                <b>{{ review.title }}</b><br>
-                                <i class="fas fa-star amber-text text-accent-4"></i><b> {{ review.ultimate_score }}</b>
-                            </p>
-                            <p class="md-text">
-                                {{ review.review }}
-                            </p>
-                            {% if review.member == session.member %}
-                                <p class="right-align">
-                                    by <a href="{{ url_for('members', member=session['member']) }}"><b>{{ review.member }}</b></a>
-                                </p>
-                            {% else %}
-                                <p class="right-align">
-                                    by <a href="{{ url_for('profile', username=review.member) }}"><b>{{ review.member }}</b></a>
-                                </p>
-                            {% endif %}
-                            <p class="lg-text center-align word-space">
-                                <i class="fas fa-eye amber-text text-accent-4"></i><b> {{ review.metrics.visual }} </b>
-                                <i class="fas fa-headphones amber-text text-accent-4"></i><b> {{ review.metrics.auditory }} </b>
-                                <i class="fas fa-quote-right amber-text text-accent-4"></i><b> {{ review.metrics.dialogue }} </b>
-                                <i class="fas fa-surprise amber-text text-accent-4"></i><b> {{ review.metrics.emotive }} </b>
-                                <i class="fas fa-peace amber-text text-accent-4"></i><b> {{ review.metrics.symbolism }} </b><br>
-                            </p>
-                            {% if review.member == session.member %}
-                                <div class="center-align">
-                                    <a href="{{ url_for('edit_review', review_id=review._id) }}"
-                                        class="waves-effect waves-light btn white grey-text text-darken-3 center-align spacer">
-                                        <i class="fas fa-pen left"></i>Edit Review</a>
-                                </div>
-                            {% endif %}
+                    <!------------- review title & score -->
+                    <p class="xl-text">
+                        <b>{{ review.title }}</b><br>
+                        <i class="fas fa-star amber-text text-accent-4"></i><b> {{ review.ultimate_score }}</b>
+                    </p>
+                    <!------------- review body -->
+                    <p class="md-text">
+                        {{ review.review }}
+                    </p>
+                    <!------------- review contributor link -->
+                    {% if review.member == session.member %}
+                        <!------------- if member added review, take member to member's area -->
+                        <p class="right-align">
+                            by <a href="{{ url_for('members', member=session['member']) }}">
+                                <b>{{ review.member }}</b>
+                            </a>
+                        </p>
+                    {% else %}
+                        <!------------- if other user added review, take member to their profile -->
+                        <p class="right-align">
+                            by <a href="{{ url_for('profile', username=review.member) }}">
+                                <b>{{ review.member }}</b>
+                            </a>
+                        </p>
+                    {% endif %}
+                    <!------------- review metrics -->
+                    <p class="lg-text center-align word-space">
+                        <i class="fas fa-eye amber-text text-accent-4"></i><b> {{ review.metrics.visual }} </b>
+                        <i class="fas fa-headphones amber-text text-accent-4"></i><b> {{ review.metrics.auditory }} </b>
+                        <i class="fas fa-quote-right amber-text text-accent-4"></i><b> {{ review.metrics.dialogue }} </b>
+                        <i class="fas fa-surprise amber-text text-accent-4"></i><b> {{ review.metrics.emotive }} </b>
+                        <i class="fas fa-peace amber-text text-accent-4"></i><b> {{ review.metrics.symbolism }} </b><br>
+                    </p>
+                    <!------------- edit review button for contributing member -->
+                    {% if review.member == session.member %}
+                        <div class="center-align">
+                            <a href="{{ url_for('edit_review', review_id=review._id) }}"
+                                class="waves-effect waves-light btn white grey-text text-darken-3 center-align spacer">
+                                <i class="fas fa-pen left"></i>Edit Review
+                            </a>
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
+                <!------------- end of card panel -->
             {% endfor %}
         </div>
 {% endblock %}
