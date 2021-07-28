@@ -12,36 +12,36 @@
                 <!------------- film title -->
                 <div class="row">
                     <div class="input-field col s12 field">
-                        <input id="film_title" name="film_title" type="text" class="white-text">
-                        <label for="film_title" class="white-text">Film Title</label>
+                        <input id="film_title" name="film_title" type="text" class="white-text" required>
+                        <label for="film_title" class="white-text"><b>Film Title</b></label>
                     </div>
                 </div>
                 <!------------- film year -->
                 <div class="row">
                     <div class="input-field col s12 field">
-                        <input id="year" name="year" type="text" class="white-text">
-                        <label for="year" class="white-text">Year</label>
+                        <input id="year" name="year" type="text" class="white-text" required>
+                        <label for="year" class="white-text"><b>Year</b></label>
                     </div>
                 </div>
                 <!------------- film director -->
                 <div class="row">
                     <div class="input-field col s12 field">
-                        <input id="director" name="director" type="text" class="white-text">
-                        <label for="director" class="white-text">Director</label>
+                        <input id="director" name="director" type="text" class="white-text" required>
+                        <label for="director" class="white-text"><b>Director</b></label>
                     </div>
                 </div>
                 <!------------- film synopsis -->
                 <div class="row">
                     <div class="input-field col s12 field">
-                        <textarea id="synopsis" name="synopsis"class="materialize-textarea white-text"></textarea>
-                        <label for="synopsis" class="white-text">Synopsis</label>
+                        <textarea id="synopsis" name="synopsis"class="materialize-textarea white-text" required></textarea>
+                        <label for="synopsis" class="white-text"><b>Synopsis</b></label>
                     </div>
                 </div>
                 <!------------- film image url -->
                 <div class="row">
                     <div class="input-field col s12 field">
                         <input id="image_url" name="image_url" type="text" class="white-text">
-                        <label for="image_url" class="white-text">Image URL</label>
+                        <label for="image_url" class="white-text"><b>Image URL</b></label>
                     </div>
                 </div>
                 <!------------- REVIEW SECTION -->
@@ -49,15 +49,15 @@
                 <!------------- review title -->
                 <div class="row">
                     <div class="input-field col s12 field">
-                        <input id="review_title" name="review_title" type="text" class="white-text">
-                        <label for="review_title" class="white-text">Review Title</label>
+                        <input id="review_title" name="review_title" type="text" class="white-text" required>
+                        <label for="review_title" class="white-text"><b>Review Title</b></label>
                     </div>
                 </div>
                 <!------------- review -->
                 <div class="row">
                     <div class="input-field col s12 field">
-                        <textarea id="review" name="review"class="materialize-textarea white-text"></textarea>
-                        <label for="review" class="white-text">Review</label>
+                        <textarea id="review" name="review" class="materialize-textarea white-text" required></textarea>
+                        <label for="review" class="white-text"><b>Review</b></label>
                     </div>
                 </div>
                 <!------------- visual appeal metric -->
@@ -120,18 +120,18 @@
                 <!------------- submitting member: disabled -->
                 <div class="row">
                     <div class="input-field col s12 field">
-                        <input disabled value="{{ session['member'] }}" name="member" id="member" class="white-text">
+                        <input disabled value="Added by {{ session['member'] }}" name="member" id="member" class="white-text">
                         <label for="member" class="white-text"></label>
                     </div>
                 </div>
-                <!------------- submit button -->
+                <!------------- BUTTONS -->
                 <div class="row">
                     <button type="submit" class="col s6 m4 l2 offset-s3
-                        offset-m4 offset-l5 btn-small teal white-text">
+                        offset-m4 offset-l5 btn-small teal white-text z-depth-2">
                         <i class="fas fa-save left"></i>Save
                     </button>
                     <a href="{{ url_for('index') }}"
-                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">
+                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text z-depth-2">
                         <i class="far fa-trash-alt left"></i>Cancel
                     </a>
                 </div>

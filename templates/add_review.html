@@ -7,20 +7,24 @@
         <h2 class="center-align amber-text text-accent-4">{{ film.title }}</h2>
         <form class="col s12 m10 l8 offset-m1 offset-l2" method="POST" action="{{ url_for('add_review', film_id=film_id, film=film) }}">
             <div class="card-panel grey darken-3 z-depth-5">
+                <!------------- DETAILS SECTION -->
+                <h3 class="lg-text center-align amber-text text-accent-4">Review Details</h3>
                 <!------------- review title -->
                 <div class="row">
                     <div class="input-field col s12 field">
-                        <input id="title" name="title" type="text" class="white-text">
-                        <label for="title" class="white-text">Title</label>
+                        <input id="title" name="title" type="text" class="white-text" required>
+                        <label for="title" class="white-text"><b>Title</b></label>
                     </div>
                 </div>
                 <!------------- review -->
                 <div class="row">
                     <div class="input-field col s12 field">
-                        <textarea id="review" name="review"class="materialize-textarea white-text"></textarea>
-                        <label for="review" class="white-text">Review</label>
+                        <textarea id="review" name="review"class="materialize-textarea white-text" required></textarea>
+                        <label for="review" class="white-text"><b>Review</b></label>
                     </div>
                 </div>
+                <!------------- METRICS SECTION -->
+                <h3 class="lg-text center-align amber-text text-accent-4">Review Metrics</h3>
                 <!------------- visual appeal metric -->
                 <div class="row">
                     <div class="col s12 field">
@@ -76,6 +80,8 @@
                         </p>
                     </div>
                 </div>
+                <!------------- USER SECTION -->
+                <h3 class="lg-text center-align amber-text text-accent-4">User Details</h3>
                 <!------------- submitting member: disabled -->
                 <div class="row">
                     <div class="input-field col s12 field">
@@ -83,13 +89,13 @@
                         <label for="member" class="white-text"></label>
                     </div>
                 </div>
-                <!------------- save/cancel buttons -->
+                <!------------- BUTTONS -->
                 <div class="row">
-                    <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small teal white-text">
+                    <button type="submit" class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small teal white-text z-depth-2">
                         <i class="far fa-save left"></i>Save
                     </button>
                     <a href="{{ url_for('film', film_id=film_id) }}"
-                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text">
+                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small grey white-text z-depth-2">
                         <i class="far fa-trash-alt left"></i>Cancel
                     </a>
                 </div>
