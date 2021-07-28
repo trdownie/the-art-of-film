@@ -33,7 +33,8 @@
                 <!------------- film synopsis -->
                 <div class="row">
                     <div class="input-field col s12 field">
-                        <textarea id="synopsis" name="synopsis"class="materialize-textarea white-text" required></textarea>
+                        <textarea id="synopsis" name="synopsis"class="materialize-textarea white-text" required>
+                        </textarea>
                         <label for="synopsis" class="white-text"><b>Synopsis</b></label>
                     </div>
                 </div>
@@ -56,7 +57,8 @@
                 <!------------- review -->
                 <div class="row">
                     <div class="input-field col s12 field">
-                        <textarea id="review" name="review" class="materialize-textarea white-text" required></textarea>
+                        <textarea id="review" name="review" class="materialize-textarea white-text" required>
+                        </textarea>
                         <label for="review" class="white-text"><b>Review</b></label>
                     </div>
                 </div>
@@ -65,7 +67,8 @@
                     <div class="col s12 field">
                         <p class="range-field">
                             <label for="visual" class="white-text">
-                                <b>Visual Appeal</b> (consider: colour, location, set design, costumes, props)
+                                <b>Visual Appeal</b> 
+                                (consider: colour, location, set design, costumes, props)
                             </label>
                             <input type="range" id="visual" name="visual" min="0" max="10"/>
                         </p>
@@ -76,7 +79,9 @@
                     <div class="col s12 field">
                         <p class="range-field">
                             <label for="auditory" class="white-text">
-                                <b>Auditory Appeal</b> (consider: soundtrack, sound effects, background noise, dramatism, timing)
+                                <b>Auditory Appeal</b> 
+                                (consider: soundtrack, sound effects, background noise, 
+                                dramatism, timing)
                             </label>
                             <input type="range" id="auditory" name="auditory" min="0" max="10" />
                         </p>
@@ -87,7 +92,9 @@
                     <div class="col s12 field">
                         <p class="range-field">
                             <label for="dialogue" class="white-text">
-                                <b>Dialogue</b> (consider: language used, believable vs fantastical, poetic vs prosaic, poignancy)
+                                <b>Dialogue</b> 
+                                (consider: language used, believable vs fantastical, 
+                                poetic vs prosaic, poignancy)
                             </label>
                             <input type="range" id="dialogue" name="dialogue" min="0" max="10" />
                         </p>
@@ -98,7 +105,9 @@
                     <div class="col s12 field">
                         <p class="range-field">
                             <label for="emotive" class="white-text">
-                                <b>Emotive Impact</b> (consider: did it move you? How did it make you feel about the subject, yourself, and life?)
+                                <b>Emotive Impact</b> 
+                                (consider: did it move you? How did it make you feel 
+                                about the subject, yourself, and life?)
                             </label>
                             <input type="range" id="emotive" name="emotive" min="0" max="10" />
                         </p>
@@ -109,7 +118,9 @@
                     <div class="col s12 field">
                         <p class="range-field">
                             <label for="symbolism" class="white-text">
-                                <b>Symbolism</b> (consider: was there any symbolism? Were the themes relevant, important, affective, poignant, etc?)
+                                <b>Symbolism</b> 
+                                (consider: was there any symbolism? Were the themes relevant, 
+                                important, affective, poignant, etc?)
                             </label>
                             <input type="range" id="symbolism" name="symbolism" min="0" max="10" />
                         </p>
@@ -120,7 +131,8 @@
                 <!------------- submitting member: disabled -->
                 <div class="row">
                     <div class="input-field col s12 field">
-                        <input disabled value="Added by {{ session['member'] }}" name="member" id="member" class="white-text">
+                        <input disabled value="Added by {{ session['member'] }}" 
+                            name="member" id="member" class="white-text">
                         <label for="member" class="white-text"></label>
                     </div>
                 </div>
