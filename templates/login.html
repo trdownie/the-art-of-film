@@ -27,7 +27,16 @@
                 </div>
                 <!------------- submit button -->
                 <div class="row">
-                    <button type="submit" class="col s12 btn-large grey white-text">Log In</button>
+                    <button type="submit"
+                        class="col s6 m4 l2 offset-s3 offset-m4 offset-l5 btn-small white grey-text text-darken-3 z-depth-2">
+                        Log In
+                    </button>
+                </div>
+                <!------------- link to register -->
+                <div class="row center-align">
+                    <p>Not yet registered? 
+                        <a href="{{ url_for('members', member=session['member']) }}">Register here</a>.
+                    </p>
                 </div>
             </div>
         </form>
