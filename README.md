@@ -2140,6 +2140,8 @@ I consulted a range of informational sources to complete this project. They are 
 
 - [HTML line length guidance](https://stackoverflow.com/questions/2886603/is-there-a-recommended-maximum-line-length-for-html-or-javascript/33758289))
 
+- Python's [PEP 8 Style Guide](https://www.python.org/dev/peps/pep-0008/#blank-lines)
+
 - Aaron Cannon for [The Accessibility Checklist I Vowed I’d Never Write]([http://northtemple.com/1608/](http://northtemple.com/1608/))
 
 ### Acknowledgements

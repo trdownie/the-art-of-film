@@ -22,17 +22,19 @@ mongo = PyMongo(app)
 def index():
     # 1) SORT FILMS, 1ST DESCENDING BY ULTIMATE SCORE, SECOND BY TITLE
     films = mongo.db.films.find().sort([("ultimate_score", -1), ("title", 1)])
+    # 2) RENDER INDEX USING THIS SORTED LIST
     return render_template("index.html", films=films)
 
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    # 1) DEFINE A QUERY CONTAINING SEARCH BAR INPUT
+    # 1) DEFINE QUERY OBJECT CONTAINING SEARCH BAR INPUT
     query = request.form.get("query")
     # 2) FIND FILMS THAT MATCH THIS QUERY AND SORT THEM AS ABOVE
     films = mongo.db.films.find(
         {"$text": {"$search": query}}).sort(
-            [("ultimate_score", -1), ("title", 1)])
+            [("ultimate_score", -1), ("title", 1)]
+        )
     # 3) DISPLAY FLASH MESSAGE TO USER
     flash("Look what ya did, you little jerk!")
     # 4) PASS FILTERED AND SORTED FILM LIST INTO INDEX
@@ -49,20 +51,21 @@ def about():
 def register():
     if request.method == "POST":
         # 1) CHECK WHETHER USERNAME EXISTS IN THE DB
-        # a) define existing_user variable
-        # b) get the (lowercase) username from the form
-        # c) search 'users' collection to find first instance of username
-        # d) if username found, assign it to existing_user
-        # e) else existing_user undefined
+        # a) get the (lowercase) username from submitted form
+        # b) search 'users' collection to find first instance of username
+        # c) if username found, assign it to existing_user
+        # d) else existing_user undefined
         existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
+            {"username": request.form.get("username").lower()}
+        )
 
         # 2) USERNAME ALREADY EXISTS
         # a) if existing_user = Truthy (has a value)
         if existing_user:
             # i) return error message
             flash(request.form.get("username")
-                 + " already exists. Nice try, replicant.")
+                  + " already exists. Nice try, replicant."
+            )
             # ii) redirect to registration page
             return redirect(url_for("register"))
 
@@ -99,7 +102,8 @@ def login():
         # 1) CHECK WHETHER USERNAME EXISTS (AS ABOVE)
         # (if found, existing_username is assigned user's document)
         existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
+            {"username": request.form.get("username").lower()}
+        )
 
         # 2) USERNAME EXISTS - CHECK PASSWORD
         if existing_user:
@@ -108,19 +112,21 @@ def login():
                     existing_user["password"], request.form.get("password")):
                 # i) set session variable 'member' to this username
                 session["member"] = request.form.get("username").lower()
+                # ii) define variables needed by template
                 reviews = list(mongo.db.reviews.find())
                 films = list(mongo.db.films.find())
-                # ii) display welcome message
+                # iii) display welcome message
                 flash("Hello, gorgeous")
-                # iii) send the member to their member's area
+                # iv) send the member to their member's area
                 return redirect(url_for(
                     "members", member=session["member"],
                     reviews=reviews, films=films))
+
             # b) passwords don't match
             else:
                 # i) return incorrect flash message
                 flash("Username and/or password incorrect."
-                    + " Thought Police dispatched.")                
+                      + " Thought Police dispatched.")                
                 # ii) reload login page
                 return redirect(url_for("login"))
 
@@ -128,16 +134,16 @@ def login():
         else:
             # a) return incorrect flash message
             flash("Username and/or password incorrect."
-                + " Thought Police dispatched.")
+                  + " Thought Police dispatched.")
             # b) reload login page
             return redirect(url_for("login"))
 
     return render_template("login.html")
 
 
-@app.route("/members/<member>", methods=["GET", "POST"])
+@app.route("/members/<member>")
 def members(member):
-    # 1) IF LOGGED IN, RENDER MEMBERS TEMPLATE
+    # 1) IF USER LOGGED IN, RENDER MEMBERS TEMPLATE
     #    & PASS IT REQUIRED OBJECTS
     if session.get("member"):
         member = mongo.db.users.find_one({"username": session["member"]})
@@ -174,7 +180,7 @@ def edit_member(member_id):
                     "profile_url": request.form.get("profile_url")}})
         # b) display a success message
         flash("Here's looking at you, kid.")
-        # c) return the user back to the updated Member's Area
+        # c) return the user back to the updated Member's Area with vars
         reviews = list(mongo.db.reviews.find({"member": session["member"]}))
         films = list(mongo.db.films.find({"member": session["member"]}))
         all_films = list(mongo.db.films.find())
@@ -221,7 +227,8 @@ def add_film():
             "auditory": float(request.form.get("auditory")),
             "dialogue": float(request.form.get("dialogue")),
             "emotive": float(request.form.get("emotive")),
-            "symbolism": float(request.form.get("symbolism"))}
+            "symbolism": float(request.form.get("symbolism"))
+        }
         # b) calculate ultimate score for film & review
         ultimate_score = sum(metrics.values()) / len(metrics.values())
         # c) create film dict. that contains form elments
@@ -239,16 +246,20 @@ def add_film():
                 "auditory_average": metrics["auditory"],
                 "dialogue_average": metrics["dialogue"],
                 "emotive_average": metrics["emotive"],
-                "symbolism_average": metrics["symbolism"]}}
+                "symbolism_average": metrics["symbolism"]
+            }
+        }
         # d) insert film dict. into mongodb films collection
         mongo.db.films.insert_one(film)
         # e) find the freshly created film in the db
         new_film = mongo.db.films.find_one({
-                "title": request.form.get("film_title"),
-                "year": request.form.get("year"),
-                "director": request.form.get("director"),
-                "synopsis": request.form.get("synopsis"),
-                "image_url": request.form.get("image_url"),})
+            "title": request.form.get("film_title"),
+            "year": request.form.get("year"),
+            "director": request.form.get("director"),
+            "synopsis": request.form.get("synopsis"),
+            "image_url": request.form.get("image_url")
+            }
+        )
         # f) obtain string of the film's ObjectId
         new_film_id = str(new_film["_id"])
         # g) create review dict. that contains form elments
@@ -259,41 +270,47 @@ def add_film():
             "ultimate_score": ultimate_score,
             "metrics": metrics,
             # i) member form field is disabled so we must set it here
-            "member": session["member"]}
+            "member": session["member"]
+        }
         # h) insert review dict. into mongodb reviews collection
         mongo.db.reviews.insert_one(review)
         # i) display message thanking user
         flash(
-            "I have always depended on the kindness of strangers.")
+            "I have always depended on the kindness of strangers."
+        )
         # j) return user to the member's area with req. info
         reviews = list(mongo.db.reviews.find())
         films = list(mongo.db.films.find())
-        return redirect(url_for("members",
-                member=session["member"], reviews=reviews, films=films))
+        return redirect(url_for("members", member=session["member"],
+                                reviews=reviews, films=films))
     
     # 2) DEFAULT VIEW ACTION - RENDER TEMPLATE
     return render_template("add_film.html")
 
 
-@app.route("/film/<film_id>", methods=["GET", "POST"])
+@app.route("/film/<film_id>")
 def film(film_id):
     # 1) CREATE A CURSOR OBJECT CONTAINING THE AVERAGE SCORES
     # a) aggregate simply performs functions in a sequence
     scores = list(mongo.db.reviews.aggregate([
-            # i) $match matches only the reviews for this film
-            {"$match": {"film_id": film_id}},
-            # ii) $group allows functions to be performed on multiple docs
-            {"$group": {
-                # iii) using records with the same film id
-                "_id": "$film_id",
-                # iv) create the object in dict.-like format
-                #     using the average scores of these reviews
-                "ultimate_score": {"$avg": "$ultimate_score"},
-                "visual_average": {"$avg": "$metrics.visual"},
-                "auditory_average": {"$avg": "$metrics.auditory"},
-                "dialogue_average": {"$avg": "$metrics.dialogue"},
-                "emotive_average": {"$avg": "$metrics.emotive"},
-                "symbolism_average": {"$avg": "$metrics.symbolism"}}}]))
+        # i) $match matches only the reviews for this film
+        {"$match": {"film_id": film_id}},
+        # ii) $group allows functions to be performed on multiple docs
+        {"$group": {
+            # iii) using records with the same film id
+            "_id": "$film_id",
+            # iv) create the object in dict.-like format
+            #     using the average scores of these reviews
+            "ultimate_score": {"$avg": "$ultimate_score"},
+            "visual_average": {"$avg": "$metrics.visual"},
+            "auditory_average": {"$avg": "$metrics.auditory"},
+            "dialogue_average": {"$avg": "$metrics.dialogue"},
+            "emotive_average": {"$avg": "$metrics.emotive"},
+            "symbolism_average": {"$avg": "$metrics.symbolism"}
+            }
+        }
+    ]))
+
     # 2) UNPACK THE OBJECT INTO PYTHON VARIABLES
     ultimate_score = scores[0]["ultimate_score"]
     visual_average = scores[0]["visual_average"]
@@ -301,6 +318,7 @@ def film(film_id):
     dialogue_average = scores[0]["dialogue_average"]
     emotive_average = scores[0]["emotive_average"]
     symbolism_average = scores[0]["symbolism_average"]
+
     # 3) $set THE FILM RATINGS IN THE DB
     mongo.db.films.find_one_and_update(
         {"_id": ObjectId(film_id)},
@@ -310,22 +328,30 @@ def film(film_id):
             "metrics.auditory_average": auditory_average,
             "metrics.dialogue_average": dialogue_average,
             "metrics.emotive_average": emotive_average,
-            "metrics.symbolism_average": symbolism_average,}})
+            "metrics.symbolism_average": symbolism_average
+        }}
+    )
+
     # 4) DEFINE ALL REVIEWS FOR PASSING INTO TEMPLATE
     reviews = mongo.db.reviews.find({"film_id": film_id})
+
     # 5) DEFINE UPDATED FILM FOR PASSING INTO TEMPLATE
     film = mongo.db.films.find_one(
-        {"_id": ObjectId(film_id)})
-    # 5) SET NUMBER OF USER REVIEWS TO PREVENT MORE THAN 1
+        {"_id": ObjectId(film_id)}
+    )
+
+    # 6) SET NUMBER OF USER REVIEWS TO PREVENT MORE THAN 1
     if session.get("member"):
         user_reviews = mongo.db.reviews.find(
             {"film_id": film_id, "member": session["member"]}).count()
     else:
         user_reviews = 0
-    # 6) RETURN THE SPECIFIC FILM & REVIEWS OBJECTS
+    
+    # 7) RETURN THE SPECIFIC FILM & REVIEWS OBJECTS
     #    WHILE RENDERING THE FILM'S OWN UNIQUE PAGE
     return render_template(
-        "film.html", film=film, reviews=reviews, user_reviews=user_reviews)
+        "film.html", film=film, reviews=reviews, user_reviews=user_reviews
+    )
 
 
 @app.route("/edit_film/<film_id>", methods=["GET", "POST"])
@@ -340,7 +366,9 @@ def edit_film(film_id):
                 "year": request.form.get("year"),
                 "director": request.form.get("director"),
                 "synopsis": request.form.get("synopsis"),
-                "image_url": request.form.get("image_url"),}})
+                "image_url": request.form.get("image_url")
+            }}
+        )
         # b) display a success message (of sorts)
         flash("It's alive! It's alive!")
         # c) return the user back to the updated film page
@@ -359,7 +387,7 @@ def edit_film(film_id):
     # b) render the page and pass the necessaries
     film = mongo.db.films.find_one({"_id": ObjectId(film_id)})
     return render_template("edit_film.html", film_id=film_id,
-                            film=film, final_review=final_review)
+                           film=film, final_review=final_review)
 
 
 @app.route("/delete_film/<film_id>")
@@ -372,7 +400,7 @@ def delete_film(film_id):
         {"film_id": film_id})
     # 3) RETURN A FLASH MESSAGE
     flash("Hasta la vista, baby.")
-    # 4) RETURN THE USER TO THE MEMBER'S AREA
+    # 4) RETURN THE USER TO THE MEMBER'S AREA WITH VARS
     member = mongo.db.users.find_one({"username": session["member"]})
     reviews = list(mongo.db.reviews.find({"member": session["member"]}))
     films = list(mongo.db.films.find({"member": session["member"]}))
@@ -407,8 +435,7 @@ def add_review(film_id):
         # b) insert review dict. into mongodb review collection
         mongo.db.reviews.insert_one(review)
         # c) display message thanking user
-        flash(
-            "Well, nobody's perfect.")
+        flash("Well, nobody's perfect.")
         # d) redirect user to the film page
         return redirect(url_for("film", film_id=film_id))
 
@@ -421,11 +448,13 @@ def add_review(film_id):
 
 @app.route("/edit_review/<review_id>", methods=["GET", "POST"])
 def edit_review(review_id):
-    # 1) CREATE A REVIEW DICT. FROM THE DB USING REVIEW ID
+    # 1) CREATE A REVIEW/FILM DICTS. FROM DB USING REVIEW ID
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
     film = mongo.db.films.find_one({"_id": ObjectId(review["film_id"])})
+
     # 2) ON SUBMIT, UPDATE REVIEW DETAILS
     if request.method == "POST":
+        # a) define updated metrics dict.
         updated_metrics = {
             "visual": float(request.form.get("visual")),
             "auditory": float(request.form.get("auditory")),
@@ -433,9 +462,10 @@ def edit_review(review_id):
             "emotive": float(request.form.get("emotive")),
             "symbolism": float(request.form.get("symbolism"))
         }
-        total = sum(updated_metrics.values())
-        ultimate_score = total / len(updated_metrics.values())
-        # a) create a new dict. that contains updated review details
+        # b) obtain new ultimate score
+        ultimate_score = (sum(updated_metrics.values())
+                          / len(updated_metrics.values()))
+        # c) create a new dict. that contains updated review details
         updated_review = {
             # i) film id is not a form field so we must obtain it here
             "film_id": review["film_id"],
@@ -446,17 +476,18 @@ def edit_review(review_id):
             # ii) member form field is disabled so we must set it here
             "member": session["member"]
         }
-        # b) using the review's unique id, find and update this review
+        # d) using the review's unique id, find and overwrite this review
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, updated_review)
-        # c) display a success message
+        # e) display a success message
         flash("My mother thanks you. My father thanks you."
-            + " My sister thanks you. And I thank you.")
-        # d) return the user back to the updated film page
+              + " My sister thanks you. And I thank you.")
+        # f) return the user back to the updated film page
         return redirect(url_for("film", film_id=review["film_id"]))
 
+    # 3) DEFAULT ACTION: DISPLAY PRE-POPULATED EDIT REVIEW TEMPLATE
+    # a) pass number of reviews so final review cannot be deleted
     num_of_reviews = mongo.db.reviews.find(
         {"film_id": review["film_id"]}).count()
-    # 3) DEFAULT ACTION: DISPLAY PRE-POPULATED EDIT REVIEW TEMPLATE
     return render_template(
         "edit_review.html", review=review,
         film=film, num_of_reviews=num_of_reviews)
@@ -469,18 +500,16 @@ def delete_review(review_id):
     # 2) LOCATE THE CORRECT FILM USING THE FILM ID ATTACHED TO THE REVIEW
     film = mongo.db.films.find_one(
         {"_id": ObjectId(review["film_id"])})
-    # 3) DEFINE THE COLLECTION OF REVIEWS ATTACHED TO THE FILM
-    reviews = mongo.db.reviews.find({"film_id": review["film_id"]})
-    # 4) REMOVE THIS REVIEW FROM THE DB COLLECTION
+    # 3) REMOVE THIS REVIEW FROM THE DB COLLECTION
     mongo.db.reviews.remove(
         {"_id": ObjectId(review_id)})
-    # 5) RETURN A FLASH MESSAGE
+    # 4) RETURN A FLASH MESSAGE
     flash("I love the smell of napalm in the morning.")
-    # 6) RETURN THE USER TO THE FILM PAGE
+    # 5) RETURN THE USER TO THE FILM PAGE
     return redirect(url_for("film", film_id=film["_id"]))
 
 
-@app.route("/profile/<username>", methods=["GET", "POST"])
+@app.route("/profile/<username>")
 def profile(username):
     # 1) DEFINE THE FULL USER OBJECT
     user = mongo.db.users.find_one(
