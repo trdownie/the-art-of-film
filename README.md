@@ -449,7 +449,7 @@ echo web:  python app.py > Procfile
 
 Once these files were set up, I logged in to my Heroku account and created a new app called ‘the-art-of-film’ which I chose to locate in Europe. I then connected the app to the GitHub repository using Heroku’s in-built connectivity. Finally, I configured the variables in Heroku to match those I set up within the env.py file earlier, as below.
 
-<div align="center"><img src="static/img/README/heroku-variables.png" style="height:500px" alt="image of heroku variable input form"></div>
+<div align="center"><img src="static/img/README/heroku-variables.png" style="height:250px" alt="image of heroku variable input form"></div>
 
 Finally, I used Heroku’s in-built functionality to enable automatic deployment and to deploy the main branch directly from GitHub.
 
@@ -634,7 +634,7 @@ To ensure this element worked well with the grey and white of the site, the body
 
 <div align="center"><img src="static/img/README/navbar-mobile.png" style="height:500px" alt="image of mobile navbar"></div>
 
-<div align="center"><img src="static/img/README/navbar-mobile-open.png" style="height:500px" alt="image of open mobile side navbar"></div>
+<div align="center"><img src="static/img/README/navbar-mobile-open.png" style="height:250px" alt="image of open mobile side navbar"></div>
 
 In addition, the Home link and the main logo were connected to the homepage using Jinja notation, as shown below. For the sake of brevity (dare I say!) this logic will not be shown again, though it will be used throughout development.
 
@@ -656,7 +656,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 ##### Creating the template
 Next, I created a register.html file that extends the base template in the same way as the index.html file. Within the block content, I added a Materialize card and tailored the card to ensure it met my requirements. Within this card, I then added Materialize form elements with icons that relate to a basic registration form with fields for username and password and a submit button. Finally, I attached the POST method to the form and set the action to the register function using the Jinja ‘url_for’ notation.
 
-<div align="center"><img src="static/img/README/registration-form.png" style="height:500px" alt="basic registration form"></div>
+<div align="center"><img src="static/img/README/registration-form.png" style="height:250px" alt="basic registration form"></div>
  
 ##### Adding functionality
 Once the basics were in place, it was time to create the register view function within the app.py file. The code for the function is below, with detailed, self-explanatory commentary (DRY).
@@ -1289,7 +1289,7 @@ The first step was to add some personality to the member profile, so that users 
         </div>
 ```
 	
-<div align="center"><img src="static/img/README/expanded-member-profile.png" style="height:500px" alt="member profile with basic information about user's favourite film, etc"></div>
+<div align="center"><img src="static/img/README/expanded-member-profile.png" style="height:250px" alt="member profile with basic information about user's favourite film, etc"></div>
 
 ##### Editing the member’s profile
 Next, I needed to provide the member with the option to populate these fields on their profile, since adding them to the registration process increases friction for potential new members. The template here took the same form as the edit_review.html and edit_film.html templates earlier details and so is not outlined here.
@@ -1852,7 +1852,7 @@ Images were used for films and profile pictures where appropriate and within the
 
 Finally, Font Awesome icons were used where appropriate: the login/register forms, the buttons, and most importantly against the five metrics and the ultimate score.
 
-<div align="center"><img src="static/img/README/imagery-pic-3.png" style="height:500px" alt="review card showing five metric icons"></div>
+<div align="center"><img src="static/img/README/imagery-pic-3.png" style="height:250px" alt="review card showing five metric icons"></div>
 
 #### - Streamlining CSS -
 Once I was satisfied with how the site was looking, I ran through the classes and CSS and stripped as much out as I could, combining classes where possible or removing them entirely and leaning on Materialize’s in-built classes where appropriate.
