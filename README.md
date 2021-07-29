@@ -231,13 +231,13 @@ As you can see, the layout is simple and consistent on each page. A breakdown of
 
 Following the wireframes, the final step of design was to create in-depth [**mockups](** **https://www.figma.com/file/UTkeK2se196EizOpaeBEu6/Untitled?node-id=10%3A0)**. Due to time constraints, four different pages were created that showcase the style instead of all ten. These were done using a mobile-first approach and will be scaled up during development. They were created using Figma, and screenshots of these are below
 
-<div align="center"><img src="static/img/README/mockup-1.png" style="height:500px" alt="mockup of homepage"></div>
+<div align="center"><img src="static/img/README/mockup-1.png" style="width:250px" alt="mockup of homepage"></div>
 
-<div align="center"><img src="static/img/README/mockup-2.png" style="height:500px" alt="mockup of member's area"></div>
+<div align="center"><img src="static/img/README/mockup-2.png" style="width:250px" alt="mockup of member's area"></div>
 
-<div align="center"><img src="static/img/README/mockup-3.png" style="height:500px" alt="mockup of film page for black swan"></div>
+<div align="center"><img src="static/img/README/mockup-3.png" style="width:250px" alt="mockup of film page for black swan"></div>
 
-<div align="center"><img src="static/img/README/mockup-4.png" style="height:500px" alt="mockup for add review page"></div>
+<div align="center"><img src="static/img/README/mockup-4.png" style="width:250px" alt="mockup for add review page"></div>
 
 Regarding **typography**, [Economica](https://fonts.google.com/specimen/Economica#about) and [Satisfy](https://fonts.google.com/specimen/Satisfy#about) have been chosen.
 
